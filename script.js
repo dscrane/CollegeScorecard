@@ -73,6 +73,57 @@ const IPEDSCodes = {
   9: "Outlying Areas",
 };
 
+const schoolCardTemplate = `
+  <div class="gallery__card">
+  <div class="card__row card__row-img">
+    <img class="card__image" src="${imgUrl}" />
+  </div>
+  <div class="card__row card__row-content">
+    <div class="card__content content__school_info">
+      <p id="school_name" class="content__text">
+        <span class="content__text-title">School:</span>
+        ${schoolName}
+      </p>
+      <p id="school_city" class="content__text">
+        <span class="content__text-title">City:</span>
+        ${schoolCity}
+      </p>
+      <p id="school_state" class="content__text">
+        <span class="content__text-title">State:</span>
+        ${schoolState}
+      </p>
+      <p id="school_website" class="content__text">
+        <span class="content__text-title">Website:</span>
+        <a
+          id="school_link"
+          class="content__text-link"
+          href="${schoolWebsite}"
+          >${schoolWebsiteDisplay}</a
+        >
+      </p>
+    </div>
+    <div class="card__content content__quick_facts">
+      <p id="school_attendance" class="content__text">
+        <span class="content__text-title">Attendance:</span>
+        ${schoolAttendance}
+      </p>
+      <p id="school_diversity" class="content__text">
+        <span class="content__text-title">Diversity:</span>
+        ${schoolDiversity}
+      </p>
+      <p id="school_ownership" class="content__text">
+        <span class="content__text-title">Public/Private:</span>
+        ${schoolOwnership}
+      </p>
+      <p id="school_testing" class="content__text">
+        <span class="content__text-title">SAT/ACT Scores:</span>
+        ${schoolTesting}
+      </p>
+    </div>
+  </div>
+  </div>
+`;
+
 /* Content for each schools display card
     [] name (school.name)
     [] city (from root.location.lat && root.location.lon)
