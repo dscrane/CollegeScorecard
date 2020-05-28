@@ -1,8 +1,13 @@
 .page {
+  margin: 0 0;
+  padding: 0 0;
+  display: flex;
+  flex-direction: column;
   font-family: "Trebuchet MS", Helvetica, sans-serif;
   background-color: aqua;
   height: 100vh;
-  overflow: hidden;
+
+  /* overflow: hidden; */
 }
 
 .display {
@@ -17,6 +22,7 @@
   justify-content: center;
   width: 95%;
   height: 5vh;
+  row-gap: 10px;
 }
 
 .nav {
@@ -42,7 +48,8 @@
   align-content: space-around;
   justify-content: space-around;
   width: 90%;
-  height: 85vh;
+  row-gap: 5px;
+  /* height: 85vh; */
 }
 
 .gallery__card {
@@ -50,6 +57,7 @@
   flex-direction: column;
   justify-content: space-around;
   width: 25vw;
+  /* height: 25vh; */
   background-color: azure;
   border: 1px solid black;
   border-radius: 5px;
@@ -62,18 +70,19 @@
   margin: 5px 0px;
 }
 
-.card__row-img {
+.card__row-title {
+  justify-content: center;
+  text-align: center;
 }
 
 .card__row-content {
   display: flex;
-
   justify-content: space-around;
 }
 
 .card__image {
-  height: auto;
-  width: 90%;
+  height: 20vh;
+  width: 20vh;
   border-radius: 5px;
 }
 
@@ -84,6 +93,15 @@
   width: calc(50% - 20px);
 }
 
+.card__content-name {
+  width: 100%;
+}
+
+.content__title {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
 .content__school_info {
 }
 
@@ -92,11 +110,12 @@
 
 .content__text-title {
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.85rem;
+  width: 100%;
 }
 
 .content__text {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
 }
 
 .content__text-link {
