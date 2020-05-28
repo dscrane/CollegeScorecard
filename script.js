@@ -1,10 +1,6 @@
-// const axios = require("axios").default;
-//import axios from "axios";
-
-//import { schoolCardQuery } from "./API/queries";
-let year = "latest";
-const scoreCardKey = "8nR6JMFPRqJzkksBe7V4aD6wITl4MOWZvcIdgL1b";
-const unsplashKey = "8xSG2SnwEoxSOvi2MsZzpqDg4fgg8tI-8siiSI-S_QE";
+// Define request variables
+const scoreCardKey = "";
+const unsplashKey = "";
 const scoreCardUrl = "https://api.data.gov/ed/collegescorecard/v1/schools.json";
 const unsplashUrl = "https://source.unsplash.com/random";
 
@@ -85,186 +81,199 @@ const IPEDSCodes = {
 
 schoolCardQuery();
 
+// HTML template to populate with the formatted response data from scorecard API
 function schoolCardTemplate(cardData) {
   const {
     imgUrl,
-    avgACTScore,
     adminRate,
-    avgSATScore,
-    inStateCost,
+    avgCost,
     schoolAttendance,
     schoolName,
-    schoolRegion,
+    schoolCity,
     schoolWebsite,
     stateFips,
   } = cardData;
-  console.log(stateFips);
   return `
   <div class="gallery__card">
-  <div class="card__row card__row-img">
-    <img class="card__image" src="${imgUrl}" />
-  </div>
-  <div class="card__row card__row-content">
-    <div class="card__content content__school_title">
-      <p id="school_name" class="content__text">
-        <span class="content__text-title">${schoolName}</span>
-      </p>
+    <div class="card__row card__row-title">
+      <div class="card__content card__content-name">
+        <p id="school_name" class="content__title">
+          ${schoolName}
+        </p>
+      </div>
     </div>
-    <div class="card__content card__content-info">
-      <p id="school_city" class="content__text">
-        <span class="content__text-title">Region:</span>
-        ${IPEDSCodes[schoolRegion]}
-      </p>
-      <p id="school_state" class="content__text">
-        <span class="content__text-title">State:</span>
-        ${fipsArray[stateFips]}
-      </p>
-      <p id="school_website" class="content__text">
-        <span class="content__text-title">Website:</span>
-        <a
-          id="school_link"
-          class="content__text-link"
-          href="${schoolWebsite}"
-          >${schoolWebsite}</a
-        >
-      </p>
+    <div class="card__row card__row-img">
+      <img class="card__image" src="${imgUrl}" />
     </div>
-    <div class="card__content content__quick_facts">
-      <p id="school_attendance" class="content__text">
-        <span class="content__text-title">Attendance:</span>
-        ${schoolAttendance}
-      </p>
-      <p id="school_diversity" class="content__text">
-        <span class="content__text-title">Admission Rate:</span>
-        ${adminRate}
-      </p>
-      <p id="school_ownership" class="content__text">
-        <span class="content__text-title">Public/Private:</span>
-        ${inStateCost}
-      </p>
-      <p id="school_testing" class="content__text">
-        <span class="content__text-title">SAT/ACT Scores:</span>
-        ${avgSATScore} / ${avgACTScore}
-      </p>
+    <div class="card__row card__row-content">
+      <div class="card__content card__content-info">
+        <p id="school_city" class="content__text">
+          <span class="content__text-title">City:</span>
+          ${schoolCity}
+        </p>
+        <p id="school_state" class="content__text">
+          <span class="content__text-title">State:</span>
+          ${fipsArray[stateFips]}
+        </p>
+      </div>
+      <div class="card__content content__quick-facts">
+        <p id="school_attendance" class="content__text">
+          <span class="content__text-title">Attendance:</span>
+          ${schoolAttendance}
+        </p>
+        <p id="school_diversity" class="content__text">
+          <span class="content__text-title">Admission Rate:</span>
+          ${adminRate}
+        </p>
+        <p id="school_ownership" class="content__text">
+          <span class="content__text-title">Average Cost:</span>
+          ${avgCost}
+        </p>
+      </div>
     </div>
-  </div>
+      <div class="card__row card__row-website>
+        <div class="card__content card__content-link">
+          <p id="school_website" class="content__text">
+          <span class="content__text-title">Homepage:</span>
+          <a
+            id="school_link"
+            class="content__text-link"
+            href="${schoolWebsite}"
+            >${schoolWebsite}</a
+          >
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 `;
 }
 
-/* Content for each schools display card
-    [] name (school.name)
-    [] city (from root.location.lat && root.location.lon)
-    [] state (converted from school.state_fips)
-    [] admission rate ({year}.admission_rate.overall)
-    [] number of students ({year}.student.size)
-    [] Public/Private (school.ownership)
-    [] school URL (school.schoo_url)
-    [] ethinic make up ()
-    [] testing numbers
-        [] SAT 
-          {} cumulative 75th_percentile SAT 
-            [
-              admissions.sat_scores.75th_percentile.critical_reading, admissions.sat_scores.75th_percentile.math,admissions.sat_scores.75th_percentile.writing,
-            ]
-          {} cumulative midpoint SAT
-            [
-              admissions.sat_scores.midpoint.critical_reading,admissions.sat_scores.midpoint.math,admissions.sat_scores.midpoint.writing,
-            ]
-          {} cumulative 25th_percentile SAT 
-            [
-              admissions.sat_scores.25th_percentile.criticl_reading,admissions.sat_scores.25th_percentile.math,admissions.sat_scores.25th_percentile.writing,
-            ]
-        [] ACT 
-          {} admissions.act_scores.75th_percentile.cumulative
-          {} admissions.act_scores.midpoint.cumulative
-          {} admissions.act_scores.25th_percentile.cumulative)
-    [] tuition
-
-*/
-
-// Define constants for each query
-//const fields = `id,school.name,school.school_url,school.state_fips,school.state_fips,school.region_id,${year}.student.size,${year}.admissions.admission_rate.overall,${year}.admissions.act_scores.midpoint.cumulative,${year}.admissions.sat_scores.average.overall,${year}.cost.tuition.in_state,${year}.cost.tuition.out_of_state`; //const field2 = `id,school.name,school.school_url,school.state_fips,school.state_fips,school.region_id,${year}.student.size,${year}.admissions.admission_rate.overall,${year}.admissions.sat_scores.75th_percentile.critical_reading,${year}.admissions.sat_scores.75th_percentile.math,${year}.admissions.sat_scores.75th_percentile.writing,${year}.admissions.sat_scores.midpoint.critical_reading,${year}.admissions.sat_scores.midpoint.math,${year}.admissions.sat_scores.midpoint.writing,${year}.admissions.sat_scores.25th_percentile.critical_reading,${year}.admissions.sat_scores.25th_percentile.math,${year}.admissions.sat_scores.25th_percentile.writing,${year}.admissions.act_scores.75th_percentile.cumulative,${year}.admissions.act_scores.midpoint.cumulative,${year}.admissions.act_scores.25th_percentile.cumulative,${year}.cost.tuition.in_state,${year}.cost.tuition.out_of_state`;
-
 // Query for the basic school card display
 async function schoolCardQuery() {
+  // Define year being searched
+  let year = "latest";
+
   // Fields to return from API to fill the basic card
   const fields = [
     "id",
     "school.name",
     "school.school_url",
     "school.state_fips",
-    "school.state_fips",
-    "school.region_id",
-    `${year}.student.size`,
+    "school.city",
+    `${year}.student.enrollment.all`,
     `${year}.admissions.admission_rate.overall`,
-    `${year}.admissions.act_scores.midpoint.cumulative`,
-    `${year}.admissions.sat_scores.average.overall`,
-    `${year}.cost.tuition.in_state`,
-    `${year}.cost.tuition.out_of_state`,
+    `${year}.cost.attendance.academic_year`,
   ];
 
+  // Settings for pagination if necessary
   let page = "0";
   let perPage = "20";
 
+  // Create the URL to fetch from the collegeScorecard API
   let callToApi = `${scoreCardUrl}?_fields=${fields.join()}&page=${page}&per_page=${perPage}&api_key=${scoreCardKey}`;
 
-  let res = await fetch(callToApi);
-  let jsonRes = await res.json();
-  let data = jsonRes.results;
-  console.log(data);
+  // Call the API and handle response formatting
+  let response = await axios.get(callToApi);
+  /* console.log(response); */
+  let scoreCardData = response.data.results;
+  /* console.log(scoreCardData); */
 
+  // Call image API for placeholder images
   let imgRes = await axios.get(
-    `https://api.unsplash.com/photos/random?orientation=squarish&count=20&client_id=${unsplashKey}`
+    `${unsplashKey}?orientation=landscape&collections=9576801&count=20&client_id=${unsplashKey}`
   );
-
+  // Create an array with the returned images
   const imgArr = imgRes.data;
 
-  const cardData = handleData(data, imgArr);
-  console.log(cardData);
+  // Handle incoming query data and format the data in a usable way
+  const scoreCard = handleScorecards(scoreCardData, imgs);
+  /* console.log(scoreCard); */
 
-  console.log(imgRes);
-
-  displayQueryData(cardData);
+  // Display query results in the form of cards for each school
+  displayScorecard(scoreCard);
 }
 
-function displayQueryData(cardData) {
+// Display the scorecards on the webpage
+function displayScorecard(scoreCard) {
   const gallery = document.querySelector(".gallery");
-  cardData.forEach((card) => {
+  scoreCard.forEach((card) => {
     gallery.innerHTML = gallery.innerHTML + schoolCardTemplate(card);
   });
 }
 
 function handleData(data, imgArr) {
-  return data.map((d, i) => {
+  // Clean the scorecard data
+  const schoolScorecardData = cleanScorecardData(scorecards);
+  /* console.log(schoolCardData); */
+
+  // Return an array of scorecard objects with clean values and more convinient keys
+  return schoolScorecardData.map((d, i) => {
     const {
       id,
-      "latest.admissions.act_scores.midpoint.cumulative": avgACTScore,
-      "latest.admissions.admission_rate.overall": adminRate,
-      "latest.admissions.sat_scores.average.overall": avgSATScore,
-      "latest.cost.tuition.in_state": inStateCost,
-      "latest.cost.tuition.out_of_state": outOfStateCost,
-      "latest.student.size": schoolAttendance,
+      "latest.admissions.admission_rate.overall": rateOfAdmission,
+      "latest.student.enrollment.all": schoolAttendance,
       "school.name": schoolName,
-      "school.region_id": schoolRegion,
+      "school.city": schoolCity,
       "school.school_url": schoolWebsite,
-      "school.state_fips": stateFipsArr,
+      "school.state_fips": stateFips,
+      "latest.cost.attendance.academic_year": costPerYear,
     } = d;
+
+    // Image placeholders to fill out the effect of the cards
     let imgUrl = imgArr[i].urls.small;
-    let stateFips = stateFipsArr[0];
+
+    // Convert the formatting of the dollar and percent values
+    let avgCost = formatDollarAmounts(costPerYear);
+    let adminRate = formatPercentages(rateOfAdmission);
+
     return {
-      imgUrl,
-      id,
-      avgACTScore,
       adminRate,
-      avgSATScore,
-      inStateCost,
-      outOfStateCost,
+      avgCost,
+      id,
+      imgUrl,
       schoolAttendance,
+      schoolCity,
       schoolName,
-      schoolRegion,
       schoolWebsite,
       stateFips,
     };
+  });
+}
+
+// Formats the integer dollar amounts to display like currencies
+function formatDollarAmounts(price) {
+  // Stops the format change if the cost is an undisclosed value
+  if (price === "Undisclosed") {
+    return price;
+  }
+
+  const currencyFormat = price
+    .toString()
+    .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return `$${currencyFormat}`;
+}
+
+// Formats the admission rate decimal value to a percentage
+function formatPercentages(percent) {
+  // Stops the format change if the admission rate is an undisclosed value
+  if (percent === "Undisclosed") {
+    return percent;
+  }
+
+  return `${(percent * 100).toFixed(1)}%`;
+}
+
+// Cleans up the scorecard data and replaces null values with user friendly display
+function cleanScorecardData(scorecards) {
+  // Return an array of cleaned scorecard objects
+  return scorecards.map((card) => {
+    let schoolScorecard = {};
+    // Iterate over the data from each school to reformat null values to display 'undisclosed'
+    Object.keys(card).forEach((key) => {
+      schoolScorecard[key] = card[key] === null ? "Undisclosed" : card[key];
+    });
+
+    return schoolScorecard;
   });
 }

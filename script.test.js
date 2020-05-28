@@ -1,8 +1,10 @@
-const scoreCardKey = "8nR6JMFPRqJzkksBe7V4aD6wITl4MOWZvcIdgL1b";
-const unsplashKey = "8xSG2SnwEoxSOvi2MsZzpqDg4fgg8tI-8siiSI-S_QE";
+// Define request variables
+const scoreCardKey = "";
+const unsplashKey = "";
 const scoreCardUrl = "https://api.data.gov/ed/collegescorecard/v1/schools.json";
 const unsplashUrl = "https://source.unsplash.com/random";
 
+// Place holder test images
 const imgs = [
   "https://images.unsplash.com/photo-1573875133405-66562f496fa9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
   "https://images.unsplash.com/photo-1530455572253-e84f0a81f460?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
