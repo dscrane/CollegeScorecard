@@ -1,3 +1,5 @@
+import { schoolCardQuery } from "./API/queries";
+
 // State FIPs codes
 const stateFips = {
   1: "Alabama",
@@ -123,6 +125,8 @@ const schoolCardTemplate = `
   </div>
   </div>
 `;
+
+schoolCardQuery();
 
 /* Content for each schools display card
     [] name (school.name)
