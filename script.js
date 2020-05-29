@@ -2,7 +2,7 @@
 const scoreCardKey = "";
 const unsplashKey = "";
 const scoreCardUrl = "https://api.data.gov/ed/collegescorecard/v1/schools.json";
-const unsplashUrl = "https://source.unsplash.com/random";
+const unsplashUrl = "https://api.unsplash.com/photos/random/";
 
 // State FIPs codes
 const fipsArray = {
@@ -171,23 +171,26 @@ async function schoolCardQuery() {
   let perPage = "20";
 
   // Create the URL to fetch from the collegeScorecard API
-  let callToApi = `${scoreCardUrl}?_fields=${fields.join()}&page=${page}&per_page=${perPage}&api_key=${scoreCardKey}`;
+  let callToCollegeScorecardApi = `${scoreCardUrl}?_fields=${fields.join()}&page=${page}&per_page=${perPage}&api_key=${scoreCardKey}`;
 
   // Call the API and handle response formatting
-  let response = await axios.get(callToApi);
+  let response = await axios.get(callToCollegeScorecardApi);
   /* console.log(response); */
   let scoreCardData = response.data.results;
   /* console.log(scoreCardData); */
 
+  //
+  let callToUnsplashApi = `${unsplashUrl}?collections=9576801&orientation=landscape&count=20&client_id=8xSG2SnwEoxSOvi2MsZzpqDg4fgg8tI-8siiSI-S_QE`; // ?client_id=${unsplashKey}&orientation=landscape&query=university&count=20`;
+
   // Call image API for placeholder images
-  let imgRes = await axios.get(
-    `${unsplashKey}?orientation=landscape&collections=9576801&count=20&client_id=${unsplashKey}`
-  );
+  let imgRes = await axios.get(callToUnsplashApi);
+  console.log(imgRes);
   // Create an array with the returned images
   const imgArr = imgRes.data;
+  console.log(imgArr);
 
   // Handle incoming query data and format the data in a usable way
-  const scoreCard = handleScorecards(scoreCardData, imgs);
+  const scoreCard = handleScorecards(scoreCardData, imgArr);
   /* console.log(scoreCard); */
 
   // Display query results in the form of cards for each school
@@ -202,7 +205,7 @@ function displayScorecard(scoreCard) {
   });
 }
 
-function handleData(data, imgArr) {
+function handleScorecards(scorecards, imgArr) {
   // Clean the scorecard data
   const schoolScorecardData = cleanScorecardData(scorecards);
   /* console.log(schoolCardData); */
