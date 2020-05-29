@@ -1,0 +1,23 @@
+{
+  "name": "collegeScorecard",
+  "version": "1.0.0",
+  "description": "College search app based on the Department of Education 'College Scorecard' Data set",
+  "main": "keys.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dscrane/collegeScorecard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dscrane/collegeScorecard/issues"
+  },
+  "homepage": "https://github.com/dscrane/collegeScorecard#readme",
+  "devDependencies": {
+    "jest": "^26.0.1"
+  }
+}

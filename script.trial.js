@@ -2,7 +2,31 @@
 const scoreCardKey = "";
 const unsplashKey = "";
 const scoreCardUrl = "https://api.data.gov/ed/collegescorecard/v1/schools.json";
-const unsplashUrl = "https://api.unsplash.com/photos/random/";
+const unsplashUrl = "https://source.unsplash.com/random";
+
+// Place holder test images
+const imgs = [
+  "https://images.unsplash.com/photo-1573875133405-66562f496fa9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1530455572253-e84f0a81f460?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1570072580163-2beda58b72da?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1537089521202-eea9ded4aec0?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1565608093437-c6c32457b439?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1561646581-c7c0e0962594?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1555935622-9a315a05756d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1539043781175-aa17934d3ffc?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1584518969469-c2d99c7760a0?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1555863543-313a3e93f711?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1566647224772-1089079206e0?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1560878465-441a162bb4b8?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1567056171064-f3b5fd1d846e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1560259051-f5849bca44a4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1565795007633-3adae6add894?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1559662780-fc226c7c4f86?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1566210123689-a69492ec01c6?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1578653775124-b0963b67ffa4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1568132549924-1264e9dad1d9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+  "https://images.unsplash.com/photo-1561786527-999d27422f3a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0",
+];
 
 // State FIPs codes
 const fipsArray = {
@@ -171,26 +195,16 @@ async function schoolCardQuery() {
   let perPage = "20";
 
   // Create the URL to fetch from the collegeScorecard API
-  let callToCollegeScorecardApi = `${scoreCardUrl}?_fields=${fields.join()}&page=${page}&per_page=${perPage}&api_key=${scoreCardKey}`;
+  let callToApi = `${scoreCardUrl}?_fields=${fields.join()}&page=${page}&per_page=${perPage}&api_key=${scoreCardKey}`;
 
   // Call the API and handle response formatting
-  let response = await axios.get(callToCollegeScorecardApi);
+  let response = await axios.get(callToApi);
   /* console.log(response); */
   let scoreCardData = response.data.results;
   /* console.log(scoreCardData); */
 
-  //
-  let callToUnsplashApi = `${unsplashUrl}?collections=9576801&orientation=landscape&count=20&client_id=8xSG2SnwEoxSOvi2MsZzpqDg4fgg8tI-8siiSI-S_QE`; // ?client_id=${unsplashKey}&orientation=landscape&query=university&count=20`;
-
-  // Call image API for placeholder images
-  let imgRes = await axios.get(callToUnsplashApi);
-  /* console.log(imgRes); */
-  // Create an array with the returned images
-  const imgArr = imgRes.data;
-  /*  console.log(imgArr); */
-
   // Handle incoming query data and format the data in a usable way
-  const scoreCard = handleScorecards(scoreCardData, imgArr);
+  const scoreCard = handleScorecards(scoreCardData, imgs);
   /* console.log(scoreCard); */
 
   // Display query results in the form of cards for each school
@@ -205,7 +219,8 @@ function displayScorecard(scoreCard) {
   });
 }
 
-function handleScorecards(scorecards, imgArr) {
+// Handles the incoming scorecard data and returns and array of clean easy to work with scorecard objects
+function handleScorecards(scorecards, imgs) {
   // Clean the scorecard data
   const schoolScorecardData = cleanScorecardData(scorecards);
   /* console.log(schoolCardData); */
@@ -224,7 +239,7 @@ function handleScorecards(scorecards, imgArr) {
     } = d;
 
     // Image placeholders to fill out the effect of the cards
-    let imgUrl = imgArr[i].urls.small;
+    let imgUrl = imgs[i];
 
     // Convert the formatting of the dollar and percent values
     let avgCost = formatDollarAmounts(costPerYear);
