@@ -1,6 +1,4 @@
 // Define request variables
-const scoreCardKey = "";
-const unsplashKey = "";
 const scoreCardUrl = "https://api.data.gov/ed/collegescorecard/v1/schools.json";
 const unsplashUrl = "https://api.unsplash.com/photos/random/";
 
@@ -180,7 +178,7 @@ async function schoolCardQuery() {
   /* console.log(scoreCardData); */
 
   //
-  let callToUnsplashApi = `${unsplashUrl}?collections=9576801&orientation=landscape&count=20&client_id=8xSG2SnwEoxSOvi2MsZzpqDg4fgg8tI-8siiSI-S_QE`; // ?client_id=${unsplashKey}&orientation=landscape&query=university&count=20`;
+  let callToUnsplashApi = `${unsplashUrl}?collections=9576801&orientation=landscape&count=20&client_id=${unsplashKey}`;
 
   // Call image API for placeholder images
   let imgRes = await axios.get(callToUnsplashApi);
