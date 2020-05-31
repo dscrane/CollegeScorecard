@@ -1,9 +1,3 @@
-// Define request variables
-const scoreCardKey = "";
-const unsplashKey = "";
-const scoreCardUrl = "https://api.data.gov/ed/collegescorecard/v1/schools.json";
-const unsplashUrl = "https://api.unsplash.com/photos/random/";
-
 // State FIPs codes
 const fipsArray = {
   1: "Alabama",
@@ -81,74 +75,6 @@ const IPEDSCodes = {
 
 schoolCardQuery();
 
-// HTML template to populate with the formatted response data from scorecard API
-function schoolCardTemplate(cardData) {
-  const {
-    imgUrl,
-    adminRate,
-    avgCost,
-    schoolAttendance,
-    schoolName,
-    schoolCity,
-    schoolWebsite,
-    stateFips,
-  } = cardData;
-  return `
-  <div class="gallery__card">
-    <div class="card__row card__row-title">
-      <div class="card__content card__content-name">
-        <p id="school_name" class="content__title">
-          ${schoolName}
-        </p>
-      </div>
-    </div>
-    <div class="card__row card__row-img">
-      <img class="card__image" src="${imgUrl}" />
-    </div>
-    <div class="card__row card__row-content">
-      <div class="card__content card__content-info">
-        <p id="school_city" class="content__text">
-          <span class="content__text-title">City:</span>
-          ${schoolCity}
-        </p>
-        <p id="school_state" class="content__text">
-          <span class="content__text-title">State:</span>
-          ${fipsArray[stateFips]}
-        </p>
-      </div>
-      <div class="card__content content__quick-facts">
-        <p id="school_attendance" class="content__text">
-          <span class="content__text-title">Attendance:</span>
-          ${schoolAttendance}
-        </p>
-        <p id="school_diversity" class="content__text">
-          <span class="content__text-title">Admission Rate:</span>
-          ${adminRate}
-        </p>
-        <p id="school_ownership" class="content__text">
-          <span class="content__text-title">Average Cost:</span>
-          ${avgCost}
-        </p>
-      </div>
-    </div>
-      <div class="card__row card__row-website>
-        <div class="card__content card__content-link">
-          <p id="school_website" class="content__text">
-          <span class="content__text-title">Homepage:</span>
-          <a
-            id="school_link"
-            class="content__text-link"
-            href="${schoolWebsite}"
-            >${schoolWebsite}</a
-          >
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-`;
-}
-
 // Query for the basic school card display
 async function schoolCardQuery() {
   // Define year being searched
@@ -202,81 +128,5 @@ function displayScorecard(scoreCard) {
   const gallery = document.querySelector(".gallery");
   scoreCard.forEach((card) => {
     gallery.innerHTML = gallery.innerHTML + schoolCardTemplate(card);
-  });
-}
-
-function handleScorecards(scorecards, imgArr) {
-  // Clean the scorecard data
-  const schoolScorecardData = cleanScorecardData(scorecards);
-  /* console.log(schoolCardData); */
-
-  // Return an array of scorecard objects with clean values and more convinient keys
-  return schoolScorecardData.map((d, i) => {
-    const {
-      id,
-      "latest.admissions.admission_rate.overall": rateOfAdmission,
-      "latest.student.enrollment.all": schoolAttendance,
-      "school.name": schoolName,
-      "school.city": schoolCity,
-      "school.school_url": schoolWebsite,
-      "school.state_fips": stateFips,
-      "latest.cost.attendance.academic_year": costPerYear,
-    } = d;
-
-    // Image placeholders to fill out the effect of the cards
-    let imgUrl = imgArr[i].urls.small;
-
-    // Convert the formatting of the dollar and percent values
-    let avgCost = formatDollarAmounts(costPerYear);
-    let adminRate = formatPercentages(rateOfAdmission);
-
-    return {
-      adminRate,
-      avgCost,
-      id,
-      imgUrl,
-      schoolAttendance,
-      schoolCity,
-      schoolName,
-      schoolWebsite,
-      stateFips,
-    };
-  });
-}
-
-// Formats the integer dollar amounts to display like currencies
-function formatDollarAmounts(price) {
-  // Stops the format change if the cost is an undisclosed value
-  if (price === "Undisclosed") {
-    return price;
-  }
-
-  const currencyFormat = price
-    .toString()
-    .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-  return `$${currencyFormat}`;
-}
-
-// Formats the admission rate decimal value to a percentage
-function formatPercentages(percent) {
-  // Stops the format change if the admission rate is an undisclosed value
-  if (percent === "Undisclosed") {
-    return percent;
-  }
-
-  return `${(percent * 100).toFixed(1)}%`;
-}
-
-// Cleans up the scorecard data and replaces null values with user friendly display
-function cleanScorecardData(scorecards) {
-  // Return an array of cleaned scorecard objects
-  return scorecards.map((card) => {
-    let schoolScorecard = {};
-    // Iterate over the data from each school to reformat null values to display 'undisclosed'
-    Object.keys(card).forEach((key) => {
-      schoolScorecard[key] = card[key] === null ? "Undisclosed" : card[key];
-    });
-
-    return schoolScorecard;
   });
 }
