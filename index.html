@@ -14,10 +14,25 @@
     <div class="display">
       <header class="header">
         <nav class="nav">
-          <span class="nav__item">Item 1</span>
-          <span class="nav__item">Item 2</span>
-          <span class="nav__item">Item 3</span>
-          <span class="nav__item">Item 4</span>
+          <div class="nav__item nav__item-link">
+            <span class="nav__text nav__text-link">Home</span>
+          </div>
+          <div class="nav__item nav__item-dropdown">
+            <div class="nav__text nav__text-dropdown">Schools By Location</div>
+          </div>
+          <div class="nav__item nav__item-dropdown">
+            <div class="nav__text nav__text-dropdown">Schools By Size</div>
+          </div>
+          <div class="nav__item nav__item-input">
+            <input
+              class="nav__input"
+              name="nav-search"
+              placeholder="SEARCH ex Harvard Univeristy, NYC, Southwest"
+            />
+          </div>
+          <div class="nav__item nav__item-cta">
+            <button class="nav__text nav__text-cta">Search</button>
+          </div>
         </nav>
       </header>
 
