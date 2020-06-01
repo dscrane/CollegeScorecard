@@ -1,23 +1,30 @@
 {
-  "name": "collegeScorecard",
+  "name": "collegescorecard",
   "version": "1.0.0",
-  "description": "College search app based on the Department of Education 'College Scorecard' Data set",
-  "main": "keys.js",
+  "description": "Simple API response site for college data",
+  "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "serve",
+    "build": "echo This is a static template, there is no bundler or bundling involved!"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dscrane/collegeScorecard.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "static",
+    "template",
+    "codesandbox"
+  ],
+  "author": "Daegan Crane",
   "bugs": {
     "url": "https://github.com/dscrane/collegeScorecard/issues"
   },
   "homepage": "https://github.com/dscrane/collegeScorecard#readme",
   "devDependencies": {
-    "jest": "^26.0.1"
+    "serve": "^11.2.0"
+  },
+  "dependencies": {
+    "axios": "0.19.2"
   }
 }
