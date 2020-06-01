@@ -1,5 +1,5 @@
 // Formats the integer dollar amounts to display like currencies
-function formatDollarAmounts(price) {
+export function formatDollarAmounts(price) {
   // Stops the format change if the cost is an undisclosed value
   if (price === "Undisclosed") {
     return price;
@@ -12,7 +12,7 @@ function formatDollarAmounts(price) {
 }
 
 // Formats the admission rate decimal value to a percentage
-function formatPercentages(percent) {
+export function formatPercentages(percent) {
   // Stops the format change if the admission rate is an undisclosed value
   if (percent === "Undisclosed") {
     return percent;

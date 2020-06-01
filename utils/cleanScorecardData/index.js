@@ -1,5 +1,5 @@
 // Cleans up the scorecard data and replaces null values with user friendly display
-function cleanScorecardData(scorecards) {
+export function cleanScorecardData(scorecards) {
   // Return an array of cleaned scorecard objects
   return scorecards.map((card) => {
     let schoolScorecard = {};

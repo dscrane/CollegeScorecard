@@ -1,4 +1,10 @@
-function handleScorecards(scorecards, imgArr) {
+import {
+  cleanScorecardData,
+  formatDollarAmounts,
+  formatPercentages,
+} from "../../utils";
+
+export function handleScorecards(scorecards, imgArr) {
   // Clean the scorecard data
   const schoolScorecardData = cleanScorecardData(scorecards);
   /* console.log(schoolCardData); */

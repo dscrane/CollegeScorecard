@@ -1,39 +1,55 @@
+import { handleScorecards, displayScorecard } from "..utils/";
+import {
+  scoreCardUrl,
+  scoreCardKey,
+  unsplashUrl,
+  unsplashKey,
+} from "../API/keys";
+
 // Query for the basic school card display
-const testUrl =
-  "https://api.data.gov/ed/collegescorecard/v1/schools.json?_fields=&school.region_id=1&page=0&per_page=10&2018.admissions.sat_scores.average.overall__range=0..2500&2018.admissions.act_scores.midpoint.cumulative__range=0..2500&api_key=8nR6JMFPRqJzkksBe7V4aD6wITl4MOWZvcIdgL1b";
-("{apiUrl2}?_fields=&school.region_id=1&page=0&per_page=10&2018.admissions.sat_scores.average.overall__range=0..2500&2018.admissions.act_scores.midpoint.cumulative__range=0..2500&api_key=8nR6JMFPRqJzkksBe7V4aD6wITl4MOWZvcIdgL1b");
+export async function schoolCardQuery() {
+  // Define year being searched
+  let year = "latest";
 
-const apiKey = "8nR6JMFPRqJzkksBe7V4aD6wITl4MOWZvcIdgL1b";
-const apiUrl = "https://api.data.gov/ed/collegescorecard/v1/schools.json?";
-const apiUrl2 = "https://api.data.gov/ed/collegescorecard/v1/schools.json";
+  // Fields to return from API to fill the basic card
+  const fields = [
+    "id",
+    "school.name",
+    "school.school_url",
+    "school.state_fips",
+    "school.city",
+    `${year}.student.enrollment.all`,
+    `${year}.admissions.admission_rate.overall`,
+    `${year}.cost.attendance.academic_year`,
+  ];
 
-let schoolId = "166027";
-let year = "latest";
-let region = "";
-let page = "0";
-let perPage = "20";
-const fields = `id,school.name,school.school_url,school.state_fips,school.state_fips,school.region_id,${year}.student.size,${year}.admissions.admission_rate.overall,${year}.admissions.sat_scores.75th_percentile.critical_reading,${year}.admissions.sat_scores.75th_percentile.math,${year}.admissions.sat_scores.75th_percentile.writing,${year}.admissions.sat_scores.midpoint.critical_reading,${year}.admissions.sat_scores.midpoint.math,${year}.admissions.sat_scores.midpoint.writing,${year}.admissions.sat_scores.25th_percentile.critical_reading,${year}.admissions.sat_scores.25th_percentile.math,${year}.admissions.sat_scores.25th_percentile.writing,${year}.admissions.act_scores.75th_percentile.cumulative,${year}.admissions.act_scores.midpoint.cumulative,${year}.admissions.act_scores.25th_percentile.cumulative,${year}.cost.tuition.in_state,${year}.cost.tuition.out_of_state`;
-const field2 = `id,school.name,school.school_url,school.state_fips,school.state_fips,school.region_id,${year}.student.size,${year}.admissions.admission_rate.overall,${year}.admissions.sat_scores.75th_percentile.critical_reading,${year}.admissions.sat_scores.75th_percentile.math,${year}.admissions.sat_scores.75th_percentile.writing,${year}.admissions.sat_scores.midpoint.critical_reading,${year}.admissions.sat_scores.midpoint.math,${year}.admissions.sat_scores.midpoint.writing,${year}.admissions.sat_scores.25th_percentile.critical_reading,${year}.admissions.sat_scores.25th_percentile.math,${year}.admissions.sat_scores.25th_percentile.writing,${year}.admissions.act_scores.75th_percentile.cumulative,${year}.admissions.act_scores.midpoint.cumulative,${year}.admissions.act_scores.25th_percentile.cumulative,${year}.cost.tuition.in_state,${year}.cost.tuition.out_of_state`;
+  // Settings for pagination if necessary
+  let page = "0";
+  let perPage = "20";
 
-let callToApi = `${apiUrl2}_fields=${fields}&id=${schoolId}&page=${page}&per_page=${perPage}&api_key=${apiKey}`;
+  // Create the URL to fetch from the collegeScorecard API
+  let callToCollegeScorecardApi = `${scoreCardUrl}?_fields=${fields.join()}&page=${page}&per_page=${perPage}&api_key=${scoreCardKey}`;
 
-let callHeaders = new Headers();
-callHeaders.set("Content-Type", "application/json");
-callHeaders.set("Access-Control-Allow-Origin", "*");
+  // Call the API and handle response formatting
+  let response = await axios.get(callToCollegeScorecardApi);
+  /* console.log(response); */
+  let scoreCardData = response.data.results;
+  /* console.log(scoreCardData); */
 
-callHeaders.forEach((i) => console.log(i));
+  //
+  let callToUnsplashApi = `${unsplashUrl}?collections=9576801&orientation=landscape&count=20&client_id=8xSG2SnwEoxSOvi2MsZzpqDg4fgg8tI-8siiSI-S_QE`; // ?client_id=${unsplashKey}&orientation=landscape&query=university&count=20`;
 
-const apiInit = {
-  method: "GET",
-  headers: callHeaders,
-  mode: "cors",
-};
+  // Call image API for placeholder images
+  let imgRes = await axios.get(callToUnsplashApi);
+  /* console.log(imgRes); */
+  // Create an array with the returned images
+  const imgArr = imgRes.data;
+  /*  console.log(imgArr); */
 
-console.log(callToApi);
-const request = new Request(callToApi, apiInit);
+  // Handle incoming query data and format the data in a usable way
+  const scoreCard = handleScorecards(scoreCardData, imgArr);
+  /* console.log(scoreCard); */
 
-fetch(request)
-  .then((res) => res.json())
-  .then((data) => console.log(data.results));
-
-// https://api.data.gov/ed/collegescorecard/v1/schools.json?_fields=id,school.name,school.school_url,school.state_fips,school.state_fips,school.region_id,${year}.student.size,${year}.admissions.admission_rate.overall,${year}.admissions.sat_scores.75th_percentile.critical_reading,${year}.admissions.sat_scores.75th_percentile.math,${year}.admissions.sat_scores.75th_percentile.writing,${year}.admissions.sat_scores.midpoint.critical_reading,${year}.admissions.sat_scores.midpoint.math,${year}.admissions.sat_scores.midpoint.writing,${year}.admissions.sat_scores.25th_percentile.critical_reading,${year}.admissions.sat_scores.25th_percentile.math,${year}.admissions.sat_scores.25th_percentile.writing,${year}.admissions.act_scores.75th_percentile.cumulative,${year}.admissions.act_scores.midpoint.cumulative,${year}.admissions.act_scores.25th_percentile.cumulative,${year}.cost.tuition.in_state,${year}.cost.tuition.out_of_state&school.region_id=1&page=0&per_page=10&${year}.admissions.sat_scores.average.overall__range=0..2500&${year}.admissions.act_scores.midpoint.cumulative__range=0..2500&api_key=8nR6JMFPRqJzkksBe7V4aD6wITl4MOWZvcIdgL1b
+  // Display query results in the form of cards for each school
+  displayScorecard(scoreCard);
+}
