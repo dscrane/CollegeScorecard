@@ -27,20 +27,82 @@
 
 .nav {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: brown;
+  margin: 0 0;
+}
+
+.nav__list {
+  margin: 0 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  width: 75%;
-  background-color: brown;
+  list-style: none;
 }
 
 .nav__item {
+  background-color: chartreuse;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 15%;
-  height: 50%;
   border: 1px solid black;
+  width: 7%;
 }
+
+.nav__button {
+  font-size: 0.95rem;
+  border: none;
+  background-color: transparent;
+}
+
+.nav__button:hover {
+  cursor: pointer;
+}
+
+.nav__item-dropdown {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dropdown__content {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.nav ul li > ul {
+  display: none;
+  flex-direction: column;
+}
+
+.nav ul li:hover > ul {
+  display: flex;
+}
+
+.dropdown__content {
+  list-style: none;
+}
+/* .nav__button-dropdown  {
+}
+
+.dropdown__content {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+}
+
+.nav__item-dropdown:hover .dropdown__content {
+  display: flex;
+  background-color: beige;
+  height: 100%;
+  cursor: pointer;
+} */
 
 .gallery {
   display: flex;
