@@ -3,7 +3,7 @@
   padding: 0 0;
   display: flex;
   flex-direction: column;
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: fantasy;
   background-color: aqua;
   height: 100vh;
 
@@ -20,60 +20,97 @@
 .header {
   display: flex;
   justify-content: center;
-  width: 95%;
-  height: 5vh;
+  align-items: center;
+  width: 75vw;
+  height: 7vh;
   row-gap: 10px;
+  background-color: darkgray;
 }
 
 .nav {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
-  background-color: brown;
-  margin: 0 0;
+  height: 75%;
 }
 
 .nav__list {
   margin: 0 0;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  width: 95%;
+  height: 60%;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
   list-style: none;
+  padding: 0 0;
 }
 
 .nav__item {
-  background-color: chartreuse;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
-  width: 7%;
+  height: 100%;
 }
 
-.nav__button {
-  font-size: 0.95rem;
-  border: none;
-  background-color: transparent;
-}
-
-.nav__button:hover {
+.nav__item-link:hover {
   cursor: pointer;
+  background-color: lightgray;
+}
+
+.nav__item-link {
+  flex: 1 1;
 }
 
 .nav__item-dropdown {
+  flex-direction: column;
+  flex: 2 2;
+}
+.nav__item-dropdown:hover {
+  background-color: red;
+  cursor: pointer;
+}
+
+.nav__item-input {
+  flex: 4 4;
   display: flex;
-  flex-wrap: wrap;
+  /* justify-content: flex-end; */
+}
+
+.nav__item-cta {
+  font-family: inherit;
+  background-color: rgb(105, 108, 109);
+  flex: 1 1;
+}
+
+.nav__item-cta:hover {
+  background-color: lightgray;
+}
+
+.nav__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  /*   border: 1px solid black;
+  background-color: lightgray; */
+}
+
+.nav__input {
+  width: 75%;
+  height: 40%;
+  border: inset 1px lightgray;
+}
+
+.nav__item-cta:hover {
 }
 
 .dropdown__content {
   display: flex;
   justify-content: center;
-  width: 100%;
 }
 
 .nav ul li > ul {
@@ -88,21 +125,16 @@
 .dropdown__content {
   list-style: none;
 }
-/* .nav__button-dropdown  {
+
+.nav__button {
+  font-size: 0.95rem;
+  border: none;
+  background-color: transparent;
 }
 
-.dropdown__content {
-  display: none;
-  flex-direction: column;
-  width: 100%;
-}
-
-.nav__item-dropdown:hover .dropdown__content {
-  display: flex;
-  background-color: beige;
-  height: 100%;
+.nav__button:hover {
   cursor: pointer;
-} */
+}
 
 .gallery {
   display: flex;

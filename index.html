@@ -1,140 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="./style.css" rel="stylesheet" />
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="./script.js"></script>
-    <!-- <script src="./script.test.js"></script> -->
-    <title>Document</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="style.css" rel="stylesheet" />
+    <title>College Scorecard</title>
   </head>
-
   <body class="page">
     <div class="display">
       <header class="header">
         <nav class="nav">
-          <ul class="nav__list">
-            <li class="nav__item">
-              <button class="nav__button">Home</span>
-            </li>
-            <li class="nav__item nav__item-dropdown">
-              <button class="nav__button nav__button-dropdown">Schools By Region</button>
-              <ul class="dropdown__content">
-                <li class="dropdown__item">item</li>
-                <li class="dropdown__item">item</li>
-                <li class="dropdown__item">item</li>
-              </ul>
-            </li>
-            <li class="nav__item nav__item-dropdown">
-              <button class="nav__button nav__button-dropdown">Schools By Size</button>
-              <ul class="dropdown__content">
-                <li class="dropdown__item">item</li>
-                <li class="dropdown__item">item</li>
-                <li class="dropdown__item">item</li>
-              </ul>
-            </li>
-            <li class="nav__item">
-              <button class="nav__button">Item 4</button>
-            </li>
-          </ul>
-        </nav>
+        <ul class="nav__list">
+          <li class="nav__item nav__item-link">
+            <button class="nav__button">Home</span>
+          </li>
+          <li class="nav__item nav__item-dropdown">
+            <button class="nav__button nav__button-dropdown">Schools By Region</button>
+            <ul class="dropdown__content">
+              <li class="dropdown__item">item</li>
+              <li class="dropdown__item">item</li>
+              <li class="dropdown__item">item</li>
+            </ul>
+          </li>
+          <li class="nav__item nav__item-dropdown">
+            <button class="nav__button nav__button-dropdown">Schools By Size</button>
+            <ul class="dropdown__content">
+              <li class="dropdown__item">item</li>
+              <li class="dropdown__item">item</li>
+              <li class="dropdown__item">item</li>
+            </ul>
+          </li>
+          <li class="nav__item nav__item-input">
+            <input class="nav__input" name="nav__search" />
+          </li>
+          <li class="nav__item nav__item-cta">
+            <button class="nav__button">Search</button>
+          </li>
+        </ul>
+      </nav>
       </header>
+      <button class="test_button">Query</button>
 
       <section class="gallery"></section>
     </div>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script src="script.js" type="module"></script> -->
   </body>
 </html>
-
-<!-- <div class="gallery__card">
-          <div class="card__row card__row-img">
-            <img
-              class="card__image"
-              src="./steel-gate-of-brown-brick-building-159490.jpg"
-            />
-          </div>
-          <div class="card__row card__row-content">
-            <div class="card__content content__school_info">
-              <p id="school_name" class="content__text">
-                <span class="content__text-title"> School:</span> Harvard
-                University
-              </p>
-              <p id="school_city" class="content__text">
-                <span class="content__text-title">City:</span> Cambridge
-              </p>
-              <p id="school_state" class="content__text">
-                <span class="content__text-title"> State:</span> Massachussetts
-              </p>
-              <p id="school_website" class="content__text">
-                <span class="content__text-title">Website:</span>
-                <a
-                  id="school_link"
-                  class="content__text-link"
-                  href="www.harvard.edu"
-                  >www.harvard.edu</a
-                >
-              </p>
-            </div>
-            <div class="card__content content__quick_facts">
-              <p id="school_attendance" class="content__text">
-                <span class="content__text-title">Attendance: </span>7,582
-              </p>
-              <p id="school_diversity" class="content__text">
-                <span class="content__text-title">Diversity:</span>
-              </p>
-              <p id="school_ownership" class="content__text">
-                <span class="content__text-title">Public/Private:</span> Private
-              </p>
-              <p id="school_testing" class="content__text">
-                <span class="content__text-title">SAT/ACT Scores:</span> 1520 /
-                35
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="gallery__card">
-          <div class="card__row card__row-img">
-            <img class="card__image" src="./149370 - Copy.jpg" />
-          </div>
-          <div class="card__row card__row-content">
-            <div class="card__content content__school_info">
-              <p id="school_name" class="content__text">
-                <span class="content__text-title">School:</span>
-                Arizona State University
-              </p>
-              <p id="school_city" class="content__text">
-                <span class="content__text-title">City:</span>
-                Tempe
-              </p>
-              <p id="school_state" class="content__text">
-                <span class="content__text-title">State:</span>
-                Arizona
-              </p>
-              <p id="school_website" class="content__text">
-                <span class="content__text-title">Website:</span>
-                <a id="school_link" class="content__text-link" href=""
-                  >www.asu.edu</a
-                >
-              </p>
-            </div>
-            <div class="card__content content__quick_facts">
-              <p id="school_attendance" class="content__text">
-                <span class="content__text-title">Attendance: </span>
-                42,529
-              </p>
-              <p id="school_diversity" class="content__text">
-                <span class="content__text-title">Diversity:</span>
-              </p>
-              <p id="school_ownership" class="content__text">
-                <span class="content__text-title">Public/Private:</span>
-                Public
-              </p>
-              <p id="school_testing" class="content__text">
-                <span class="content__text-title">SAT/ACT Scores:</span>
-                1240 / 26
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="gallery__card"></div>
-        <div class="gallery__card"></div> -->
