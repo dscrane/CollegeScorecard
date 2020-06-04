@@ -10,34 +10,50 @@
     <div class="display">
       <header class="header">
         <nav class="nav">
-        <ul class="nav__list">
-          <li class="nav__item nav__item-link">
-            <button class="nav__button">Home</span>
-          </li>
-          <li class="nav__item nav__item-dropdown">
-            <button class="nav__button nav__button-dropdown">Schools By Region</button>
-            <ul class="dropdown__content">
-              <li class="dropdown__item">item</li>
-              <li class="dropdown__item">item</li>
-              <li class="dropdown__item">item</li>
+          <div class="nav__side nav__side-left">
+            <ul class="nav__list">
+              <li class="nav__item nav__item-link">
+                <div class="nav__button">
+                  <span class="nav__title">Home</span>
+                </div>
+              </li>
+              <li class="nav__item nav__item-dropdown">
+                <div class="nav__button nav__button-dropdown">
+                  <span class="nav__title nav__title-dropdown"
+                    >Schools By Location</span
+                  >
+                  <ul class="dropdown__content">
+                    <li class="dropdown__item">Regions</li>
+                    <li class="dropdown__item">Large Cities</li>
+                    <li class="dropdown__item">SomeOtherThing</li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav__item nav__item-dropdown">
+                <div class="nav__button nav__button-dropdown">
+                  <span class="nav__title nav__title-dropdown"
+                    >Schools By Size</span
+                  >
+                  <ul class="dropdown__content">
+                    <li class="dropdown__item">Large Schools</li>
+                    <li class="dropdown__item">Medium Schools</li>
+                    <li class="dropdown__item">Small Schools</li>
+                  </ul>
+                </div>
+              </li>
             </ul>
-          </li>
-          <li class="nav__item nav__item-dropdown">
-            <button class="nav__button nav__button-dropdown">Schools By Size</button>
-            <ul class="dropdown__content">
-              <li class="dropdown__item">item</li>
-              <li class="dropdown__item">item</li>
-              <li class="dropdown__item">item</li>
+          </div>
+          <div class="nav__side nav__side-right">
+            <ul class="nav__list">
+              <li class="nav__item nav__item-input">
+                <input class="nav__input" name="nav__search" />
+              </li>
+              <li class="nav__item nav__item-cta">
+                <div class="nav__button">Search</div>
+              </li>
             </ul>
-          </li>
-          <li class="nav__item nav__item-input">
-            <input class="nav__input" name="nav__search" />
-          </li>
-          <li class="nav__item nav__item-cta">
-            <button class="nav__button">Search</button>
-          </li>
-        </ul>
-      </nav>
+          </div>
+        </nav>
       </header>
       <button class="test_button">Query</button>
 
