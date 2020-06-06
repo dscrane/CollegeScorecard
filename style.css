@@ -1,4 +1,4 @@
-.page {
+.body {
   font-family: fantasy;
   display: flex;
   justify-content: center;
@@ -123,22 +123,124 @@
   background-color: rgba(201, 201, 201, 0.5);
 }
 
+h1 {
+  text-align: center;
+  margin: 15px auto;
+}
+
 .gallery {
+  margin: auto auto;
   display: flex;
   flex-wrap: wrap;
   align-content: space-around;
   justify-content: space-around;
   width: 90%;
-  row-gap: 5px;
-  /* height: 85vh; */
+  row-gap: 20px;
+  overflow: visible;
 }
 
+.gallery__card {
+  width: 325px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: azure;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 3px 5px 10px black;
+}
+
+.gallery__card:hover {
+  width: 335px;
+  height: 410px;
+  box-shadow: 5px 8px 10px black;
+  cursor: pointer;
+}
+
+.card__section {
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+}
+
+.card__section-img {
+}
+
+.card__section-name {
+}
+
+.card__section-location {
+}
+
+.card__section-facts {
+  display: flex;
+  flex-direction: column;
+}
+
+.card__content {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.card__content-name {
+  font-weight: 600;
+  text-align: center;
+}
+
+.card__content-location {
+}
+
+.card__content-facts {
+  width: 100%;
+  justify-content: stretch;
+}
+
+.card__content-website {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content__text {
+}
+
+.content__text-name {
+}
+
+.content__title-facts {
+  align-self: flex-start;
+  flex: 1;
+}
+
+.content__data-facts {
+  align-self: flex-end;
+  flex: 1;
+  text-align: end;
+}
+
+.content__data-website {
+  text-align: center;
+}
+
+.content__url {
+  text-align: center;
+}
+
+.content__image {
+  height: 150px;
+  width: 300px;
+}
+
+/*
 .gallery__card {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   width: 25vw;
-  /* height: 25vh; */
+
   background-color: azure;
   border: 1px solid black;
   border-radius: 5px;
@@ -183,10 +285,6 @@
   font-size: 1rem;
 }
 
-/* .content__school_info {} */
-
-/* .content__quick_facts {} */
-
 .content__text-title {
   font-weight: 700;
   font-size: 0.85rem;
@@ -200,3 +298,5 @@
 .content__text-link {
   text-decoration: none;
 }
+
+*/
