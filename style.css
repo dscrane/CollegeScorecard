@@ -1,233 +1,235 @@
-.page {
-  margin: 0 0;
-  padding: 0 0;
-  display: flex;
-  flex-direction: column;
+.body {
   font-family: fantasy;
-  background-color: aqua;
-  height: 100vh;
+  display: flex;
+  justify-content: center;
 
-  /* overflow: hidden; */
+  background: linear-gradient(
+    to bottom right,
+    rgba(0, 255, 136, 0.418),
+    rgba(89, 0, 255, 0.418)
+  );
+  background-attachment: fixed;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
-.display {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  align-items: center;
+.wrapper {
+  width: 95%;
+  max-width: 1500px;
+  min-height: 80vh;
+  height: 100%;
+}
+
+h1 {
+  text-align: center;
+  margin: 15px auto;
 }
 
 .header {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  font-size: 0.9rem;
+  background-color: rgba(63, 63, 63, 0.438);
+  border: 1px black;
+  border-style: inset solid solid inset;
+
   align-items: center;
-  width: 95%;
-  max-width: 1440px;
-  height: 7vh;
-  background-color: rgb(137, 160, 119);
+  /* display: flex; */
+  /* justify-content: center; */
 }
 
 .nav {
-  font-size: 0.9rem;
   display: flex;
-  width: 98%;
-  height: 85%;
-  justify-content: stretch;
-  align-items: center;
 }
 
+/* Flex container */
 .nav__list {
+  margin: 0;
+  padding: 0;
   list-style: none;
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: stretch;
-  width: 75%;
-  height: 60%;
-  padding: 0 0;
+  flex: 1;
 }
 
-.nav__side {
-  display: flex;
-  width: 50%;
-  height: 100%;
-  align-items: stretch;
-  margin: 0 0;
-}
-
-.nav__side-right {
-  justify-content: flex-end;
-}
-
-.nav__side-left {
+.nav__list-left {
   justify-content: flex-start;
+  /* flex: 1.5 0.5; */
+}
+
+.nav__list-right {
+  justify-content: flex-end;
+  align-self: flex-start;
+  /* flex: 3 15; */
 }
 
 .nav__item {
-  display: flex;
-  flex: 1 1;
-  height: 100%;
-  justify-content: center;
+  flex: 1;
   align-items: center;
+  transition: all 0.5s;
+}
+
+.nav__item-search {
+  flex: 1;
 }
 
 .nav__item-input {
   display: flex;
-  flex: 3 1;
-  align-items: center;
+  flex: 4;
   justify-content: flex-end;
 }
 
-.nav__title {
-  display: flex;
-  justify-content: space-around;
-}
-
-.nav__button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: lightgrey;
-  height: 100%;
-  width: 75%;
-  margin: 0 0;
-  padding: 0 0;
-}
-
-.nav__button-link:hover {
-  width: 90%;
-}
-.nav__button-search:hover {
-  width: 80%;
-}
-
 .nav__input {
-  height: 75%;
-  width: 95%;
+  text-align: center;
+  width: 75%;
+  height: 25px;
 }
 
-.nav__button-dropdown {
-  flex-wrap: wrap;
-  row-gap: 25%;
+.item__heading {
+  color: white;
+  font-weight: 100;
+  letter-spacing: 2px;
+  text-decoration: none;
+  padding: 20px 0;
+  width: 100%;
+  text-align: center;
+  /* transition: all 0.5s; */
 }
 
-.nav__button-dropdown > ul {
+.item__heading:hover {
+  background: rgba(63, 63, 63, 0.5);
+  cursor: pointer;
+}
+
+.item__content-dropdown .dropdown__content {
   flex-direction: column;
 }
 
-.nav__button-dropdown:hover > ul {
+.nav__item > .item__content:hover .dropdown__content {
   display: flex;
 }
 
-.nav__button-dropdown:hover {
-  height: 11vh;
-  align-content: center;
-}
-
-.nav__button:hover {
-  cursor: pointer;
-  background-color: darkgray;
-}
-.nav__title-dropdown {
-}
-
 .dropdown__content {
-  list-style: none;
-  width: 100%;
   display: none;
+  list-style: none;
+  background-color: rgba(63, 63, 63, 0.158);
+  align-items: center;
+  flex: 1;
+  padding: 0;
+}
+
+.dropdown__link {
+  display: flex;
+  width: 100%;
+  height: 25px;
   justify-content: center;
   align-items: center;
-  /* background-color: lightgray; */
-  padding: 0 0 5px 0;
-  row-gap: 10%;
 }
 
-.dropdown__item {
-  width: 75%;
-  height: 33%;
-  font-size: 0.9rem;
-}
-
-.dropdown__item:hover {
+.dropdown__link:hover {
   cursor: pointer;
-  background-color: lightgray;
+  background-color: rgba(201, 201, 201, 0.5);
 }
 
 .gallery {
+  margin: auto auto;
   display: flex;
   flex-wrap: wrap;
   align-content: space-around;
   justify-content: space-around;
   width: 90%;
-  row-gap: 5px;
-  /* height: 85vh; */
+  row-gap: 20px;
 }
 
 .gallery__card {
+  width: 325px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 25vw;
-  /* height: 25vh; */
+  align-items: center;
   background-color: azure;
   border: 1px solid black;
   border-radius: 5px;
+  box-shadow: 3px 5px 10px black;
 }
 
-.card__row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 5px 0px;
+.gallery__card:hover {
+  width: 335px;
+  height: 410px;
+  box-shadow: 5px 8px 10px black;
+  cursor: pointer;
 }
 
-.card__row-title {
-  justify-content: center;
-  text-align: center;
-}
-
-.card__row-content {
+.card__section {
   display: flex;
   justify-content: space-around;
+  width: 90%;
 }
 
-.card__image {
-  height: 20vh;
-  width: 35vh;
-  border-radius: 5px;
+/* 
+.card__section-img {
+}
+
+.card__section-name {
+}
+
+.card__section-location {
+}
+*/
+
+.card__section-facts {
+  display: flex;
+  flex-direction: column;
 }
 
 .card__content {
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: calc(50% - 20px);
+  flex: 1;
+  justify-content: center;
 }
 
 .card__content-name {
+  font-weight: 600;
+  text-align: center;
+}
+
+/* 
+.card__content-location {
+}
+*/
+
+.card__content-facts {
   width: 100%;
+  justify-content: stretch;
 }
 
-.content__title {
-  font-weight: 700;
-  font-size: 1rem;
+.card__content-website {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* .content__school_info {} */
-
-/* .content__quick_facts {} */
-
-.content__text-title {
-  font-weight: 700;
-  font-size: 0.85rem;
-  width: 100%;
-}
-
+/* 
 .content__text {
-  font-size: 0.75rem;
 }
 
-.content__text-link {
-  text-decoration: none;
+.content__text-name {
+}
+*/
+
+.content__title-facts {
+  align-self: flex-start;
+  flex: 1;
+}
+
+.content__data-facts {
+  align-self: flex-end;
+  flex: 1;
+  text-align: end;
+}
+
+.content__url {
+  text-align: center;
+}
+
+.content__image {
+  height: 150px;
+  width: 300px;
 }
