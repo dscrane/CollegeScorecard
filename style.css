@@ -2,7 +2,7 @@
   font-family: fantasy;
   display: flex;
   justify-content: center;
-  height: 100vh;
+
   background: linear-gradient(
     to bottom right,
     rgba(0, 255, 136, 0.418),
@@ -10,14 +10,18 @@
   );
   background-attachment: fixed;
   background-color: rgba(255, 255, 255, 0.7);
-  overflow: hidden;
-
-  /* overflow: hidden; */
 }
 
 .wrapper {
   width: 95%;
   max-width: 1500px;
+  min-height: 80vh;
+  height: 100%;
+}
+
+h1 {
+  text-align: center;
+  margin: 15px auto;
 }
 
 .header {
@@ -123,11 +127,6 @@
   background-color: rgba(201, 201, 201, 0.5);
 }
 
-h1 {
-  text-align: center;
-  margin: 15px auto;
-}
-
 .gallery {
   margin: auto auto;
   display: flex;
@@ -136,7 +135,6 @@ h1 {
   justify-content: space-around;
   width: 90%;
   row-gap: 20px;
-  overflow: visible;
 }
 
 .gallery__card {
@@ -165,6 +163,7 @@ h1 {
   width: 90%;
 }
 
+/* 
 .card__section-img {
 }
 
@@ -173,6 +172,7 @@ h1 {
 
 .card__section-location {
 }
+*/
 
 .card__section-facts {
   display: flex;
@@ -190,8 +190,10 @@ h1 {
   text-align: center;
 }
 
+/* 
 .card__content-location {
 }
+*/
 
 .card__content-facts {
   width: 100%;
@@ -204,11 +206,13 @@ h1 {
   align-items: center;
 }
 
+/* 
 .content__text {
 }
 
 .content__text-name {
 }
+*/
 
 .content__title-facts {
   align-self: flex-start;
@@ -221,10 +225,6 @@ h1 {
   text-align: end;
 }
 
-.content__data-website {
-  text-align: center;
-}
-
 .content__url {
   text-align: center;
 }
@@ -233,70 +233,3 @@ h1 {
   height: 150px;
   width: 300px;
 }
-
-/*
-.gallery__card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 25vw;
-
-  background-color: azure;
-  border: 1px solid black;
-  border-radius: 5px;
-}
-
-.card__row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 5px 0px;
-}
-
-.card__row-title {
-  justify-content: center;
-  text-align: center;
-}
-
-.card__row-content {
-  display: flex;
-  justify-content: space-around;
-}
-
-.card__image {
-  height: 20vh;
-  width: 35vh;
-  border-radius: 5px;
-}
-
-.card__content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: calc(50% - 20px);
-}
-
-.card__content-name {
-  width: 100%;
-}
-
-.content__title {
-  font-weight: 700;
-  font-size: 1rem;
-}
-
-.content__text-title {
-  font-weight: 700;
-  font-size: 0.85rem;
-  width: 100%;
-}
-
-.content__text {
-  font-size: 0.75rem;
-}
-
-.content__text-link {
-  text-decoration: none;
-}
-
-*/
