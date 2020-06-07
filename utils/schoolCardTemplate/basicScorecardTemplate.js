@@ -1,3 +1,5 @@
+import { fipsStates } from "../../lib/keyValueData/fipsObject";
+
 // HTML template to populate with the formatted response data from scorecard API
 export function schoolCardTemplate(cardData) {
   const {
@@ -31,7 +33,7 @@ export function schoolCardTemplate(cardData) {
           <div class="card__section card__section-location">
             <div class="card__content card__content-location">
               <div class="content__data content__data-location">
-                ${schoolCity}, ${fipsArray[stateFips]}
+                ${schoolCity}, ${fipsStates[stateFips]}
               </div>
             </div>
           </div>
