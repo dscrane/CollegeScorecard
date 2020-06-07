@@ -1,6 +1,8 @@
-export function displayScorecard(scoreCard) {
+import { basicScorecardTemplate } from "../scorecardTemplates";
+
+export function displayScorecard(scorecard) {
   const gallery = document.querySelector(".gallery");
-  scoreCard.forEach((card) => {
-    gallery.innerHTML = gallery.innerHTML + schoolCardTemplate(card);
+  scorecard.forEach((card) => {
+    gallery.innerHTML = gallery.innerHTML + basicScorecardTemplate(card);
   });
 }

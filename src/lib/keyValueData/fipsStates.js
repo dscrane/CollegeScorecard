@@ -1,4 +1,4 @@
-export const fipsState = {
+export const fipsStates = {
   1: "Alabama",
   2: "Alaska",
   4: "Arizona",

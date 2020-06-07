@@ -1,44 +1,25 @@
 import axios from "axios";
 
-const scorecardUrl = "https://api.data.gov/ed/collegescorecard/v1/schools.json";
-const scorecardKey = scorecardKey;
+export function basicScorecard(args) {
+  // takes [url, [fields], key, [params]]
+  const { scorecardUrl, fields, scorecardKey, params } = args;
 
-function makeBasicScorecardUrl() {
-  console.log("[Query]: basicScorecard");
+  const basicScorecardRequest = `${scorecardUrl}?_fields=${fields.join()}&${params.join(
+    "&"
+  )}&api_key=${scorecardKey}`;
+  console.log(basicScorecardRequest);
 
-  // Define the fields for the basic basicScorecard
-  const fields = [
-    "id",
-    "school.name",
-    "school.school_url",
-    "school.state_fips",
-    "school.city",
-    "latest.student.enrollment.all",
-    "latest.admissions.admission_rate.overall",
-    "latest.cost.attendance.academic_year",
-  ];
-
-  // Settings for pagination (if neccessary)
-  let page = "0";
-  let perPage = "3";
-
-  // Create the URL to fetch from the collegeScorecard API
-  let urlToCall = `${scorecardUrl}?_fields=${fields.join()}&page=${page}&per_page=${perPage}&api_key=${scorecardKey}`;
-
-  return urlToCall;
-}
-
-export function basicScorecardQuery() {
-  const basicScorecardUrl = makeBasicScorecardUrl();
-  console.log(basicScorecardUrl);
   const basicScorecardPromise = new Promise((resolve, reject) => {
-    try {
-      axios
-        .get(basicScorecardUrl)
-        .then((basicScorecard) => resolve(basicScorecard.data));
-    } catch (err) {
-      reject(err);
-    }
+    axios
+      .get(basicScorecardRequest)
+      .then((basicScorecard) => {
+        console.log("axios promise -- success");
+        resolve(basicScorecard.data.results);
+      })
+      .catch(function (error) {
+        console.log("axios promise -- error");
+        reject(error.response);
+      });
   });
   return basicScorecardPromise;
 }

@@ -1,23 +1,22 @@
 import axios from "axios";
-import { unsplashKey } from "../../../ignore/keys";
+// import { unsplashKey } from "../../../ignore/keys";
+export function stockPhotoQuery(args) {
+  const { unsplashUrl, unsplashParams, unsplashKey } = args;
 
-const unsplashUrl = "https://source.unsplash.com/photos/";
-const unsplashKey = unsplashKey;
+  const stockPhotoUrl = `${unsplashUrl}?${unsplashParams}&client_id=${unsplashKey}`;
+  console.log(stockPhotoUrl);
 
-export function stockPhotoQuery() {
-  const stockPhotoUrl = `${unsplashUrl}?collections=9576801&orientation=landscape&count=20&client_id=${unsplashKey}`;
   const stockPhotoPromise = new Promise((resolve, reject) => {
-    try {
-      axios.get(stockPhotoUrl).then((stockPhotoResp) => {
-        const imgArr = stockPhotoResp.data.map((photo) => {
-          return photo.links.html;
-        });
-
-        resolve(imgArr);
+    axios
+      .get(stockPhotoUrl)
+      .then((stockPhotoResp) => {
+        console.log("stockPhotoPromise -- success");
+        resolve(stockPhotoResp.data);
+      })
+      .catch(function (error) {
+        console.log("stockPhotoPromise -- error");
+        reject(error.response);
       });
-    } catch (err) {
-      reject(err);
-    }
   });
 
   return stockPhotoPromise;

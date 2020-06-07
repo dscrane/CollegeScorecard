@@ -1,7 +1,7 @@
 import { fipsStates } from "../../lib/keyValueData/fipsObject";
 
 // HTML template to populate with the formatted response data from scorecard API
-export function schoolCardTemplate(cardData) {
+export function basicScorecardTemplate(cardData) {
   const {
     imgUrl,
     adminRate,
