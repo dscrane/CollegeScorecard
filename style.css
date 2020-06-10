@@ -13,15 +13,113 @@
 }
 
 .wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 95%;
   max-width: 1500px;
   min-height: 80vh;
   height: 100%;
 }
 
-h1 {
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.greeting {
   text-align: center;
   margin: 15px auto;
+}
+
+.searchBar {
+  flex: 1 1 4.5vh;
+  display: flex;
+  flex-direction: row;
+  color: #acc2d6;
+  background-color: #65737e;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid black;
+  width: 50%;
+  font-size: 1.74vh;
+}
+
+.search__container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.search__form {
+  display: flex;
+  justify-content: stretch;
+  flex: 1;
+}
+
+.search__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0.5;
+}
+
+.material__icon {
+  text-align: center;
+  font-size: 36px !important;
+}
+
+.search__input {
+  color: #acc2d6;
+  background-color: #65737e;
+  flex: 5;
+  border: none;
+  font-size: 2vh;
+  font-weight: 100;
+  line-height: 2vh;
+}
+
+.search__input:focus {
+  background-color: #65737eb2;
+  color: white;
+}
+
+.search__filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0.5;
+  text-align: center;
+  align-self: center;
+  color: #acc2d6;
+  background-color: #65737e;
+  height: 100%;
+}
+
+.search__filter:hover {
+  cursor: pointer;
+}
+
+.search__cta {
+  flex: 1;
+  background-color: #acc2d6;
+  color: #65737e;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-size: 1.5vh;
+
+  border-left: 2px solid #acc2d6;
+  border-right-style: none;
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+.search__cta:hover {
+  cursor: pointer;
+  color: #acc2d6;
+  background-color: #65737e;
 }
 
 .header {
@@ -29,12 +127,11 @@ h1 {
   background-color: rgba(63, 63, 63, 0.438);
   border: 1px black;
   border-style: inset solid solid inset;
-
+  width: 100%;
   align-items: center;
   /* display: flex; */
   /* justify-content: center; */
 }
-
 .nav {
   display: flex;
 }

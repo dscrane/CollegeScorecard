@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link href="style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>College Scorecard</title>
   </head>
   <body class="body">
@@ -13,74 +14,33 @@
           <ul class="nav__list nav__list-left">
             <li class="nav__item">
               <div class="item__content">
-                <div class="item__heading">Home</div>
+                <div id="home-button" class="item__heading">Home</div>
               </div>
             </li>
-            <li class="nav__item">
-              <div class="item__content item__content-dropdown">
-                <div class="item__heading">Locations</div>
-                <ul class="dropdown__content">
-                  <li id="major-cities" class="dropdown__link">
-                    <span class="link__text">Major Cities</span>
-                  </li>
-                  <li id="us-regions" class="dropdown__link">
-                    <span class="link__text">US Regions</span>
-                  </li>
-                  <li id="rural-schools" class="dropdown__link">
-                    <span class="link__text">Rural Schools</span>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav__item">
-              <div class="item__content item__content-dropdown">
-                <div class="item__heading">Academics</div>
-                <ul class="dropdown__content">
-                  <li id="testing-scores" class="dropdown__link">
-                    <span class="link__text">SAT & ACT Scores</span>
-                  </li>
-                  <li id="majors" class="dropdown__link">
-                    <span class="link__text">Majors</span>
-                  </li>
-                  <li id="departments" class="dropdown__link">
-                    <span class="link__text">Departments</span>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav__item">
-              <div class="item__content item__content-dropdown">
-                <div class="item__heading">About</div>
-                <ul class="dropdown__content">
-                  <li id="testing-scores" class="dropdown__link">
-                    <span class="link__text">Our Goal</span>
-                  </li>
-                  <li id="majors" class="dropdown__link">
-                    <span class="link__text">FAQs</span>
-                  </li>
-                  <li id="departments" class="dropdown__link">
-                    <span class="link__text">Contact</span>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-          <ul class="nav__list nav__list-right">
-            <li class="nav__item nav__item-input">
-              <input class="nav__input" />
-            </li>
-            <li class="nav__item nav__item-search">
-              <div class="item__heading item__heading-search">Search</div>
-            </li>
-          </ul>
         </nav>
       </header>
       <section class="page">
-        <h1>Welcome to the College Scorecard</h1>
+        <div class="greeting">
+          <h1>Welcome to the College Scorecard</h1>
+        </div>
+        <div class="searchBar">
+          <div class="search__container">
+            <form class="search__form">
+              <div class="search__icon">
+                <i class="material-icons md-light material__icon">search</i>
+              </div>
+              <input class="search__input" name="search__input" placeholder="Search..." />
+              <div class="search__filter">
+                <span>&#9660</span>
+              </div>
+              <button class="search__cta">Search</button>
+            </form>
+          </div>
+        </div>
         <div class="gallery"></div>
       </section>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
-    <script src="script.js" type="module"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script> -->
+    <!-- <script src="script.js" type="module"></script> -->
   </body>
 </html>
