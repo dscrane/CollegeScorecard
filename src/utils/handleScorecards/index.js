@@ -6,14 +6,20 @@ import {
 
 export function handleScorecards(scorecards, images) {
   // Clean the scorecard data
-  const schoolScorecardData = cleanScorecardData(scorecards);
+  const schoolScorecardData = cleanScorecardData(scorecards.results);
   /* console.log(schoolCardData); */
 
+  // Set the number of pages returned from API
+  const additionalPages =
+    scorecards.metadata.total / 8 > 1 ? scorecards.metadata.total / 8 : 0;
+
   // Image placeholders to fill out the effect of the cards
-  let imgUrls = images.map((image) => image.urls.small);
+  const imgUrls = images.map((image) => {
+    return image.urls.small;
+  });
 
   // Return an array of scorecard objects with clean values and more convinient keys
-  return schoolScorecardData.map((d, i) => {
+  const scorecardData = schoolScorecardData.map((data, i) => {
     const {
       id,
       "latest.admissions.admission_rate.overall": rateOfAdmission,
@@ -23,7 +29,7 @@ export function handleScorecards(scorecards, images) {
       "school.school_url": schoolWebsite,
       "school.state_fips": stateFips,
       "latest.cost.attendance.academic_year": costPerYear,
-    } = d;
+    } = data;
 
     // Convert the formatting of the dollar and percent values
     let avgCost = formatDollarAmounts(costPerYear);
@@ -33,12 +39,14 @@ export function handleScorecards(scorecards, images) {
       adminRate,
       avgCost,
       id,
+      imgUrl: imgUrls[i],
       schoolAttendance,
       schoolCity,
       schoolName,
       schoolWebsite,
       stateFips,
-      imgUrl: imgUrls[i],
     };
   });
+
+  return { additionalPages, scorecardData };
 }

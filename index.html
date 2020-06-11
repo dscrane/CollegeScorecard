@@ -11,7 +11,7 @@
     <div class="wrapper">
       <header class="header">
         <nav class="nav">
-          <ul class="nav__list nav__list-left">
+          <ul class="nav__list">
             <li class="nav__item">
               <div class="item__content">
                 <div id="home-button" class="item__heading">Home</div>
@@ -20,11 +20,11 @@
         </nav>
       </header>
       <section class="page">
-        <div class="greeting">
+        <div class="page__row page__row-greeting">
           <h1>Welcome to the College Scorecard</h1>
         </div>
-        <div class="searchBar">
-          <div class="search__container">
+        <div class="page__row page__row-search">
+          <div class="search__bar">
             <form class="search__form">
               <div class="search__icon">
                 <i class="material-icons md-light material__icon">search</i>
@@ -37,7 +37,10 @@
             </form>
           </div>
         </div>
-        <div class="gallery"></div>
+        <div class="page__row page__row-gallery"></div>
+        <div id="page__row-more_id" class="page__row page__row-more">
+          <button class="more__results">Load More</button>
+        </div>
       </section>
     </div>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script> -->

@@ -1,50 +1,50 @@
 import { basicScorecardQuery, stockPhotoQuery } from "./src/api";
 import { handleScorecards, displayScorecard } from "./src/utils";
 
-const homeButton = document.querySelector(".test_button");
-
-// Define the fields for the basic basicScorecard
-const fields = [
-  "id",
-  "school.name",
-  "school.school_url",
-  "school.state_fips",
-  "school.city",
-  "latest.student.enrollment.all",
-  "latest.admissions.admission_rate.overall",
-  "latest.cost.attendance.academic_year",
-];
-
-// Settings for pagination (if neccessary)
-let page = "page=0";
-let perPage = "per_page=16";
-
-const params = [page, perPage];
-
-// Create the URL to fetch from the collegeScorecard API
-const scorecardUrl = "https://api.data.gov/ed/collegescorecard/v1/schools.json";
-const scorecardKey = "8nR6JMFPRqJzkksBe7V4aD6wITl4MOWZvcIdgL1b";
-
-const scorecardQueryParams = { scorecardUrl, fields, scorecardKey, params };
-
-const unsplashUrl = "https://api.unsplash.com/photos/";
-const unsplashKey = "8xSG2SnwEoxSOvi2MsZzpqDg4fgg8tI-8siiSI-S_QE";
-const unsplashParams = "collections=9576801&orientation=landscape&count=16";
-
-const unsplashQueryParams = { unsplashUrl, unsplashKey, unsplashParams };
+const homeButton = document.querySelector("#home-button");
+const searchButton = document.querySelector(".search__cta");
+const loadMoreButton = document.querySelector(".more__results");
 
 homeButton.addEventListener("click", () => {
   console.log("button clicked");
-  Promise.all([
-    basicScorecardQuery(scorecardQueryParams),
-    stockPhotoQuery(unsplashQueryParams),
-  ])
+});
+
+let currentPage = 0;
+
+searchButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  console.log("Search Button: Clicked");
+  makeRequest(currentPage);
+});
+
+loadMoreButton.addEventListener("click", () => {
+  currentPage += 1;
+  makeRequest(currentPage);
+});
+
+function makeRequest(currentPage) {
+  const searchValue = document.querySelector(".search__input").value;
+
+  const splitCities = searchValue.split(",");
+
+  const citySearch = splitCities.map((city) => city.replace(" ", "%20"));
+
+  // Settings for pagination (if neccessary)
+  let page = `page=${currentPage}`;
+  let perPage = `per_page=${8}`;
+  let city = `school.city=${citySearch}`;
+
+  const params = [page, perPage, city];
+
+  Promise.all([basicScorecardQuery(params), stockPhotoQuery()])
     .then((values) => {
       const [scorecards, images] = values;
       return handleScorecards(scorecards, images);
     })
-    .then((cleanedScorecardData) => displayScorecard(cleanedScorecardData))
+    .then((handledScorecards) =>
+      displayScorecard(handledScorecards, currentPage)
+    )
     .catch((err) => {
       console.log(err);
     });
-});
+}
