@@ -1,5 +1,5 @@
-import { basicScorecardQuery, stockPhotoQuery } from "./src/api";
-import { handleScorecards, displayScorecard } from "./src/utils";
+import { basicScorecardQuery, stockPhotoQuery } from "./api";
+import { handleScorecards, displayScorecard } from "./utils";
 
 const homeButton = document.querySelector("#home-button");
 const searchButton = document.querySelector(".search__cta");
