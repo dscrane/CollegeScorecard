@@ -1,4 +1,4 @@
-import { fipsStates } from "../../lib/keyValueData/fipsObject";
+import { fipsStates } from "../../lib/keyValueData";
 
 // HTML template to populate with the formatted response data from scorecard API
 export function basicScorecardTemplate(cardData) {

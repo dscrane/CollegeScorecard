@@ -1,37 +1,39 @@
 {
-  "name": "collegeScorecard",
+  "name": "collegescorecard",
   "version": "1.0.0",
-  "description": "College search app based on the Department of Education 'College Scorecard' Data set",
-  "main": "lib/script.js",
+  "description": "Simple site that returns college admission and financial data",
+  "main": "src/index.js",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "browserify": "^16.5.1",
+    "css-loader": "^3.5.3",
+    "jspm": "^2.0.0-beta.7",
+    "rollup": "^2.15.0",
+    "script-loader": "^0.7.2",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "babel-loader": "^8.1.0"
+  },
   "scripts": {
-    "test": "jest"
+    "test": "\"jest\"",
+    "babel": "babel --presets es2015 src/index.js -o build/index.bundle.js",
+    "start": "http-server",
+    "webpack": "webpack"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dscrane/collegeScorecard.git"
   },
-  "keywords": [],
-  "author": "",
+  "author": "dsc",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/dscrane/collegeScorecard/issues"
   },
-  "homepage": "https://github.com/dscrane/collegeScorecard#readme",
-  "devDependencies": {
-    "@babel/cli": "^7.10.1",
-    "@babel/core": "^7.10.2",
-    "@babel/preset-env": "^7.10.2",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-preset-env": "^1.7.0",
-    "browserify": "^16.5.1",
-    "jest": "^26.0.1",
-    "jspm": "^2.0.0-beta.7",
-    "rollup-plugin-babel": "^3.0.7",
-    "webpack": "^4.43.0"
-  },
-  "dependencies": {
-    "@babel/polyfill": "^7.10.1",
-    "axios": "^0.19.2",
-    "rollup": "^2.15.0"
-  }
+  "homepage": "https://github.com/dscrane/collegeScorecard#readme"
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-// import { unsplashKey } from "../../../ignore/keys";
+import { UNSPLASHKEY } from "../../../../documentation/ignore/keys";
 
 const unsplashUrl = "https://api.unsplash.com/photos/";
 const unsplashParams = "collections=9576801&orientation=landscape&count=16";

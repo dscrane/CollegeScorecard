@@ -1,1 +1,1 @@
-export * from "./keyValueData/fipsObject";
+export * from "./keyValueData";
