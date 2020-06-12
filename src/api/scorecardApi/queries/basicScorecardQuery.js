@@ -14,13 +14,12 @@ const fields = [
 
 // Create the URL to fetch from the collegeScorecard API
 const scorecardUrl = "https://api.data.gov/ed/collegescorecard/v1/schools.json";
-const scorecardKey = "8nR6JMFPRqJzkksBe7V4aD6wITl4MOWZvcIdgL1b";
 
 export function basicScorecardQuery(params) {
   // takes array of query parameters
   const basicScorecardRequest = `${scorecardUrl}?_fields=${fields.join()}&${params.join(
     "&"
-  )}&api_key=${scorecardKey}`;
+  )}&api_key=${SCORECARDKEY}`;
   console.log(basicScorecardRequest);
 
   const basicScorecardPromise = new Promise((resolve, reject) => {
