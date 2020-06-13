@@ -4,7 +4,7 @@ import {
   formatPercentages,
 } from "../../utils";
 
-export function handleScorecards(scorecards, images) {
+export function handleScorecards(scorecards, images, test) {
   // Clean the scorecard data
   const schoolScorecardData = cleanScorecardData(scorecards.results);
   /* console.log(schoolCardData); */
@@ -14,9 +14,11 @@ export function handleScorecards(scorecards, images) {
     scorecards.metadata.total / 8 > 1 ? scorecards.metadata.total / 8 : 0;
 
   // Image placeholders to fill out the effect of the cards
-  const imgUrls = images.map((image) => {
-    return image.urls.small;
-  });
+  const imgUrls = !test
+    ? images.data.map((image) => {
+        return image.urls.small;
+      })
+    : images;
 
   // Return an array of scorecard objects with clean values and more convinient keys
   const scorecardData = schoolScorecardData.map((data, i) => {
