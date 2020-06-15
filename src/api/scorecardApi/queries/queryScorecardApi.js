@@ -6,19 +6,20 @@ import { queryFields } from "../../../lib";
 const scorecardUrl = "https://api.data.gov/ed/collegescorecard/v1/schools.json";
 
 export function queryScorecardApi(params, query) {
-  const scorecardRequest = `${scorecardUrl}&_fields=${queryFields[
+  const scorecardRequest = `${scorecardUrl}?_fields=${queryFields[
     query
-  ].join()}&${params.join()}&api_key=${SCORECARDKEY}`;
+  ].join()}&${params.join("&")}&api_key=${SCORECARDKEY}`;
 
   const scorecardPromise = new Promise((resolve, reject) => {
     axios
       .get(scorecardRequest)
       .then((scorecardResponse) => {
-        console.log("Scorecard Promise -- Success");
+        console.log("[Scorecard Promise]: Success");
+        console.log("[Query Fields]: ", queryFields[query]);
         resolve(scorecardResponse.data);
       })
       .catch(function (error) {
-        console.log("Scorecard Promise -- Failure");
+        console.log("[Scorecard Promise]: Failure");
         reject(error.response);
       });
   });

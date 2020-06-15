@@ -1,4 +1,4 @@
-import { basicScorecardQuery, stockPhotoQuery, mockPhotos } from "./api";
+import { queryScorecardApi, stockPhotoQuery, mockPhotos } from "./api";
 import { handleScorecards, displayScorecard } from "./utils";
 
 const homeButton = document.querySelector("#home-button");
@@ -19,16 +19,18 @@ searchButton.addEventListener("click", (e) => {
   e.preventDefault();
   console.log("Search Button: Clicked");
   testRun = document.querySelector(".testRun").value;
-  makeRequest(currentPage);
+  const query = "schoolAcademics";
+  makeRequest(currentPage, query);
 });
 
 loadMoreButton.addEventListener("click", () => {
   currentPage += 1;
   testRun = document.querySelector(".testRun").value;
-  makeRequest(currentPage);
+  const query = "basicScorecard";
+  makeRequest(currentPage, query);
 });
 
-function makeRequest(currentPage) {
+function makeRequest(currentPage, query) {
   const searchValue = document.querySelector(".search__input").value;
 
   const splitCities = searchValue.split(",");
@@ -39,13 +41,15 @@ function makeRequest(currentPage) {
   let page = `page=${currentPage}`;
   let perPage = `per_page=${8}`;
   let city = `school.city=${citySearch}`;
+  let institutionType = `school.degrees_awarded.predominant=2,3`;
 
-  const params = [page, perPage, city];
+  const params = [page, perPage, city, institutionType];
 
   if (testRun === "true") {
-    Promise.all([basicScorecardQuery(params)])
+    Promise.all([queryScorecardApi(params, query)])
       .then((values) => {
         console.log("This was a test run");
+        console.log("[Response Values: ", values);
         const [scorecards] = values;
         const images = mockPhotos;
         return handleScorecards(scorecards, images, testRun);
@@ -65,7 +69,7 @@ function makeRequest(currentPage) {
         console.log(err);
       });
   } else {
-    Promise.all([basicScorecardQuery(params), stockPhotoQuery()])
+    Promise.all([queryScorecardApi(params), stockPhotoQuery()])
       .then((values) => {
         const [scorecards, images] = values;
         return handleScorecards(scorecards, images, testRun);

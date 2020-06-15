@@ -1,5 +1,5 @@
-export * from "./basicScorecardQuery";
+export * from "./queryScorecardApi";
 export * from "./schoolAcademicQuery";
 export * from "./schoolFinancialQuery";
-export * from "./schoolOverviewQuery";
+export * from "./queryScorecardApi";
 export * from "./schoolStudentLifeQuery";
