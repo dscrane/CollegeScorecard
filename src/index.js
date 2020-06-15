@@ -85,12 +85,8 @@ function makeRequest(currentPage) {
   }
 }
 
-/* 
-});
- */
-
 function handleOnClick(schoolId) {
   console.log(schoolId);
   pageModal.style.display = "flex";
-  pageModal.innerHTML = `<span>${schoolId}</span>`;
+  pageModal.innerHTML = ``;
 }
