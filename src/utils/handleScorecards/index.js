@@ -40,13 +40,13 @@ export function handleScorecards(scorecards, images, test) {
     return {
       adminRate,
       avgCost,
-      id,
-      imgUrl: imgUrls[i],
       schoolAttendance,
       schoolCity,
       schoolName,
       schoolWebsite,
       stateFips,
+      schoolId: id,
+      imgUrl: imgUrls[i],
     };
   });
 

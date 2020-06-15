@@ -3,6 +3,7 @@ import { fipsStates } from "../../lib/keyValueData";
 // HTML template to populate with the formatted response data from scorecard API
 export function basicScorecardTemplate(cardData) {
   const {
+    schoolId,
     imgUrl,
     adminRate,
     avgCost,
@@ -13,7 +14,7 @@ export function basicScorecardTemplate(cardData) {
     stateFips,
   } = cardData;
   return `
-  <div class="gallery__card-wrapper">
+  <div id=${schoolId} class="gallery__card-wrapper">
         <div class="gallery__card">
           <div class="card__section card__section-img">
             <img

@@ -293,6 +293,17 @@ input:-autofill:focus {
   width: 225px;
 }
 
+/* LARGE SCORECARD MODAL SECTION */
+.page__modal {
+  display: none;
+  position: absolute;
+  background-color: aliceblue;
+  height: 650px;
+  width: 575px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.541);
+}
+
 /* LOAD MORE BUTTON SECTION */
 .page__row-more {
   display: none;

@@ -17,14 +17,17 @@
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
+    "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
-    "babel-loader": "^8.1.0"
+    "@babel/runtime": "^7.10.2",
+    "babel-loader": "^8.1.0",
+    "babel-polyfill": "^6.26.0"
   },
   "scripts": {
     "test": "\"jest\"",
     "babel": "babel --presets es2015 src/index.js -o build/index.bundle.js",
     "start": "http-server",
-    "webpack": "webpack"
+    "webpack": "webpack --verbose=true"
   },
   "repository": {
     "type": "git",
