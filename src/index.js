@@ -4,6 +4,7 @@ import { handleScorecards, displayScorecard } from "./utils";
 const homeButton = document.querySelector("#home-button");
 const searchButton = document.querySelector(".search__cta");
 const loadMoreButton = document.querySelector(".more__results");
+const pageModal = document.querySelector(".page__modal");
 
 let testRun = "false";
 console.log(testRun);
@@ -56,8 +57,7 @@ function makeRequest(currentPage) {
         let scorecardCtas = document.querySelectorAll(".gallery__card-wrapper");
         scorecardCtas.forEach((cardCta) => {
           cardCta.addEventListener("click", function () {
-            let schoolId = this.getAttribute("id");
-            console.log(schoolId);
+            handleOnClick(this.getAttribute("id"));
           });
         });
       })
@@ -88,3 +88,9 @@ function makeRequest(currentPage) {
 /* 
 });
  */
+
+function handleOnClick(schoolId) {
+  console.log(schoolId);
+  pageModal.style.display = "flex";
+  pageModal.innerHTML = `<span>${schoolId}</span>`;
+}
