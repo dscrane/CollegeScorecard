@@ -273,22 +273,22 @@ input:-autofill:focus {
   align-items: center;
 }
 
-.content__title-facts {
+.card__content-title_facts {
   align-self: flex-start;
   flex: 1;
 }
 
-.content__data-facts {
+.card__content-data_facts {
   align-self: flex-end;
   flex: 1;
   text-align: end;
 }
 
-.content__url {
+.card__content-url {
   text-align: center;
 }
 
-.content__image {
+.card__content-image {
   height: 125px;
   width: 225px;
 }
@@ -296,12 +296,174 @@ input:-autofill:focus {
 /* LARGE SCORECARD MODAL SECTION */
 .page__modal {
   display: none;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  background-color: aliceblue;
+  background-color: rgb(204, 229, 252);
   height: 650px;
   width: 575px;
   border-radius: 5px;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.541);
+}
+
+.modal__card {
+  display: flex;
+  height: 95%;
+  width: 98%;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__card-wrapper {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.modal__section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+
+.modal__section-image {
+  flex: 0.5;
+}
+
+.modal__section-name {
+  flex: 0.5;
+}
+
+.modal__section-headings {
+  flex: 0.75;
+  align-items: stretch;
+  justify-content: stretch;
+  border-radius: 10px 10px 0 0;
+  border-width: 1px;
+  border-style: none solid none solid;
+  border-color: black;
+}
+
+.modal__section-facts {
+  flex: 8;
+  background-color: lightgray;
+  border-width: 1px;
+  border-style: none solid solid solid;
+  border-color: black;
+}
+
+.modal__content {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.modal__content-image {
+  height: 90%;
+}
+
+.modal__content-facts {
+  display: flex;
+  height: 90%;
+  width: 95%;
+}
+
+.content__title {
+  font-size: 1vw;
+}
+
+.content__heading {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 10px 10px 0 0;
+  background-color: rgba(148, 148, 148, 0.61);
+}
+
+.content__heading-left {
+  border-width: 1px;
+  border-style: solid solid solid none;
+  border-color: black;
+  border-radius: 10px 10px 0 0;
+}
+
+.content__heading-right {
+  border-width: 1px;
+  border-style: solid none solid solid;
+  border-color: black;
+  border-radius: 10px 10px 0 0;
+}
+
+.content__heading:hover {
+  cursor: pointer;
+  background-color: lightgray;
+}
+
+.content__heading-active {
+  background-color: lightgray;
+  border-bottom: none;
+  box-shadow: 3px 3px 5px 2px black;
+}
+
+.facts__wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: space-around;
+}
+
+.facts__row {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.facts__row-special {
+  flex: 3;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.facts__text-title {
+  flex: 1;
+  font-weight: 600;
+}
+
+.facts__text-content {
+  flex: 2;
+  align-items: center;
+}
+
+.special__display {
+  width: 90%;
+  height: 70%;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.facts__text-title_special {
+  font-weight: 600;
+}
+
+.special__text {
+  font-size: 0.9rem;
+  text-align: center;
+  width: 50%;
 }
 
 /* FULL SCORECARD SECTION */

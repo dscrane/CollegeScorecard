@@ -1,3 +1,5 @@
+import { fullScorecardTemplate } from "../../utils";
+
 const pageModal = document.querySelector(".page__modal");
 
 export function handleScorecardCtas() {
@@ -12,5 +14,5 @@ export function handleScorecardCtas() {
 function handleOnClick(schoolId) {
   console.log(schoolId);
   pageModal.style.display = "flex";
-  pageModal.innerHTML = `<span>${schoolId}</span>`;
+  pageModal.innerHTML = fullScorecardTemplate();
 }
