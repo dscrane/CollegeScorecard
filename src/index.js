@@ -1,10 +1,15 @@
 import { queryScorecardApi, stockPhotoQuery, mockPhotos } from "./api";
-import { handleScorecards, displayScorecard } from "./utils";
+import {
+  handleScorecards,
+  displayScorecard,
+  handleScorecardCtas,
+} from "./utils";
 
 const homeButton = document.querySelector("#home-button");
 const searchButton = document.querySelector(".search__cta");
 const loadMoreButton = document.querySelector(".more__results");
-const pageModal = document.querySelector(".page__modal");
+
+let currentPage = 0;
 
 let testRun = "false";
 console.log(testRun);
@@ -13,13 +18,11 @@ homeButton.addEventListener("click", () => {
   console.log("Home Button: Clicked");
 });
 
-let currentPage = 0;
-
 searchButton.addEventListener("click", (e) => {
   e.preventDefault();
   console.log("Search Button: Clicked");
   testRun = document.querySelector(".testRun").value;
-  const query = "schoolAcademics";
+  const query = "basicScorecard";
   makeRequest(currentPage, query);
 });
 
@@ -32,10 +35,9 @@ loadMoreButton.addEventListener("click", () => {
 
 function makeRequest(currentPage, query) {
   const searchValue = document.querySelector(".search__input").value;
-
-  const splitCities = searchValue.split(",");
-
-  const citySearch = splitCities.map((city) => city.replace(" ", "%20"));
+  const citySearch = searchValue
+    .split(",")
+    .map((city) => city.replace(" ", "%20"));
 
   // Settings for pagination (if neccessary)
   let page = `page=${currentPage}`;
@@ -58,12 +60,7 @@ function makeRequest(currentPage, query) {
         displayScorecard(handledScorecards, currentPage)
       )
       .then(() => {
-        let scorecardCtas = document.querySelectorAll(".gallery__card-wrapper");
-        scorecardCtas.forEach((cardCta) => {
-          cardCta.addEventListener("click", function () {
-            handleOnClick(this.getAttribute("id"));
-          });
-        });
+        handleScorecardCtas();
       })
       .catch((err) => {
         console.log(err);
@@ -87,10 +84,4 @@ function makeRequest(currentPage, query) {
         console.log(err);
       });
   }
-}
-
-function handleOnClick(schoolId) {
-  console.log(schoolId);
-  pageModal.style.display = "flex";
-  pageModal.innerHTML = ``;
 }
