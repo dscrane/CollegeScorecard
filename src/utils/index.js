@@ -6,3 +6,4 @@ export * from "./scorecardTemplates";
 export * from "./formatSchoolUrl";
 export * from "./handleScorecardCtas";
 export * from "./filterSpecialConciderations";
+export * from "./subSectionTemplates";

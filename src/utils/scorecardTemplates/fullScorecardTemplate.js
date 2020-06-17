@@ -1,4 +1,9 @@
-import { overviewDisplayTemplate } from "../../utils";
+import {
+  overviewDisplayTemplate,
+  academicsDisplayTemplate,
+  studentLifeDisplayTemplate,
+  financialDisplayTemplate,
+} from "../../utils";
 
 export function fullScorecardTemplate() {
   console.log(overviewDisplayTemplate);
@@ -24,11 +29,11 @@ export function fullScorecardTemplate() {
     <div class="modal__section modal__section-headings">
       <div class="modal__content modal__content-headings">
         <div
-          class="content__heading content__heading-left content__heading-active"
+          class="content__heading content__heading-left"
         >
           <span class="content__heading-text">Overview</span>
         </div>
-        <div class="content__heading">
+        <div class="content__heading  content__heading-active">
           <span class="content__heading-text">Academics</span>
         </div>
         <div class="content__heading">
@@ -42,7 +47,7 @@ export function fullScorecardTemplate() {
 
     <div class="modal__section modal__section-facts">
       <!-- Subheading display information --> 
-    ${overviewDisplayTemplate()}
+    ${academicsDisplayTemplate()}
     </div>
   </div>
 </div>

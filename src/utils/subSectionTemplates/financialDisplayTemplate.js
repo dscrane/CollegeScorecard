@@ -1,4 +1,4 @@
-export function financialTemplate() {
+export function financialDisplayTemplate() {
   return `
   Financial Section Template
   `;
