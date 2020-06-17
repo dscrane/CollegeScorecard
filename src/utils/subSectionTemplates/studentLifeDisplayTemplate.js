@@ -48,6 +48,14 @@ export function studentLifeDisplayTemplate() {
       <div class="column__row">
         <div class="view__section view__section-column">
           <div class="section__row">
+            <div class="section__item section__item-alt section__item-title">Percent Male:</div>
+            <div class="section__item section__item-alt section__item-content">60%</div>
+          </div>
+          <div class="section__row">
+            <div class="section__item section__item-alt section__item-title">Percent Female:</div>
+            <div class="section__item section__item-alt section__item-content">40%</div>
+          </div>
+          <div class="section__row">
             <div class="section__item section__item-alt section__item-title">White:</div>
             <div class="section__item section__item-alt section__item-content">60%</div>
           </div>

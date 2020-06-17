@@ -373,7 +373,7 @@ input:-autofill:focus {
   height: 90%;
 }
 
-.modal__content-facts {
+.scorecard__view {
   display: flex;
   height: 90%;
   width: 95%;
