@@ -47,7 +47,7 @@ export function fullScorecardTemplate() {
 
     <div class="modal__section modal__section-facts">
       <!-- Subheading display information --> 
-    ${academicsDisplayTemplate()}
+    ${studentLifeDisplayTemplate()}
     </div>
   </div>
 </div>

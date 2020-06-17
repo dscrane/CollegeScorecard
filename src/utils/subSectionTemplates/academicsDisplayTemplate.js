@@ -1,53 +1,53 @@
 export function academicsDisplayTemplate() {
-  return `<div class="modal__content modal__content-facts">
-  <div class="facts__wrapper">
-    <div class="facts__row">
-      <div class="facts__text facts__text-title">
+  return `<div class="scorecard__view scorecard__view-academics">
+  <div class="view__wrapper">
+    <div class="view__row">
+      <div class="view__item view__item-title">
         Admission Rate:
       </div>
-      <div class="facts__text facts__text-content">
+      <div class="view__item view__item-content">
         60%
       </div>
     </div>
-    <div class="facts__row">
-      <div class="facts__text facts__text-title">Average SAT Scores:</div>
-      <div class="facts__text facts__text-content">1850</div>
+    <div class="view__row">
+      <div class="view__item view__item-title">Average SAT Scores:</div>
+      <div class="view__item view__item-content">1850</div>
     </div>
-    <div class="facts__row">
-      <div class="facts__text facts__text-title">Average ACT Scores:</div>
-      <div class="facts__text facts__text-content">
+    <div class="view__row">
+      <div class="view__item view__item-title">Average ACT Scores:</div>
+      <div class="view__item view__item-content">
         25
       </div>
     </div>
-    <div class="facts__row">
-      <div class="facts__text facts__text-title">Retention Rate:</div>
-      <div class="facts__text facts__text-content">xx%</div>
+    <div class="view__row">
+      <div class="view__item view__item-title">Retention Rate:</div>
+      <div class="view__item view__item-content">xx%</div>
     </div>
-    <div class="facts__row">
-      <div class="facts__text facts__text-title">On-Line Only:</div>
-      <div class="facts__text facts__text-content">No</div>
+    <div class="view__row">
+      <div class="view__item view__item-title">On-Line Only:</div>
+      <div class="view__item view__item-content">No</div>
     </div>
-    <div class="facts__row">
-      <div class="facts__text facts__text-title">Completion Rate:</div>
-      <div class="facts__text facts__text-content">75%</div>
+    <div class="view__row">
+      <div class="view__item view__item-title">Completion Rate:</div>
+      <div class="view__item view__item-content">75%</div>
     </div>
-    <div class="facts__row">
-      <div class="facts__text facts__text-title">Retention Rate:</div>
-      <div class="facts__text facts__text-content">70%</div>
+    <div class="view__row">
+      <div class="view__item view__item-title">Retention Rate:</div>
+      <div class="view__item view__item-content">70%</div>
     </div>
-    <div class="facts__row">
-      <div class="facts__text facts__text-title">Transfer Rate:</div>
-      <div class="facts__text facts__text-content">20%</div>
+    <div class="view__row">
+      <div class="view__item view__item-title">Transfer Rate:</div>
+      <div class="view__item view__item-content">20%</div>
     </div>
-    <div class="facts__row facts__row-special">
-      <div class="facts__text facts__text-title_special">Popular Majors:</div>
-      <div class="special__display">
-        <div class="special__text special-content">Nursing</div>
-        <div class="special__text special-content">Computer Science</div>
-        <div class="special__text special-content">English</div>
-        <div class="special__text special-content">Teaching</div>
-        <div class="special__text special-content">Pre-Law</div>
-        <div class="special__text special-content">Engineering</div>
+    <div class="view__row view__row-section">
+      <div class="view__item view__item-section">Popular Majors:</div>
+      <div class="view__section">
+        <div class="section__item">Nursing</div>
+        <div class="section__item">Computer Science</div>
+        <div class="section__item">English</div>
+        <div class="section__item">Teaching</div>
+        <div class="section__item">Pre-Law</div>
+        <div class="section__item">Engineering</div>
       </div>
   </div>
 </div>
