@@ -4,10 +4,10 @@ export function studentLifeDisplayTemplate() {
     <div class="view__column">
       <div class="column__row">
         <div class="view__item view__item-title view__item-title_alt">
-          Admission Rate:
+          Size & Setting:
         </div>
         <div class="view__item view__item-content view__item-content_alt">
-          60%
+          Small/Rural
         </div>
       </div>
       <div class="column__row">
