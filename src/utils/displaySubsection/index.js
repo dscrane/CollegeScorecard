@@ -15,5 +15,6 @@ const sectionTabs = {
 
 export function displaySubsection(currentTab) {
   const subsectionDisplay = document.querySelector(".modal__section-facts");
+
   subsectionDisplay.innerHTML = sectionTabs[currentTab];
 }

@@ -15,7 +15,7 @@ export function queryScorecardApi(params, query) {
       .get(scorecardRequest)
       .then((scorecardResponse) => {
         console.log("[Scorecard Promise]: Success");
-        console.log("[Query Fields]: ", queryFields[query]);
+        //console.log("[Query Fields]: ", queryFields[query]);
         resolve(scorecardResponse.data);
       })
       .catch(function (error) {
