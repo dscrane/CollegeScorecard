@@ -1,4 +1,4 @@
-import { basicScorecardTemplate } from "../scorecardTemplates";
+import { basicScorecardTemplate } from "../../lib";
 
 export function displayScorecard(handledScorecards, currentPage) {
   const { scorecardData, additionalPages } = handledScorecards;
