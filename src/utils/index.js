@@ -1,4 +1,4 @@
-export * from "./handleScorecards";
+export * from "./handleResponses";
 export * from "./formatNumbers";
 export * from "./cleanScorecardData";
 export * from "./displayScorecard";
@@ -7,3 +7,4 @@ export * from "./handleScorecardCtas";
 export * from "./filterSpecialConciderations";
 export * from "./eventListeners";
 export * from "./displaySubsection";
+export * from "./handleApiResponse";

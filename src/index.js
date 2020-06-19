@@ -1,9 +1,4 @@
-import { queryScorecardApi, stockPhotoQuery, mockPhotos } from "./api";
-import {
-  handleScorecards,
-  displayScorecard,
-  handleScorecardCtas,
-} from "./utils";
+import { handleApiResponse } from "./utils/handleApiResponse";
 
 const homeButton = document.querySelector("#home-button");
 const searchButton = document.querySelector(".search__cta");
@@ -47,41 +42,5 @@ function makeRequest(currentPage, query) {
 
   const params = [page, perPage, city, institutionType];
 
-  if (testRun === "true") {
-    Promise.all([queryScorecardApi(params, query)])
-      .then((values) => {
-        console.log("This was a test run");
-        console.log("[Response Values: ", values);
-        const [scorecards] = values;
-        const images = mockPhotos;
-        return handleScorecards(scorecards, images, testRun);
-      })
-      .then((handledScorecards) =>
-        displayScorecard(handledScorecards, currentPage)
-      )
-      .then(() => {
-        handleScorecardCtas();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } else {
-    Promise.all([queryScorecardApi(params), stockPhotoQuery()])
-      .then((values) => {
-        const [scorecards, images] = values;
-        return handleScorecards(scorecards, images, testRun);
-      })
-      .then((handledScorecards) =>
-        displayScorecard(handledScorecards, currentPage)
-      )
-      .then(() => {
-        const scorecardCta = document.querySelectorAll(
-          ".gallery__card-wrapper"
-        );
-        console.log(scorecardCta);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  handleApiResponse(currentPage, params, query);
 }

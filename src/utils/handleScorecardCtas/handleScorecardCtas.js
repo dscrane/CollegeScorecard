@@ -1,4 +1,8 @@
-import { fullScorecardTemplate, overviewDisplayTemplate } from "../../lib";
+import {
+  fullScorecardTemplate,
+  handleApiResponse,
+  overviewDisplayTemplate,
+} from "../../lib";
 import { displaySubsection } from "../displaySubsection";
 
 const pageModal = document.querySelector(".page__modal");
@@ -15,6 +19,9 @@ export function handleScorecardCtas() {
 function handleOnClick(schoolId) {
   console.log(schoolId);
   pageModal.style.display = "flex";
+  const params = `id=${schoolId}`;
+  const defaultTab = "overview";
+
   pageModal.innerHTML = fullScorecardTemplate();
   displaySubsection(0);
 }

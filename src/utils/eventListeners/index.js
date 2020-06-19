@@ -10,7 +10,7 @@ document.addEventListener("click", (e) => {
     // toggle the current tab to have active style
     e.target.classList.toggle("content__heading-active");
     // pass the current tab to the display function to display correct subsection template
-    displaySubsection(e.target.dataset.tab);
+    const params = ``;
   }
 });
 
