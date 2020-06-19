@@ -1,4 +1,5 @@
 import { displaySubsection } from "../../utils";
+import { queryScorecardApi } from "../../api";
 
 // add event listener to the document for dom elements not rendered yet
 document.addEventListener("click", (e) => {

@@ -21,18 +21,19 @@ export function fullScorecardTemplate() {
     <div class="modal__section modal__section-headings">
       <div class="modal__content modal__content-headings">
         <div
+          id="overview"
           class="content__heading content__heading-left content__heading-active"
           data-tab="0"
         >
           Overview
         </div>
-        <div class="content__heading" data-tab="1">
+        <div id="academics" class="content__heading" data-tab="1">
           Academics
         </div>
-        <div class="content__heading" data-tab="2">
+        <div id="student-life" class="content__heading" data-tab="2">
           Student Life
         </div>
-        <div class="content__heading content__heading-right" data-tab="3">
+        <div id="finances" class="content__heading content__heading-right" data-tab="3">
           Finances
         </div>
       </div>

@@ -14,12 +14,12 @@ export function queryScorecardApi(params, query) {
     axios
       .get(scorecardRequest)
       .then((scorecardResponse) => {
-        console.log("[Scorecard Promise]: Success");
+        console.log(`[${queryFields[query]} Promise]: Success`);
         //console.log("[Query Fields]: ", queryFields[query]);
         resolve(scorecardResponse.data);
       })
       .catch(function (error) {
-        console.log("[Scorecard Promise]: Failure");
+        console.log(`[${queryFields[query]} Promise]: Failure`);
         reject(error.response);
       });
   });
