@@ -13,11 +13,25 @@ const sectionTabs = {
   3: financialDisplayTemplate(),
 };
 
-export function displaySubsection(currentTab) {
+export function displaySubsection(currentTab, scorecardData) {
   const subsectionDisplay = document.querySelector(".modal__section-facts");
+
   switch (currentTab) {
-    case "overview":
-      overviewDisplayTemplate();
+    case "schoolOverview":
+      subsectionDisplay.innerHTML = schoolOverviewDisplayTemplate(
+        scorecardData
+      );
+    case "schoolAcademics":
+      subsectionDisplay.innerHTML = schoolAcademicsDisplayTemplate(
+        scorecardData
+      );
+    case "schoolOverview":
+      subsectionDisplay.innerHTML = schoolStudentLifeDisplayTemplate(
+        scorecardData
+      );
+    case "schoolOverview":
+      subsectionDisplay.innerHTML = schoolFinancialDisplayTemplate(
+        scorecardData
+      );
   }
-  subsectionDisplay.innerHTML = sectionTabs[currentTab];
 }
