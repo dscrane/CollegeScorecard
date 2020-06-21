@@ -9,7 +9,7 @@ function basicScorecardTemplate(cardData) {
     schoolName,
     schoolCity,
     schoolWebsite,
-    stateFips,
+    schoolState,
   } = cardData;
   return `
   <div id=${schoolId} class="gallery__card-wrapper">
@@ -32,7 +32,7 @@ function basicScorecardTemplate(cardData) {
           <div class="card__section card__section-location">
             <div class="card__content card__content-location">
               <div class="card__content-data card__content-data_location">
-                ${schoolCity}, ${fipsStates[stateFips]}
+                ${schoolCity}, ${schoolState}
               </div>
             </div>
           </div>
@@ -70,8 +70,16 @@ function basicScorecardTemplate(cardData) {
 `;
 }
 
-function fullScorecardTemplate(schoolId, schoolName, overviewSubsectionData) {
-  return `<div id=${schoolId} class="modal__card">
+function fullScorecardTemplate(scorecardDisplay) {
+  const {
+    schoolId,
+    schoolName,
+    imgUrl,
+    defaultSubsectionDisplay,
+  } = scorecardDisplay;
+  return `
+  <i class="material-icons md-light material__icon-close">close</i>
+  <div id=${schoolId} class="modal__card">
   <div class="modal__card-wrapper">
     <div class="modal__section modal__section-name">
       <div class="modal__content modal__content-name">
@@ -85,7 +93,7 @@ function fullScorecardTemplate(schoolId, schoolName, overviewSubsectionData) {
       <div class="modal__content modal__content-image">
         <img
           class="content__image"
-          src=https://images.unsplash.com/photo-1561525985-654e6a2fa04a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjEzODE1Nn0
+          src=${imgUrl}
         />
       </div>
     </div>
@@ -93,19 +101,19 @@ function fullScorecardTemplate(schoolId, schoolName, overviewSubsectionData) {
     <div class="modal__section modal__section-headings">
       <div class="modal__content modal__content-headings">
         <div
-          id="overview"
+          id="schoolOverview"
           class="content__heading content__heading-left content__heading-active"
           data-tab="0"
         >
           Overview
         </div>
-        <div id="academics" class="content__heading" data-tab="1">
+        <div id="schoolAcademics" class="content__heading" data-tab="1">
           Academics
         </div>
-        <div id="student-life" class="content__heading" data-tab="2">
+        <div id="schoolStudentLife" class="content__heading" data-tab="2">
           Student Life
         </div>
-        <div id="finances" class="content__heading content__heading-right" data-tab="3">
+        <div id="schoolFinances" class="content__heading content__heading-right" data-tab="3">
           Finances
         </div>
       </div>
@@ -113,7 +121,7 @@ function fullScorecardTemplate(schoolId, schoolName, overviewSubsectionData) {
 
     <div class="modal__section modal__section-facts">
       <!-- Subheading display information --> 
-      ${overviewSubsectionData}
+      ${defaultSubsectionDisplay}
     </div>
   </div>
 </div>
@@ -126,8 +134,7 @@ function fullScorecardTemplate(schoolId, schoolName, overviewSubsectionData) {
 //
 // SUBSECTION TEMPLATES
 
-function schoolOverviewDisplayTemplate(overviewData, specialConcideratioins) {
-  console.log(overviewData, specialConcideratioins);
+function schoolOverviewDisplayTemplate(overviewSubsection) {
   const {
     schoolCity,
     schoolOwnership,
@@ -135,8 +142,12 @@ function schoolOverviewDisplayTemplate(overviewData, specialConcideratioins) {
     schoolState,
     schoolType,
     schoolWebsite,
+    schoolDegreesAwarded,
+    schoolBranches,
+    schoolMainCampus,
     schoolSpecialConciderations,
-  } = overviewData;
+  } = overviewSubsection;
+
   return `
   <div class="scorecard__view scorecard__view-overview">
     <div class="view__wrapper">
@@ -145,12 +156,12 @@ function schoolOverviewDisplayTemplate(overviewData, specialConcideratioins) {
           Location:
         </div>
         <div class="view__item view__item-content">
-          ${schoolCity}, ${fipsStates[schoolState]}
+          ${schoolCity}, ${schoolState}
         </div>
       </div>
       <div class="view__row">
         <div class="view__item view__item-title">Branches:</div>
-        <div class="view__item view__item-content">3 -- Main Branch</div>
+        <div class="view__item view__item-content">${schoolBranches} ${schoolMainCampus}</div>
       </div>
       <div class="view__row">
         <div class="view__item view__item-title">School Type:</div>
@@ -160,7 +171,7 @@ function schoolOverviewDisplayTemplate(overviewData, specialConcideratioins) {
       </div>
       <div class="view__row">
         <div class="view__item view__item-title">Degrees Awarded:</div>
-        <div class="view__item view__item-content">Associate's, Bachelor's and Graduate Degrees</div>
+        <div class="view__item view__item-content">${schoolDegreesAwarded}</div>
       </div>
       <div class="view__row">
         <div class="view__item view__item-title">Religious Affiliation:</div>
@@ -175,7 +186,7 @@ function schoolOverviewDisplayTemplate(overviewData, specialConcideratioins) {
       <div class="view__row view__row-section">
         <div class="view__item view__item-section">Special Conciderations:</div>
         <div class="view__section">
-          ${specialConcideratioins}
+          ${schoolSpecialConciderations}
         </div>
       </div>
     </div>
@@ -200,13 +211,7 @@ function schoolAcademicsDisplayTemplate(/* academicsData */) {
     </div>
     <div class="view__row">
       <div class="view__item view__item-title">Average ACT Scores:</div>
-      <div class="view__item view__item-content">
-        25
-      </div>
-    </div>
-    <div class="view__row">
-      <div class="view__item view__item-title">Retention Rate:</div>
-      <div class="view__item view__item-content">xx%</div>
+      <div class="view__item view__item-content">25</div>
     </div>
     <div class="view__row">
       <div class="view__item view__item-title">On-Line Only:</div>
@@ -227,7 +232,7 @@ function schoolAcademicsDisplayTemplate(/* academicsData */) {
     <div class="view__row view__row-section">
       <div class="view__item view__item-section">Popular Majors:</div>
       <div class="view__section">
-        <div class="section__item">Nursing</div>
+        
         <div class="section__item">Computer Science</div>
         <div class="section__item">English</div>
         <div class="section__item">Teaching</div>
@@ -266,20 +271,16 @@ function schoolStudentLifeDisplayTemplate(/* studentLifeData */) {
         <div class="view__item view__item-content view__item-content_alt">xx%</div>
       </div>
       <div class="column__row">
-        <div class="view__item view__item-title view__item-title_alt">On-Line Only:</div>
-        <div class="view__item view__item-content view__item-content_alt">No</div>
-      </div>
-      <div class="column__row">
         <div class="view__item view__item-title view__item-title_alt">Completion Rate:</div>
         <div class="view__item view__item-content view__item-content_alt">75%</div>
       </div>
       <div class="column__row">
-        <div class="view__item view__item-title view__item-title_alt">Retention Rate:</div>
-        <div class="view__item view__item-content view__item-content_alt">70%</div>
-      </div>
-      <div class="column__row">
         <div class="view__item view__item-title view__item-title_alt">Transfer Rate:</div>
         <div class="view__item view__item-content view__item-content_alt">20%</div>
+      </div>
+      <div class="column__row">
+        <div class="view__item view__item-title view__item-title_alt">On-Line Only:</div>
+        <div class="view__item view__item-content view__item-content_alt">No</div>
       </div>
     </div>
     <div class="view__column view__column-section">
@@ -383,6 +384,26 @@ function schoolFinancialDisplayTemplate(/* financialData */) {
 //
 // KEY VALUE DATA
 
+const prodominantDegreesAwarded = {
+  0: "Not Classified",
+  1: "Predominantly Certificate Degree",
+  2: "Predominantly Associate's Degree",
+  3: "Predominantly Bachelor's Degree",
+  4: "Entirely Graduate Degree",
+};
+
+const schoolOwnershipCodes = {
+  1: "Public",
+  2: "Private: non-profit",
+  3: "Private: for-profit",
+};
+
+const schoolCharacteristicCodes = {
+  1: "4-year",
+  2: "2-year",
+  3: "Less-than-2-year",
+};
+
 const carnegieClassification = {
   "-2": "Not applicable",
   0: "(Not classified)",
@@ -485,6 +506,10 @@ const queryFields = {
     "school.state_fips",
     "school.city",
     "school.ownership",
+    "school.branches",
+    "school.main_campus",
+    "school.religious_affiliation",
+    "school.degrees_awarded.predominant",
     "school.institutional_characteristics.level",
     "school.minority_serving.historically_black",
     "school.minority_serving.predominantly_black",
@@ -492,6 +517,9 @@ const queryFields = {
     "school.minority_serving.tribal",
     "school.minority_serving.hispanic",
     "school.minority_serving.nant",
+    "school.minority_serving.aanipi",
+    "school.men_only",
+    "school.women_only",
   ],
   schoolOverview: [
     "id",
@@ -499,6 +527,10 @@ const queryFields = {
     "school.state_fips",
     "school.city",
     "school.ownership",
+    "school.branches",
+    "school.main_campus",
+    "school.religious_affiliation",
+    "school.degrees_awarded.predominant",
     "school.institutional_characteristics.level",
     "school.minority_serving.historically_black",
     "school.minority_serving.predominantly_black",
@@ -506,10 +538,12 @@ const queryFields = {
     "school.minority_serving.tribal",
     "school.minority_serving.hispanic",
     "school.minority_serving.nant",
+    "school.minority_serving.aanipi",
+    "school.men_only",
+    "school.women_only",
   ],
   schoolAcademics: [
     "id",
-    "school.name",
     "latest.admissions.admission_rate.overall",
     "latest.admissions.sat_scores.average.overall",
     "latest.admissions.act_scores.midpoint.cumulative",
@@ -725,12 +759,11 @@ const mockPhotos = [
 //
 //
 // INDEX.JS SCRIPT
+let currentPage = 0;
 
 const homeButton = document.querySelector("#home-button");
 const searchButton = document.querySelector(".search__cta");
 const loadMoreButton = document.querySelector(".more__results");
-
-let currentPage = 0;
 
 homeButton.addEventListener("click", () => {
   console.log("Home Button: Clicked");
@@ -738,32 +771,49 @@ homeButton.addEventListener("click", () => {
 
 searchButton.addEventListener("click", (e) => {
   e.preventDefault();
-  console.log("Search Button: Clicked");
-  const query = "basicScorecard";
-  handleResponseDisplay(query, currentPage, true);
+  console.log("[Search Button]: Clicked");
+  basicSearchEventListeners(currentPage);
 });
 
 loadMoreButton.addEventListener("click", () => {
   currentPage += 1;
-  const query = "basicScorecard";
-  handleResponseDisplay(query, currentPage, true);
+  console.log("[Load More Button]: Clicked");
+  basicSearchEventListeners(currentPage);
+});
+
+document.addEventListener("click", (e) => {
+  console.log(e.target);
+  if (checkClass(e.target, "material__icon-close")) {
+    console.log("close clicked");
+    document.querySelector(".page__modal").style.display = "none";
+  }
 });
 
 // END INDEX.JS SCRIPT
 //
 //
 //
+// BASIC SEARCH EVENT LISTENERS
+
+function basicSearchEventListeners(currentPage) {
+  const query = "basicScorecard";
+  const specs = { query, currentPage, isBasicQuery: true };
+  handleResponseDisplay(specs);
+}
+
+// END BASIC SEARCH EVENT LISTENERS
+//
+//
+//
 // GENERATE REQUEST
 
-function generateScorecardQureyString(
-  query,
-  currentPage = null,
-  isBasicQuery,
-  schoolId = null
-) {
+function generateScorecardQureyString(querySpecs) {
+  const { query, currentPage, isBasicQuery, schoolId } = querySpecs;
+
   const scorecardUrl =
     "https://api.data.gov/ed/collegescorecard/v1/schools.json";
   const SCORECARDKEY = "8nR6JMFPRqJzkksBe7V4aD6wITl4MOWZvcIdgL1b";
+  let apiKey = `api_key=${SCORECARDKEY}`;
   let params = "";
   let fields = `_fields=${queryFields[query].join()}`;
   if (isBasicQuery) {
@@ -777,16 +827,14 @@ function generateScorecardQureyString(
     let perPage = `per_page=${8}`;
     let searchParameter = `school.city=${citySearch}`;
     let institutionType = `school.degrees_awarded.predominant=2,3`;
-    let apiKey = `api_key=${SCORECARDKEY}`;
 
     params = `${fields}&${searchParameter}&${page}&${perPage}&${institutionType}&${apiKey}`;
   } else {
     let searchParameter = `id=${schoolId}`;
-    params = `${fields}&${searchParameter}&${SCORECARDKEY}`;
+    params = `${fields}&${searchParameter}&${apiKey}`;
   }
 
   const queryString = `${scorecardUrl}?${params}`;
-  console.log(queryString);
   return queryString;
   // handleApiRequest(query, params, fields, currentPage);
 }
@@ -808,26 +856,34 @@ async function makeScorecardApiRequest(queryString) {
 //
 // HANDLE SCORECARD DISPLAY
 
-function handleResponseDisplay(
-  query,
-  currentPage,
-  isBasicQuery,
-  querySpecificData = null
-) {
-  const queryString = generateScorecardQureyString(
-    query,
-    currentPage,
-    isBasicQuery
-  );
+function handleResponseDisplay(specs) {
+  const { query, currentPage, isBasicQuery, imgUrl, schoolId } = specs;
+  console.log("[Specs]: ", query, currentPage, isBasicQuery, imgUrl, schoolId);
   if (isBasicQuery) {
+    const querySpecs = { query, currentPage, isBasicQuery };
+    const queryString = generateScorecardQureyString(querySpecs);
+    console.log("[isBasic queryString]: ", queryString);
     makeScorecardApiRequest(queryString).then((response) =>
       handleBasicScorecard(response, currentPage)
     );
-  } else {
-    makeScorecardApiRequest(queryString).then((response) =>
-      handleModalScorecard(response, query, querySpecificData)
-    );
+    return;
   }
+  if (query === "defaultQuery") {
+    const querySpecs = { query, schoolId };
+    const queryString = generateScorecardQureyString(querySpecs);
+    console.log("[!isBasic queryString]: ", queryString);
+
+    makeScorecardApiRequest(queryString).then((response) =>
+      handleModalScorecard(response, query, imgUrl)
+    );
+    return;
+  }
+
+  const querySpecs = { query, schoolId };
+  const queryString = generateScorecardQureyString(querySpecs);
+  makeScorecardApiRequest(queryString).then((response) => {
+    handleSubsectionData(response, query);
+  });
 }
 
 // END HANDLE SCORECARD DISPLAY
@@ -857,10 +913,11 @@ function handleBasicScorecard(response, currentPage) {
 // HANDLE MODAL SCORECARD
 
 function handleModalScorecard(response, query, imgUrl) {
-  const cleanModalResponse = cleanResponseData(response.data.results);
+  const cleanModalResponse = cleanResponseData(response.data.results[0]);
   console.log("[cleanModalResponse]: ", cleanModalResponse);
 
   const modalScorecard = handleModalScorecardData(cleanModalResponse, imgUrl);
+  console.log("[modalScorecard]: ", modalScorecard);
   displayModalScorecard(modalScorecard, query);
 }
 
@@ -886,7 +943,7 @@ function handleBasicScorecardData(basicResponseData, images, responseMetadata) {
       "school.name": schoolName,
       "school.city": schoolCity,
       "school.school_url": schoolWebsite,
-      "school.state_fips": stateFips,
+      "school.state_fips": schoolStateId,
       "latest.cost.attendance.academic_year": costPerYear,
     } = data;
 
@@ -901,7 +958,7 @@ function handleBasicScorecardData(basicResponseData, images, responseMetadata) {
       schoolCity,
       schoolName,
       schoolWebsite,
-      stateFips,
+      schoolState: fipsStates[schoolStateId],
       schoolId: id,
       imgUrl: imgUrls[i],
     };
@@ -918,7 +975,7 @@ function handleBasicScorecardData(basicResponseData, images, responseMetadata) {
 
 function handleModalScorecardData(modalResponseData, imgUrl) {
   const {
-    id,
+    id: schoolId,
     "school.name": schoolName,
     ...overviewSubsectionData
   } = modalResponseData;
@@ -927,11 +984,12 @@ function handleModalScorecardData(modalResponseData, imgUrl) {
     overviewSubsectionData,
     "schoolOverview"
   );
+
   return {
     schoolName,
     imgUrl,
     overviewSubsection,
-    schoolId: id,
+    schoolId,
   };
 }
 
@@ -945,25 +1003,71 @@ function handleSubsectionData(subsectionResponse, query) {
   if (query === "schoolOverview") {
     const {
       "school.school_url": schoolWebsite,
-      "school.state_fips": schoolState,
+      "school.state_fips": schoolStateId,
       "school.city": schoolCity,
-      "school.ownership": schoolOwnership,
+      "school.branches": schoolBranches,
+      "school.main_campus": schoolMainCampusCode,
+      "school.ownership": schoolOwnershipCode,
       "school.religious_affiliation": schoolReligion,
-      "school.institutional_characteristics.level": schoolType,
+      "school.degrees_awarded.predominant_recoded": degreesAwardedCode,
+      "school.institutional_characteristics.level": schoolCharacteristicCode,
       ...minorityServing
     } = subsectionResponse;
 
-    const specialConciderations = filterSpecialConciderations(minorityServing);
+    const schoolSpecialConciderations = filterSpecialConciderations(
+      minorityServing
+    );
 
     return {
       schoolWebsite,
-      schoolState,
       schoolCity,
-      schoolOwnership,
+      schoolOwnership: schoolOwnershipCodes[schoolOwnershipCode],
+      schoolBranches,
+      schoolMainCampus: schoolMainCampusCode ? "-- Main Campus" : "",
       schoolReligion,
-      schoolType,
-      specialConciderations,
+      schoolType: schoolCharacteristicCodes[schoolCharacteristicCode],
+      schoolDegreesAwarded: prodominantDegreesAwarded[degreesAwardedCode],
+      schoolSpecialConciderations,
+      schoolState: fipsStates[schoolStateId],
     };
+  }
+
+  if (query === "schoolAcademics") {
+    const {
+      "latest.admissions.admission_rate.overall": schoolAdmissionRate,
+      "latest.admissions.sat_scores.average.overall": schoolAverageSAT,
+      "latest.admissions.act_scores.midpoint.cumulative": schoolAverageACT,
+      "school.accreditor": schoolAccreditor,
+      "latest.student.retention_rate.four_year.full_time_pooled": schoolRetentionRate,
+      "completion.completion_rate_4yr_150nt": schoolCompletionRate,
+      "completion.transfer_rate.4yr.full_time": schoolTransferRate,
+      "school.online_only": schoolOnlineOnly,
+      ...schoolMajors
+    } = subsectionResponse;
+
+    const schoolPopularMajors = calculatePopularMajors(schoolMajors);
+
+    return {
+      schoolAdmissionRate,
+      schoolAverageACT,
+      schoolAverageSAT,
+      schoolAccreditor,
+      schoolRetentionRate,
+      schoolTransferRate,
+      schoolCompletionRate,
+      schoolOnlineOnly,
+      schoolPopularMajors,
+    };
+  }
+  if (query === "schoolStudentLife") {
+    const {} = subsectionResponse;
+
+    return {};
+  }
+  if (query === "schoolFinance") {
+    const {} = subsectionResponse;
+
+    return {};
   }
 }
 
@@ -977,17 +1081,16 @@ function handleScorecardCtas() {
   let scorecardCtas = document.querySelectorAll(".gallery__card-wrapper");
   scorecardCtas.forEach((cardCta) => {
     cardCta.addEventListener("click", function () {
-      const imgUrl = this;
-      console.log(imgUrl);
+      const imgUrl = this.children[0].firstElementChild.firstElementChild.src;
       handleOnClick(this.getAttribute("id"), imgUrl);
     });
   });
 }
 
 function handleOnClick(schoolId, imgUrl) {
-  const params = schoolId;
   const query = "defaultQuery";
-  handleResponseDisplay(query, params, false, imgUrl);
+  const specs = { query, schoolId, imgUrl, isBasic: false };
+  handleResponseDisplay(specs);
 }
 
 // END SCORECARD CTA SECTION
@@ -1005,7 +1108,6 @@ function displayScorecard(handledScorecards, currentPage) {
     document.querySelector("#page__row-more_id").style.display = "flex";
   }
 
-  console.log(scorecardData);
   const gallery = document.querySelector(".page__row-gallery");
   scorecardData.forEach((card) => {
     gallery.innerHTML = gallery.innerHTML + basicScorecardTemplate(card);
@@ -1019,9 +1121,7 @@ function displayScorecard(handledScorecards, currentPage) {
 // DISPLAY MODAL SCORECARD
 
 function displayModalScorecard(defaultModalData) {
-  const [schoolId, schoolName, imgUrl, overviewSubsection] = defaultModalData;
-  console.log(overviewSubsectionData);
-  console.log(schoolId, schoolName, imgUrl);
+  const { schoolId, schoolName, imgUrl, overviewSubsection } = defaultModalData;
   const pageModal = document.querySelector(".page__modal");
   pageModal.style.display = "flex";
 
@@ -1029,14 +1129,22 @@ function displayModalScorecard(defaultModalData) {
     overviewSubsection
   );
 
-  pageModal.innerHTML = fullScorecardTemplate(
+  const scorecardDisplay = {
     schoolName,
     schoolId,
-    defaultSubsectionDisplay
-  );
+    imgUrl,
+    defaultSubsectionDisplay,
+  };
+  pageModal.innerHTML = fullScorecardTemplate(scorecardDisplay);
 }
 
 // END DISPLAY MODAL SCORECARD
+//
+//
+//
+// DISPLAY MODAL SUBSECTIONS
+
+// END DISPLAY MODAL SUBSECTIONS
 //
 //
 //
@@ -1051,8 +1159,13 @@ document.addEventListener("click", (e) => {
     // toggle the current tab to have active style
     e.target.classList.toggle("content__heading-active");
     // pass the current tab to the display function to display correct subsection template
-    console.log(e.target.id);
-    const params = ``;
+    const query = e.target.id;
+    const schoolId = e.target.parentNode.parentNode.parentNode.parentNode.getAttribute(
+      "id"
+    );
+    console.log(schoolId);
+    const specs = { query, schoolId, isBasicQuery: false };
+    handleResponseDisplay(specs);
   }
 });
 
@@ -1111,17 +1224,27 @@ function displaySubsection(currentTab, scorecardData) {
 //
 // CLEAN SCORECARD DATA
 
-function cleanResponseData(scorecards) {
-  // Return an array of cleaned scorecard objects
-  return scorecards.map((card) => {
+function cleanResponseData(responseData) {
+  if (responseData.length > 1) {
+    // Return an array of cleaned scorecard objects
+    return responseData.map((card) => {
+      let schoolScorecard = {};
+      // Iterate over the data from each school to reformat null values to display 'undisclosed'
+      Object.keys(card).forEach((key) => {
+        schoolScorecard[key] = card[key] === null ? "Undisclosed" : card[key];
+      });
+
+      return schoolScorecard;
+    });
+  } else {
     let schoolScorecard = {};
     // Iterate over the data from each school to reformat null values to display 'undisclosed'
-    Object.keys(card).forEach((key) => {
-      schoolScorecard[key] = card[key] === null ? "Undisclosed" : card[key];
+    Object.keys(responseData).forEach((key) => {
+      schoolScorecard[key] =
+        responseData[key] === null ? "Undisclosed" : responseData[key];
     });
-
     return schoolScorecard;
-  });
+  }
 }
 
 // END CLEAN SCORECARD DATA
@@ -1187,34 +1310,49 @@ function formatSchoolUrl(website) {
 //
 // FILTER SPECIAL CONCIDERATIONS
 
-function filterSpecialConciderations(schoolData) {
-  const categories = [
-    "Asian American or Native American or Pacific Islander Serving Institurion",
-    "Alaska Native or Native Hawaiian Serving Institution",
-    "Historically Black Instituion",
-    "Male Only Institution",
-    "Native American (non-tribal) Institution",
-    "Predominantly Black Instituion",
-    "Tribal College or University",
-    "Women's Only Institution",
-  ];
+function filterSpecialConciderations(schoolConciderations) {
+  console.log(schoolConciderations);
+  const categories = {
+    "school.minority_serving.aanipi":
+      "Asian American or Native American or Pacific Islander Serving Institurion",
+    "school.minority_serving.annh":
+      "Alaska Native or Native Hawaiian Serving Institution",
+    "school.minority_serving.historically_black":
+      "Historically Black Instituion",
+    "school.minority_serving.nant": "Native American (non-tribal) Institution",
+    "school.minority_serving.predominantly_black":
+      "Predominantly Black Instituion",
+    "school.minority_serving.tribal": "Tribal College or University",
+    "school.men_only": "Men's Only Institution",
+    "school.women_only": "Women's Only Institution",
+    "school.minority_serving.hispanic": "Hispanic Serving Institution",
+  };
 
-  const specialConcideratioins = Object.keys(schoolData).map((key) => {
-    if (schoolData[key] !== 0) {
-      return `<div class="section__item">${categories[key]}</div>`;
-    }
-  });
-  if (specialConcideratioins.length > 0) {
-    specialConcideratioins;
+  const filteredCondiderations = Object.keys(schoolConciderations).filter(
+    (key) => schoolConciderations[key] !== 0
+  );
+
+  console.log(filteredCondiderations);
+  if (filteredCondiderations.length > 0) {
+    specialConciderations = filteredCondiderations.map((concideration) => {
+      return `<div class='section__item'>${categories[concideration]}</div>`;
+    });
   } else {
-    return "<div class='section__item'>No Specific Special Conciderations</div>";
+    specialConciderations =
+      "<div class='section__item'>No Specific Special Conciderations</div>";
   }
+
+  return specialConciderations;
 }
 
 // END FILTER SPECIAL CONCIDERATIONS
 //
 //
 //
-//
+// CALCULATE POPULAR MAJORS
 
-// END
+function calculatePopularMajors(schoolMajors) {
+  `<div class="section__item"></div>`;
+}
+
+// END CALCULATE POPULAR MAJORS

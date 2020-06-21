@@ -130,7 +130,7 @@
   flex: 0.5;
 }
 
-.material__icon {
+.material__icon-search {
   text-align: center;
   font-size: 36px !important;
 }
@@ -318,6 +318,17 @@ input:-autofill:focus {
   width: 98%;
   align-items: center;
   justify-content: center;
+}
+
+.material__icon-close {
+  font-size: 3.2vmin !important;
+  position: absolute;
+  top: 1.5%;
+  left: 92%;
+}
+
+.material__icon-close:hover {
+  cursor: pointer;
 }
 
 .modal__card-wrapper {
