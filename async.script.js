@@ -194,7 +194,19 @@ function schoolOverviewDisplayTemplate(overviewSubsection) {
 `;
 }
 
-function schoolAcademicsDisplayTemplate(/* academicsData */) {
+function schoolAcademicsDisplayTemplate(academicSubsection) {
+  const {
+    schoolAdmissionRate,
+    schoolAverageACT,
+    schoolAverageSAT,
+    schoolAccreditor,
+    schoolRetentionRate,
+    schoolTransferRate,
+    schoolCompletionRate,
+    schoolOnlineOnly,
+    schoolPopularMajors,
+  } = academicSubsection;
+
   return `<div class="scorecard__view scorecard__view-academics">
   <div class="view__wrapper">
     <div class="view__row">
@@ -202,42 +214,37 @@ function schoolAcademicsDisplayTemplate(/* academicsData */) {
         Admission Rate:
       </div>
       <div class="view__item view__item-content">
-        60%
+        ${schoolAdmissionRate}
       </div>
     </div>
     <div class="view__row">
       <div class="view__item view__item-title">Average SAT Scores:</div>
-      <div class="view__item view__item-content">1850</div>
+      <div class="view__item view__item-content">${schoolAverageSAT}</div>
     </div>
     <div class="view__row">
       <div class="view__item view__item-title">Average ACT Scores:</div>
-      <div class="view__item view__item-content">25</div>
+      <div class="view__item view__item-content">${schoolAverageACT}</div>
     </div>
     <div class="view__row">
       <div class="view__item view__item-title">On-Line Only:</div>
-      <div class="view__item view__item-content">No</div>
+      <div class="view__item view__item-content">${schoolOnlineOnly}</div>
     </div>
     <div class="view__row">
       <div class="view__item view__item-title">Completion Rate:</div>
-      <div class="view__item view__item-content">75%</div>
+      <div class="view__item view__item-content">${schoolCompletionRate}</div>
     </div>
     <div class="view__row">
       <div class="view__item view__item-title">Retention Rate:</div>
-      <div class="view__item view__item-content">70%</div>
+      <div class="view__item view__item-content">${schoolRetentionRate}</div>
     </div>
     <div class="view__row">
       <div class="view__item view__item-title">Transfer Rate:</div>
-      <div class="view__item view__item-content">20%</div>
+      <div class="view__item view__item-content">${schoolTransferRate}</div>
     </div>
     <div class="view__row view__row-section">
       <div class="view__item view__item-section">Popular Majors:</div>
       <div class="view__section">
-        
-        <div class="section__item">Computer Science</div>
-        <div class="section__item">English</div>
-        <div class="section__item">Teaching</div>
-        <div class="section__item">Pre-Law</div>
-        <div class="section__item">Engineering</div>
+        ${schoolPopularMajors}
       </div>
   </div>
 </div>
@@ -495,7 +502,7 @@ const queryFields = {
     "school.school_url",
     "school.state_fips",
     "school.city",
-    "latest.student.enrollment.all",
+    "latest.student.size",
     "latest.admissions.admission_rate.overall",
     "latest.cost.attendance.academic_year",
   ],
@@ -522,7 +529,6 @@ const queryFields = {
     "school.women_only",
   ],
   schoolOverview: [
-    "id",
     "school.school_url",
     "school.state_fips",
     "school.city",
@@ -543,11 +549,12 @@ const queryFields = {
     "school.women_only",
   ],
   schoolAcademics: [
-    "id",
+    "school.accreditor",
     "latest.admissions.admission_rate.overall",
     "latest.admissions.sat_scores.average.overall",
     "latest.admissions.act_scores.midpoint.cumulative",
-    "school.accreditor",
+    "latest.completion.completion_rate_4yr_100nt",
+    "latest.completion.transfer_rate.4yr.full_time",
     "latest.student.retention_rate.four_year.full_time_pooled",
     "latest.academics.program_percentage.agriculture",
     "latest.academics.program_percentage.resources",
@@ -588,8 +595,6 @@ const queryFields = {
     "latest.academics.program_percentage.business_marketing",
   ],
   schoolStudentLife: [
-    "id",
-    "school.name",
     "student.demographics.race_ethnicity.white",
     "student.demographics.race_ethnicity.black",
     "student.demographics.race_ethnicity.hispanic",
@@ -602,8 +607,6 @@ const queryFields = {
     "school.carnegie_size_setting",
   ],
   schoolFinancial: [
-    "id",
-    "school.name",
     "cost.tuition.in_state",
     "cost.tuition.out_of_state",
     "cost.attendance.academic_year",
@@ -771,6 +774,7 @@ homeButton.addEventListener("click", () => {
 
 searchButton.addEventListener("click", (e) => {
   e.preventDefault();
+  document.querySelector(".page__row-gallery").innerHTML = "";
   console.log("[Search Button]: Clicked");
   basicSearchEventListeners(currentPage);
 });
@@ -782,9 +786,7 @@ loadMoreButton.addEventListener("click", () => {
 });
 
 document.addEventListener("click", (e) => {
-  console.log(e.target);
   if (checkClass(e.target, "material__icon-close")) {
-    console.log("close clicked");
     document.querySelector(".page__modal").style.display = "none";
   }
 });
@@ -882,7 +884,7 @@ function handleResponseDisplay(specs) {
   const querySpecs = { query, schoolId };
   const queryString = generateScorecardQureyString(querySpecs);
   makeScorecardApiRequest(queryString).then((response) => {
-    handleSubsectionData(response, query);
+    handleModalSubsection(response, query);
   });
 }
 
@@ -925,6 +927,21 @@ function handleModalScorecard(response, query, imgUrl) {
 //
 //
 //
+// HANDLE MODAL SUBSECTIONS
+
+function handleModalSubsection(response, query) {
+  const cleanSubsectionResponse = cleanResponseData(response.data.results[0]);
+  console.log("[cleanSubsectionResponse]: ", cleanSubsectionResponse);
+
+  const subsectionData = handleSubsectionData(cleanSubsectionResponse, query);
+  console.log("[subsectionData]: ", subsectionData);
+  displayModalSubsection(subsectionData, query);
+}
+
+// END HANDLE SUBSECTIONS
+//
+//
+//
 // HANDLE SCORECARD RESPONSES
 
 function handleBasicScorecardData(basicResponseData, images, responseMetadata) {
@@ -939,7 +956,7 @@ function handleBasicScorecardData(basicResponseData, images, responseMetadata) {
     const {
       id,
       "latest.admissions.admission_rate.overall": rateOfAdmission,
-      "latest.student.enrollment.all": schoolAttendance,
+      "latest.student.size": studentSize,
       "school.name": schoolName,
       "school.city": schoolCity,
       "school.school_url": schoolWebsite,
@@ -950,6 +967,7 @@ function handleBasicScorecardData(basicResponseData, images, responseMetadata) {
     // Convert the formatting of the dollar and percent values
     let avgCost = formatDollarAmounts(costPerYear);
     let adminRate = formatPercentages(rateOfAdmission);
+    let schoolAttendance = formatNumericValues(studentSize);
 
     return {
       adminRate,
@@ -1009,7 +1027,7 @@ function handleSubsectionData(subsectionResponse, query) {
       "school.main_campus": schoolMainCampusCode,
       "school.ownership": schoolOwnershipCode,
       "school.religious_affiliation": schoolReligion,
-      "school.degrees_awarded.predominant_recoded": degreesAwardedCode,
+      "school.degrees_awarded.predominant": degreesAwardedCode,
       "school.institutional_characteristics.level": schoolCharacteristicCode,
       ...minorityServing
     } = subsectionResponse;
@@ -1034,18 +1052,25 @@ function handleSubsectionData(subsectionResponse, query) {
 
   if (query === "schoolAcademics") {
     const {
-      "latest.admissions.admission_rate.overall": schoolAdmissionRate,
+      "latest.admissions.admission_rate.overall": schoolAdmission,
       "latest.admissions.sat_scores.average.overall": schoolAverageSAT,
       "latest.admissions.act_scores.midpoint.cumulative": schoolAverageACT,
       "school.accreditor": schoolAccreditor,
-      "latest.student.retention_rate.four_year.full_time_pooled": schoolRetentionRate,
-      "completion.completion_rate_4yr_150nt": schoolCompletionRate,
-      "completion.transfer_rate.4yr.full_time": schoolTransferRate,
+      "latest.student.retention_rate.four_year.full_time_pooled": schoolRetention,
+      "latest.completion.completion_rate_4yr_100nt": schoolCompletion,
+      "latest.completion.transfer_rate.4yr.full_time": schoolTransfer,
       "school.online_only": schoolOnlineOnly,
       ...schoolMajors
     } = subsectionResponse;
 
+    console.log(schoolMajors);
+
     const schoolPopularMajors = calculatePopularMajors(schoolMajors);
+
+    const schoolRetentionRate = formatPercentages(schoolRetention);
+    const schoolCompletionRate = formatPercentages(schoolCompletion);
+    const schoolTransferRate = formatPercentages(schoolTransfer);
+    const schoolAdmissionRate = formatPercentages(schoolAdmission);
 
     return {
       schoolAdmissionRate,
@@ -1059,6 +1084,7 @@ function handleSubsectionData(subsectionResponse, query) {
       schoolPopularMajors,
     };
   }
+
   if (query === "schoolStudentLife") {
     const {} = subsectionResponse;
 
@@ -1143,6 +1169,22 @@ function displayModalScorecard(defaultModalData) {
 //
 //
 // DISPLAY MODAL SUBSECTIONS
+
+function displayModalSubsection(modalSubsectionData, subsectionTab) {
+  const modalSubsection = document.querySelector(".modal__section-facts");
+  let subsectionDisplay = "";
+  if (subsectionTab === "schoolOverview") {
+    subsectionDisplay = schoolOverviewDisplayTemplate(modalSubsectionData);
+  } else if (subsectionTab === "schoolAcademics") {
+    subsectionDisplay = schoolAcademicsDisplayTemplate(modalSubsectionData);
+  } else if (subsectionTab === "schoolStudentLife") {
+    subsectionDisplay = schoolStudentLifeDisplayTemplate(modalSubsectionData);
+  } else if (subsectionTab === "schoolFinancial") {
+    subsectionDisplay = schoolFinancialDisplayTemplate(modalSubsectionData);
+  }
+
+  modalSubsection.innerHTML = subsectionDisplay;
+}
 
 // END DISPLAY MODAL SUBSECTIONS
 //
@@ -1276,6 +1318,18 @@ function formatPercentages(percent) {
   return `${(percent * 100).toFixed(1)}%`;
 }
 
+function formatNumericValues(number) {
+  // Stops the format change if the number is undefined
+  if (number === "Undisclosed") {
+    return number;
+  }
+
+  const numberFormat = number
+    .toString()
+    .replace(/(\d)(?=(\d{3})+(?!\d))/g, "1,");
+  return `${numberFormat}`;
+}
+
 // END FORMAT NUMERIC VALUES
 //
 //
@@ -1352,7 +1406,19 @@ function filterSpecialConciderations(schoolConciderations) {
 // CALCULATE POPULAR MAJORS
 
 function calculatePopularMajors(schoolMajors) {
-  `<div class="section__item"></div>`;
+  const filteredMajors = Object.keys(schoolMajors).filter(
+    (major) => schoolMajors[major] > 0.01
+  );
+  const popularMajors = filteredMajors.map((major) => {
+    const majorName = major.split(".").pop();
+    console.log(majorName);
+    let formattedMajorName = majorName.includes("_")
+      ? majorName.replace(/_/g, " ")
+      : majorName;
+    return `<div class="section__item">${formattedMajorName.toLocaleUpperCase()}</div>`;
+  });
+
+  return popularMajors.slice(0, 6).join("");
 }
 
 // END CALCULATE POPULAR MAJORS
