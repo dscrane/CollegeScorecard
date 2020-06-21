@@ -732,9 +732,6 @@ const loadMoreButton = document.querySelector(".more__results");
 
 let currentPage = 0;
 
-let testRun = "false";
-console.log(testRun);
-
 homeButton.addEventListener("click", () => {
   console.log("Home Button: Clicked");
 });
@@ -742,87 +739,138 @@ homeButton.addEventListener("click", () => {
 searchButton.addEventListener("click", (e) => {
   e.preventDefault();
   console.log("Search Button: Clicked");
-  testRun = document.querySelector(".testRun").value;
   const query = "basicScorecard";
-  makeRequest(currentPage, query);
+  handleResponseDisplay(query, currentPage, true);
 });
 
 loadMoreButton.addEventListener("click", () => {
   currentPage += 1;
-  testRun = document.querySelector(".testRun").value;
   const query = "basicScorecard";
-  makeRequest(currentPage, query);
+  handleResponseDisplay(query, currentPage, true);
 });
-
-function makeRequest(currentPage, query) {
-  const searchValue = document.querySelector(".search__input").value;
-  const citySearch = searchValue
-    .split(",")
-    .map((city) => city.replace(" ", "%20"));
-
-  // Settings for pagination (if neccessary)
-  let page = `page=${currentPage}`;
-  let perPage = `per_page=${8}`;
-  let city = `school.city=${citySearch}`;
-  let institutionType = `school.degrees_awarded.predominant=2,3`;
-
-  const params = [page, perPage, city, institutionType];
-
-  handleApiRequest(query, params, currentPage);
-}
 
 // END INDEX.JS SCRIPT
 //
 //
 //
-// HANDLE API RESPONSES
+// GENERATE REQUEST
 
-async function handleApiRequest(query, params, currentPage = null) {
+function generateScorecardQureyString(
+  query,
+  currentPage = null,
+  isBasicQuery,
+  schoolId = null
+) {
   const scorecardUrl =
     "https://api.data.gov/ed/collegescorecard/v1/schools.json";
   const SCORECARDKEY = "8nR6JMFPRqJzkksBe7V4aD6wITl4MOWZvcIdgL1b";
-  const scorecardRequest = `${scorecardUrl}?_fields=${queryFields[
-    query
-  ].join()}&${
-    params.length > 1 ? params.join("&") : params
-  }&api_key=${SCORECARDKEY}`;
+  let params = "";
+  let fields = `_fields=${queryFields[query].join()}`;
+  if (isBasicQuery) {
+    const searchValue = document.querySelector(".search__input").value;
+    const citySearch = searchValue
+      .split(",")
+      .map((city) => city.replace(" ", "%20"));
 
-  const scorecardApiResponse = await axios.get(scorecardRequest);
-  console.log(scorecardApiResponse);
-  const responseMetadata = scorecardApiResponse.data.metadata;
-  const cleanScorecardResponse = cleanResponseData(
-    scorecardApiResponse.data.results
-  );
-  console.log("[cleanScorecardResponse]: ", cleanScorecardResponse);
-  if (query === "basicScorecard") {
-    const scorecardData = handleScorecardResponses(
-      cleanScorecardResponse,
-      mockPhotos,
-      responseMetadata
-    );
-    displayScorecard(scorecardData, currentPage);
-    handleScorecardCtas();
-  } else if (query === "defaultQuery") {
-    const defaultModalData = handleDefaultModalResponses(
-      cleanScorecardResponse
-    );
-    console.log("[defaultModalData]: ", defaultModalData);
-    displayModalScorecard(defaultModalData);
+    // Settings for pagination (if neccessary)
+    let page = `page=${currentPage}`;
+    let perPage = `per_page=${8}`;
+    let searchParameter = `school.city=${citySearch}`;
+    let institutionType = `school.degrees_awarded.predominant=2,3`;
+    let apiKey = `api_key=${SCORECARDKEY}`;
+
+    params = `${fields}&${searchParameter}&${page}&${perPage}&${institutionType}&${apiKey}`;
   } else {
-    const subsectionData = handleSubsectionResponses(
-      cleanScorecardResponse,
-      query
+    let searchParameter = `id=${schoolId}`;
+    params = `${fields}&${searchParameter}&${SCORECARDKEY}`;
+  }
+
+  const queryString = `${scorecardUrl}?${params}`;
+  console.log(queryString);
+  return queryString;
+  // handleApiRequest(query, params, fields, currentPage);
+}
+
+// END GENERATE REQUEST
+//
+//
+//
+// MAKE API REQUEST
+
+async function makeScorecardApiRequest(queryString) {
+  const scorecardApiResponse = await axios.get(queryString);
+  return scorecardApiResponse;
+}
+
+// END MAKE API REQUEST
+//
+//
+//
+// HANDLE SCORECARD DISPLAY
+
+function handleResponseDisplay(
+  query,
+  currentPage,
+  isBasicQuery,
+  querySpecificData = null
+) {
+  const queryString = generateScorecardQureyString(
+    query,
+    currentPage,
+    isBasicQuery
+  );
+  if (isBasicQuery) {
+    makeScorecardApiRequest(queryString).then((response) =>
+      handleBasicScorecard(response, currentPage)
+    );
+  } else {
+    makeScorecardApiRequest(queryString).then((response) =>
+      handleModalScorecard(response, query, querySpecificData)
     );
   }
 }
 
-// END HANDLE API RESPONSES
+// END HANDLE SCORECARD DISPLAY
+//
+//
+//
+// HANDLE BASIC SCORECARD
+
+function handleBasicScorecard(response, currentPage) {
+  const responseMetadata = response.data.metadata;
+  const cleanBasicResponse = cleanResponseData(response.data.results);
+  console.log("[cleanBasicResponse]: ", cleanBasicResponse);
+
+  const basicScorecard = handleBasicScorecardData(
+    cleanBasicResponse,
+    mockPhotos,
+    responseMetadata
+  );
+  displayScorecard(basicScorecard, currentPage);
+  handleScorecardCtas();
+}
+
+// END BASIC SCORECARD
+//
+//
+//
+// HANDLE MODAL SCORECARD
+
+function handleModalScorecard(response, query, imgUrl) {
+  const cleanModalResponse = cleanResponseData(response.data.results);
+  console.log("[cleanModalResponse]: ", cleanModalResponse);
+
+  const modalScorecard = handleModalScorecardData(cleanModalResponse, imgUrl);
+  displayModalScorecard(modalScorecard, query);
+}
+
+// END HANDLE MODAL SCORECARD
 //
 //
 //
 // HANDLE SCORECARD RESPONSES
 
-function handleScorecardResponses(responseData, images, responseMetadata) {
+function handleBasicScorecardData(basicResponseData, images, responseMetadata) {
   // Set the number of pages returned from API
   const additionalPages =
     responseMetadata.total / 8 > 1 ? responseMetadata.total / 8 : 0;
@@ -830,7 +878,7 @@ function handleScorecardResponses(responseData, images, responseMetadata) {
   // Image placeholders to fill out the effect of the cards
   const imgUrls = images;
   // Return an array of scorecard objects with clean values and more convinient keys
-  const scorecardData = responseData.map((data, i) => {
+  const scorecardData = basicResponseData.map((data, i) => {
     const {
       id,
       "latest.admissions.admission_rate.overall": rateOfAdmission,
@@ -868,32 +916,23 @@ function handleScorecardResponses(responseData, images, responseMetadata) {
 //
 // HANDLE DEFAULT MODAL RESPONSE
 
-function handleDefaultModalResponses(defaultModalResponse) {
-  return defaultModalResponse.map((data) => {
-    const {
-      id,
-      "school.name": schoolName,
-      "school.school_url": schoolWebsite,
-      "school.state_fips": schoolState,
-      "school.city": schoolCity,
-      "school.ownership": schoolOwnership,
-      "school.religious_affiliation": schoolReligion,
-      "school.institutional_characteristics.level": schoolType,
-      ...minorityServing
-    } = data;
+function handleModalScorecardData(modalResponseData, imgUrl) {
+  const {
+    id,
+    "school.name": schoolName,
+    ...overviewSubsectionData
+  } = modalResponseData;
 
-    return {
-      schoolName,
-      schoolWebsite,
-      schoolState,
-      schoolCity,
-      schoolOwnership,
-      schoolReligion,
-      schoolType,
-      minorityServing,
-      schoolId: id,
-    };
-  });
+  const overviewSubsection = handleSubsectionData(
+    overviewSubsectionData,
+    "schoolOverview"
+  );
+  return {
+    schoolName,
+    imgUrl,
+    overviewSubsection,
+    schoolId: id,
+  };
 }
 
 // END HANDLE DEFAULT MODAL RESPONSE
@@ -902,35 +941,29 @@ function handleDefaultModalResponses(defaultModalResponse) {
 //
 // HANDLE SUBSECTION RESPONSES
 
-function handleSubsectionResponses(subsectionResponse, query) {
+function handleSubsectionData(subsectionResponse, query) {
   if (query === "schoolOverview") {
-    return (overviewData = subsectionResponse.map((data, i) => {
-      const {
-        id,
-        "school.school_url": schoolWebsite,
-        "school.state_fips": schoolState,
-        "school.city": schoolCity,
-        "school.ownership": schoolOwnership,
-        "school.religious_affiliation": schoolReligion,
-        "school.institutional_characteristics.level": schoolType,
-        ...minorityServing
-      } = data;
+    const {
+      "school.school_url": schoolWebsite,
+      "school.state_fips": schoolState,
+      "school.city": schoolCity,
+      "school.ownership": schoolOwnership,
+      "school.religious_affiliation": schoolReligion,
+      "school.institutional_characteristics.level": schoolType,
+      ...minorityServing
+    } = subsectionResponse;
 
-      const specialConciderations = filterSpecialConciderations(
-        minorityServing
-      );
+    const specialConciderations = filterSpecialConciderations(minorityServing);
 
-      return {
-        schoolWebsite,
-        schoolState,
-        schoolCity,
-        schoolOwnership,
-        schoolReligion,
-        schoolType,
-        specialConciderations,
-        schoolId: id,
-      };
-    }));
+    return {
+      schoolWebsite,
+      schoolState,
+      schoolCity,
+      schoolOwnership,
+      schoolReligion,
+      schoolType,
+      specialConciderations,
+    };
   }
 }
 
@@ -944,15 +977,17 @@ function handleScorecardCtas() {
   let scorecardCtas = document.querySelectorAll(".gallery__card-wrapper");
   scorecardCtas.forEach((cardCta) => {
     cardCta.addEventListener("click", function () {
-      handleOnClick(this.getAttribute("id"));
+      const imgUrl = this;
+      console.log(imgUrl);
+      handleOnClick(this.getAttribute("id"), imgUrl);
     });
   });
 }
 
-function handleOnClick(schoolId) {
-  const params = [`id=${schoolId}`];
+function handleOnClick(schoolId, imgUrl) {
+  const params = schoolId;
   const query = "defaultQuery";
-  handleApiRequest(query, params);
+  handleResponseDisplay(query, params, false, imgUrl);
 }
 
 // END SCORECARD CTA SECTION
@@ -984,24 +1019,16 @@ function displayScorecard(handledScorecards, currentPage) {
 // DISPLAY MODAL SCORECARD
 
 function displayModalScorecard(defaultModalData) {
-  const [
-    schoolId,
-    schoolName,
-    minorityServing,
-    ...overviewSubsectionData
-  ] = defaultModalData;
+  const [schoolId, schoolName, imgUrl, overviewSubsection] = defaultModalData;
   console.log(overviewSubsectionData);
-  console.log(schoolId, schoolName);
+  console.log(schoolId, schoolName, imgUrl);
   const pageModal = document.querySelector(".page__modal");
   pageModal.style.display = "flex";
-  const specialConciderations = filterSpecialConciderations(minorityServing);
-  console.log(specialConciderations);
 
   const defaultSubsectionDisplay = schoolOverviewDisplayTemplate(
-    overviewSubsectionData,
-    specialConciderations
+    overviewSubsection
   );
-  console.log(defaultSubsectionDisplay);
+
   pageModal.innerHTML = fullScorecardTemplate(
     schoolName,
     schoolId,
