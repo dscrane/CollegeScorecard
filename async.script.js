@@ -110,10 +110,10 @@ function fullScorecardTemplate(scorecardDisplay) {
         <div id="schoolAcademics" class="content__heading" data-tab="1">
           Academics
         </div>
-        <div id="schoolStudentLife" class="content__heading" data-tab="2">
-          Student Life
+        <div id="schoolStudentBody" class="content__heading" data-tab="2">
+          Student Body
         </div>
-        <div id="schoolFinances" class="content__heading content__heading-right" data-tab="3">
+        <div id="schoolFinancial" class="content__heading content__heading-right" data-tab="3">
           Finances
         </div>
       </div>
@@ -136,6 +136,7 @@ function fullScorecardTemplate(scorecardDisplay) {
 
 function schoolOverviewDisplayTemplate(overviewSubsection) {
   const {
+    schoolLocal,
     schoolCity,
     schoolOwnership,
     schoolReligion,
@@ -167,6 +168,12 @@ function schoolOverviewDisplayTemplate(overviewSubsection) {
         <div class="view__item view__item-title">School Type:</div>
         <div class="view__item view__item-content">
           ${schoolOwnership}, ${schoolType}
+        </div>
+      </div>
+      <div class="view__row">
+        <div class="view__item view__item-title">Size & Setting:</div>
+        <div class="view__item view__item-content">
+          ${schoolLocal}
         </div>
       </div>
       <div class="view__row">
@@ -251,26 +258,29 @@ function schoolAcademicsDisplayTemplate(academicSubsection) {
 `;
 }
 
-function schoolStudentLifeDisplayTemplate(/* studentLifeData */) {
+function schoolStudentBodyDisplayTemplate(studentLifeSubsection) {
+  const {
+    schoolDemoWhite,
+    schoolDemoBlack,
+    schoolDemoHispanic,
+    schoolDemoAsian,
+    schoolDemoOther,
+    schoolDemoWomen,
+    schoolDemoMen,
+    schoolPercentFirstGen,
+    schoolPercentPartTime,
+  } = studentLifeSubsection;
   return `<div class="scorecard__view scorecard__view-student">
   <div class="view__wrapper view__wrapper-alt">
     <div class="view__column">
       <div class="column__row">
-        <div class="view__item view__item-title view__item-title_alt">
-          Size & Setting:
-        </div>
-        <div class="view__item view__item-content view__item-content_alt">
-          Small/Rural
-        </div>
+        <div class="view__item view__item-title view__item-title_alt">Share of First Generation Students: </div>
+        <div class="view__item view__item-content view__item-content_alt">${schoolPercentFirstGen}</div>
       </div>
       <div class="column__row">
-        <div class="view__item view__item-title view__item-title_alt">Average SAT Scores:</div>
-        <div class="view__item view__item-content view__item-content_alt">1850</div>
-      </div>
-      <div class="column__row">
-        <div class="view__item view__item-title view__item-title_alt">Average ACT Scores:</div>
+        <div class="view__item view__item-title view__item-title_alt">Share of Part Time Students:</div>
         <div class="view__item view__item-content view__item-content_alt">
-          25
+        ${schoolPercentPartTime}
         </div>
       </div>
       <div class="column__row">
@@ -292,42 +302,38 @@ function schoolStudentLifeDisplayTemplate(/* studentLifeData */) {
     </div>
     <div class="view__column view__column-section">
       <div class="column__row">
-        <div class="view__item view__item-title">Demographics:</div>
+        <div class="view__item view__item-title view__item-title_header">Demographics:</div>
       </div>
       <div class="column__row">
         <div class="view__section view__section-column">
           <div class="section__row">
             <div class="section__item section__item-alt section__item-title">Percent Male:</div>
-            <div class="section__item section__item-alt section__item-content">60%</div>
+            <div class="section__item section__item-alt section__item-content">${schoolDemoMen}</div>
           </div>
           <div class="section__row">
             <div class="section__item section__item-alt section__item-title">Percent Female:</div>
-            <div class="section__item section__item-alt section__item-content">40%</div>
+            <div class="section__item section__item-alt section__item-content">${schoolDemoWomen}</div>
           </div>
           <div class="section__row">
             <div class="section__item section__item-alt section__item-title">White:</div>
-            <div class="section__item section__item-alt section__item-content">60%</div>
+            <div class="section__item section__item-alt section__item-content">${schoolDemoWhite}</div>
           </div>
           <div class="section__row">
             <div class="section__item section__item-alt section__item-title">Black:</div>
-            <div class="section__item section__item-alt section__item-content">15%</div>
+            <div class="section__item section__item-alt section__item-content">${schoolDemoBlack}</div>
           </div>
           <div class="section__row">
             <div class="section__item section__item-alt section__item-title">Hispanic:</div>
-            <div class="section__item section__item-alt section__item-content">5%</div>
+            <div class="section__item section__item-alt section__item-content">${schoolDemoHispanic}</div>
           </div>
           <div class="section__row">
             <div class="section__item section__item-alt section__item-title">Asian:</div>
-            <div class="section__item section__item-alt section__item-content">4%</div>
+            <div class="section__item section__item-alt section__item-content">${schoolDemoAsian}</div>
           </div>
           <div class="section__row">
-            <div class="section__item section__item-alt section__item-title">Two or More:</div>
-            <div class="section__item section__item-alt section__item-content">8%</div>
+            <div class="section__item section__item-alt section__item-title">Two+ & Other:</div>
+            <div class="section__item section__item-alt section__item-content">${schoolDemoOther}</div>
           </div>
-          <div class="section__row">
-            <div class="section__item section__item-alt section__item-title">Other:</div>
-            <div class="section__item section__item-alt section__item-content">8%</div>
-          </div>       
         </div>
       </div>
     </div>
@@ -336,40 +342,58 @@ function schoolStudentLifeDisplayTemplate(/* studentLifeData */) {
 `;
 }
 
-function schoolFinancialDisplayTemplate(/* financialData */) {
+function schoolFinancialDisplayTemplate(financialSubsection) {
+  const {
+    schoolTuitionInState,
+    schoolTuitionOutOfState,
+    schoolCostPerYear,
+    schoolDebtAtCompletion,
+    schoolFederalLoanRate,
+    schoolPellGrantRate,
+    schoolPellFederalNumber,
+  } = financialSubsection;
+
   return `
   <div class="scorecard__view scorecard__view-overview">
   <div class="view__wrapper">
+    <!-- ---This needs to be worked on display wise to only show a single tuition if there is no difference for in-state vs out-of-state--- -->
     <div class="view__row">
       <div class="view__item view__item-title">
         Tuition (in state):
       </div>
       <div class="view__item view__item-content">
-        $38,000
+        ${schoolTuitionInState}
       </div>
     </div>
     <div class="view__row">
       <div class="view__item view__item-title">Tuition (out of state):</div>
-      <div class="view__item view__item-content">$45,000</div>
+      <div class="view__item view__item-content">${schoolTuitionOutOfState}</div>
     </div>
+    <!-- ---    --- -->
     <div class="view__row">
       <div class="view__item view__item-title">Average Cost:</div>
       <div class="view__item view__item-content">
-        $60,000
+        ${schoolCostPerYear}
       </div>
     </div>
     <div class="view__row">
+      <div class="view__item view__item-title">Average Debt at Completion:</div>
+      <div class="view__item view__item-content">${schoolDebtAtCompletion}</div>
+    </div>
+    <div class="view__row">
       <div class="view__item view__item-title">Federal Loan Rates:</div>
-      <div class="view__item view__item-content">60%</div>
+      <div class="view__item view__item-content">${schoolFederalLoanRate}</div>
     </div>
     <div class="view__row">
-      <div class="view__item view__item-title">Religious Affiliation:</div>
-      <div class="view__item view__item-content">Not Applicable</div>
-    </div>
-    <div class="view__row">
-      <div class="view__item view__item-title">School Homepage:</div>
+      <div class="view__item view__item-title">Pell Grant Rate:</div>
       <div class="view__item view__item-content">
-        <a href="#">www.fakeschoolsite.com</a>
+        ${schoolPellGrantRate}
+      </div>
+    </div>
+    <div class="view__row">
+      <div class="view__item view__item-title">Federal or Pell Grant Rate:</div>
+      <div class="view__item view__item-content">
+        ${schoolPellFederalNumber}
       </div>
     </div>
     <div class="view__row view__row-section">
@@ -518,6 +542,7 @@ const queryFields = {
     "school.religious_affiliation",
     "school.degrees_awarded.predominant",
     "school.institutional_characteristics.level",
+    "school.carnegie_size_setting",
     "school.minority_serving.historically_black",
     "school.minority_serving.predominantly_black",
     "school.minority_serving.annh",
@@ -538,6 +563,7 @@ const queryFields = {
     "school.religious_affiliation",
     "school.degrees_awarded.predominant",
     "school.institutional_characteristics.level",
+    "school.carnegie_size_setting",
     "school.minority_serving.historically_black",
     "school.minority_serving.predominantly_black",
     "school.minority_serving.annh",
@@ -594,7 +620,7 @@ const queryFields = {
     "latest.academics.program_percentage.health",
     "latest.academics.program_percentage.business_marketing",
   ],
-  schoolStudentLife: [
+  schoolStudentBody: [
     "latest.student.demographics.race_ethnicity.white",
     "latest.student.demographics.race_ethnicity.black",
     "latest.student.demographics.race_ethnicity.hispanic",
@@ -604,7 +630,8 @@ const queryFields = {
     "latest.student.demographics.race_ethnicity.two_or_more",
     "latest.student.demographics.women",
     "latest.student.demographics.men",
-    "school.carnegie_size_setting",
+    "latest.student.share_firstgeneration",
+    "latest.student.part_time_share",
   ],
   schoolFinancial: [
     "latest.cost.tuition.in_state",
@@ -612,7 +639,7 @@ const queryFields = {
     "latest.cost.attendance.academic_year",
     "latest.aid.federal_loan_rate",
     "latest.aid.median_debt.completers.overall",
-    "latest.aid.ftft_federal_loan_rate",
+    "latest.aid.pell_grant_rate",
     "latest.student.undergrads_with_pell_grant_or_federal_student_loan",
   ],
 };
@@ -821,9 +848,11 @@ function generateScorecardQureyString(querySpecs) {
   if (isBasicQuery) {
     const searchValue = document.querySelector(".search__input").value;
     const citySearch = searchValue
+      .replace(/[,]{1}[\s]?/, ",")
       .split(",")
-      .map((city) => city.replace(" ", "%20"));
-
+      .map((city) => city.replace(" ", "%20"))
+      .join(",");
+    console.log(citySearch);
     // Settings for pagination (if neccessary)
     let page = `page=${currentPage}`;
     let perPage = `per_page=${8}`;
@@ -1020,6 +1049,7 @@ function handleModalScorecardData(modalResponseData, imgUrl) {
 function handleSubsectionData(subsectionResponse, query) {
   if (query === "schoolOverview") {
     const {
+      "school.carnegie_size_setting": schoolCarnegieCode,
       "school.school_url": schoolWebsite,
       "school.state_fips": schoolStateId,
       "school.city": schoolCity,
@@ -1036,6 +1066,11 @@ function handleSubsectionData(subsectionResponse, query) {
       minorityServing
     );
 
+    const schoolLocal = carnegieClassification[schoolCarnegieCode]
+      .split(",")
+      .slice(1)
+      .join(" -- ");
+
     return {
       schoolWebsite,
       schoolCity,
@@ -1044,6 +1079,7 @@ function handleSubsectionData(subsectionResponse, query) {
       schoolMainCampus: schoolMainCampusCode ? "-- Main Campus" : "",
       schoolReligion,
       schoolType: schoolCharacteristicCodes[schoolCharacteristicCode],
+      schoolLocal,
       schoolDegreesAwarded: prodominantDegreesAwarded[degreesAwardedCode],
       schoolSpecialConciderations,
       schoolState: fipsStates[schoolStateId],
@@ -1052,14 +1088,14 @@ function handleSubsectionData(subsectionResponse, query) {
 
   if (query === "schoolAcademics") {
     const {
+      "school.accreditor": schoolAccreditor,
+      "school.online_only": schoolOnlineOnly,
       "latest.admissions.admission_rate.overall": schoolAdmission,
       "latest.admissions.sat_scores.average.overall": schoolAverageSAT,
       "latest.admissions.act_scores.midpoint.cumulative": schoolAverageACT,
-      "school.accreditor": schoolAccreditor,
       "latest.student.retention_rate.four_year.full_time_pooled": schoolRetention,
       "latest.completion.completion_rate_4yr_100nt": schoolCompletion,
       "latest.completion.transfer_rate.4yr.full_time": schoolTransfer,
-      "school.online_only": schoolOnlineOnly,
       ...schoolMajors
     } = subsectionResponse;
 
@@ -1067,10 +1103,12 @@ function handleSubsectionData(subsectionResponse, query) {
 
     const schoolPopularMajors = calculatePopularMajors(schoolMajors);
 
+    /* --- NEEDS TO BE REFACTORED AT SOMEPOINT --- */
     const schoolRetentionRate = formatPercentages(schoolRetention);
     const schoolCompletionRate = formatPercentages(schoolCompletion);
     const schoolTransferRate = formatPercentages(schoolTransfer);
     const schoolAdmissionRate = formatPercentages(schoolAdmission);
+    /* ---    --- */
 
     return {
       schoolAdmissionRate,
@@ -1085,15 +1123,78 @@ function handleSubsectionData(subsectionResponse, query) {
     };
   }
 
-  if (query === "schoolStudentLife") {
-    const {} = subsectionResponse;
+  if (query === "schoolStudentBody") {
+    const {
+      "latest.student.share_firstgeneration": percentFirstGen,
+      "latest.student.part_time_share": percentPartTime,
+      "latest.student.demographics.race_ethnicity.white": demoWhite,
+      "latest.student.demographics.race_ethnicity.black": demoBlack,
+      "latest.student.demographics.race_ethnicity.hispanic": demoHispanic,
+      "latest.student.demographics.race_ethnicity.asian": demoAsian,
+      "latest.student.demographics.race_ethnicity.aian": demoAmericanIndian,
+      "latest.student.demographics.race_ethnicity.nhpi": demoPacificIslander,
+      "latest.student.demographics.race_ethnicity.two_or_more": demoTwoOrMore,
+      "latest.student.demographics.women": demoWomen,
+      "latest.student.demographics.men": demoMen,
+    } = subsectionResponse;
 
-    return {};
+    const demoOther = demoAmericanIndian + demoPacificIslander + demoTwoOrMore;
+
+    /* --- NEEDS TO BE REFACTORED AT SOMEPOINT */
+    const schoolDemoWhite = formatPercentages(demoWhite);
+    const schoolDemoBlack = formatPercentages(demoBlack);
+    const schoolDemoHispanic = formatPercentages(demoHispanic);
+    const schoolDemoAsian = formatPercentages(demoAsian);
+    const schoolDemoOther = formatPercentages(demoOther);
+    const schoolDemoWomen = formatPercentages(demoWomen);
+    const schoolDemoMen = formatPercentages(demoMen);
+    const schoolPercentPartTime = formatPercentages(percentPartTime);
+    const schoolPercentFirstGen = formatPercentages(percentFirstGen);
+
+    /* ---    --- */
+
+    return {
+      schoolDemoOther,
+      schoolDemoWhite,
+      schoolDemoBlack,
+      schoolDemoHispanic,
+      schoolDemoAsian,
+      schoolDemoWomen,
+      schoolDemoMen,
+      schoolPercentFirstGen,
+      schoolPercentPartTime,
+    };
   }
-  if (query === "schoolFinance") {
-    const {} = subsectionResponse;
+  if (query === "schoolFinancial") {
+    const {
+      "latest.cost.tuition.in_state": tuitionInState,
+      "latest.cost.tuition.out_of_state": tuitionOutOfState,
+      "latest.cost.attendance.academic_year": costPerYear,
+      "latest.aid.federal_loan_rate": federalLoanRate,
+      "latest.aid.median_debt.completers.overall": debtAtCompletion,
+      "latest.aid.pell_grant_rate": pellGrantRate,
+      "latest.student.undergrads_with_pell_grant_or_federal_student_loan": pellFederalRate,
+    } = subsectionResponse;
 
-    return {};
+    const schoolTuitionInState = formatDollarAmounts(tuitionInState);
+    const schoolTuitionOutOfState = formatDollarAmounts(tuitionOutOfState);
+    const schoolCostPerYear = formatDollarAmounts(costPerYear);
+    const schoolDebtAtCompletion = formatDollarAmounts(debtAtCompletion);
+
+    const schoolFederalLoanRate = formatPercentages(federalLoanRate);
+    const schoolPellGrantRate = formatPercentages(pellGrantRate);
+
+    const schoolPellFederalNumber = formatNumericValues(pellFederalRate);
+
+    return {
+      schoolTuitionInState,
+      schoolTuitionOutOfState,
+      schoolCostPerYear,
+      schoolDebtAtCompletion,
+      schoolFederalLoanRate,
+      schoolPellGrantRate,
+      schoolPellFederalNumber,
+    };
   }
 }
 
@@ -1177,8 +1278,8 @@ function displayModalSubsection(modalSubsectionData, subsectionTab) {
     subsectionDisplay = schoolOverviewDisplayTemplate(modalSubsectionData);
   } else if (subsectionTab === "schoolAcademics") {
     subsectionDisplay = schoolAcademicsDisplayTemplate(modalSubsectionData);
-  } else if (subsectionTab === "schoolStudentLife") {
-    subsectionDisplay = schoolStudentLifeDisplayTemplate(modalSubsectionData);
+  } else if (subsectionTab === "schoolStudentBody") {
+    subsectionDisplay = schoolStudentBodyDisplayTemplate(modalSubsectionData);
   } else if (subsectionTab === "schoolFinancial") {
     subsectionDisplay = schoolFinancialDisplayTemplate(modalSubsectionData);
   }
@@ -1250,7 +1351,7 @@ function displaySubsection(currentTab, scorecardData) {
         scorecardData
       );
     case "schoolOverview":
-      subsectionDisplay.innerHTML = schoolStudentLifeDisplayTemplate(
+      subsectionDisplay.innerHTML = schoolStudentBodyDisplayTemplate(
         scorecardData
       );
     case "schoolOverview":
@@ -1310,12 +1411,13 @@ function formatDollarAmounts(price) {
 
 // Formats the admission rate decimal value to a percentage
 function formatPercentages(percent) {
-  // Stops the format change if the admission rate is an undisclosed value
   if (percent === "Undisclosed") {
     return percent;
   }
-
-  return `${(percent * 100).toFixed(1)}%`;
+  if (!percent.length) {
+    // Stops the format change if the admission rate is an undisclosed value
+    return `${(percent * 100).toFixed(1)}%`;
+  }
 }
 
 function formatNumericValues(number) {
@@ -1386,7 +1488,6 @@ function filterSpecialConciderations(schoolConciderations) {
     (key) => schoolConciderations[key] !== 0
   );
 
-  console.log(filteredCondiderations);
   if (filteredCondiderations.length > 0) {
     specialConciderations = filteredCondiderations.map((concideration) => {
       return `<div class='section__item'>${categories[concideration]}</div>`;
@@ -1411,7 +1512,6 @@ function calculatePopularMajors(schoolMajors) {
   );
   const popularMajors = filteredMajors.map((major) => {
     const majorName = major.split(".").pop();
-    console.log(majorName);
     let formattedMajorName = majorName.includes("_")
       ? majorName.replace(/_/g, " ")
       : majorName;
