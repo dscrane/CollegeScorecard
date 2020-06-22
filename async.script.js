@@ -1,3 +1,5 @@
+/*  Working Version 1.0.0  */
+
 // SCORECARD TEMPLATES
 function basicScorecardTemplate(cardData) {
   const {
