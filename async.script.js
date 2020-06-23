@@ -9,6 +9,7 @@ function basicScorecardTemplate(cardData) {
     schoolName,
     schoolCity,
     schoolWebsite,
+    schoolSimpleWebsite,
     schoolState,
   } = cardData;
   return `
@@ -61,7 +62,7 @@ function basicScorecardTemplate(cardData) {
             <div class="card__content card__content-website">
               <div class="card__content-title card__content-title_url">Homepage:</div>
               <span class="card__content-data-website><a class="card__content-url" href="${schoolWebsite}"
-                >${schoolWebsite}</a
+                >${schoolSimpleWebsite}</a
               ></span>
             </div>
           </div>
@@ -143,6 +144,7 @@ function schoolOverviewDisplayTemplate(overviewSubsection) {
     schoolState,
     schoolType,
     schoolWebsite,
+    schoolSimpleWebsite,
     schoolDegreesAwarded,
     schoolBranches,
     schoolMainCampus,
@@ -187,7 +189,7 @@ function schoolOverviewDisplayTemplate(overviewSubsection) {
       <div class="view__row">
         <div class="view__item view__item-title">School Homepage:</div>
         <div class="view__item view__item-content">
-          <a href="${schoolWebsite}">${schoolWebsite}</a>
+          <a href="${schoolWebsite}">${schoolSimpleWebsite}</a>
         </div>
       </div>
       <div class="view__row view__row-section">
@@ -283,6 +285,7 @@ function schoolStudentBodyDisplayTemplate(studentLifeSubsection) {
         ${schoolPercentPartTime}
         </div>
       </div>
+      <!-- 
       <div class="column__row">
         <div class="view__item view__item-title view__item-title_alt">Retention Rate:</div>
         <div class="view__item view__item-content view__item-content_alt">xx%</div>
@@ -300,6 +303,7 @@ function schoolStudentBodyDisplayTemplate(studentLifeSubsection) {
         <div class="view__item view__item-content view__item-content_alt">No</div>
       </div>
     </div>
+    -->
     <div class="view__column view__column-section">
       <div class="column__row">
         <div class="view__item view__item-title view__item-title_header">Demographics:</div>
@@ -396,6 +400,7 @@ function schoolFinancialDisplayTemplate(financialSubsection) {
         ${schoolPellFederalNumber}
       </div>
     </div>
+    <!--
     <div class="view__row view__row-section">
       <div class="view__item view__item-section">Special Conciderations:</div>
       <div class="view__section">
@@ -404,12 +409,26 @@ function schoolFinancialDisplayTemplate(financialSubsection) {
         <div class="section__item">Predominantly Black Instituion</div>
       </div>
     </div>
+    -->
   </div>
 </div>
   `;
 }
 
 // END SUBSECTION TEMPLATES
+//
+//
+//
+// ERROR DISPLAY TEMPLATES
+
+const noResultsErrorDisplay = `
+<div class=gallery__error>
+  <div>Sorry there are no results for the location you have searched for.</div>
+  <div>Please try a different location or make sure the spelling is correct.</div>
+</div>
+`;
+
+// END ERROR DISPLAY TEMPLATES
 //
 //
 //
@@ -576,6 +595,7 @@ const queryFields = {
   ],
   schoolAcademics: [
     "school.accreditor",
+    "school.online_only",
     "latest.admissions.admission_rate.overall",
     "latest.admissions.sat_scores.average.overall",
     "latest.admissions.act_scores.midpoint.cumulative",
@@ -790,6 +810,7 @@ const mockPhotos = [
 //
 // INDEX.JS SCRIPT
 let currentPage = 0;
+let additionalPages = 0;
 
 const homeButton = document.querySelector("#home-button");
 const searchButton = document.querySelector(".search__cta");
@@ -803,12 +824,14 @@ searchButton.addEventListener("click", (e) => {
   e.preventDefault();
   document.querySelector(".page__row-gallery").innerHTML = "";
   console.log("[Search Button]: Clicked");
+  console.log("[Current Page]: ", currentPage);
   basicSearchEventListeners(currentPage);
 });
 
 loadMoreButton.addEventListener("click", () => {
   currentPage += 1;
   console.log("[Load More Button]: Clicked");
+  console.log("[Current Page]: ", currentPage);
   basicSearchEventListeners(currentPage);
 });
 
@@ -847,12 +870,18 @@ function generateScorecardQureyString(querySpecs) {
   let fields = `_fields=${queryFields[query].join()}`;
   if (isBasicQuery) {
     const searchValue = document.querySelector(".search__input").value;
+    /* Reset the gallery view if no search parameters are entered in the search bar */
+    if (searchValue === "") {
+      document.querySelector(".page__row-gallery").innerHTML = "";
+      document.querySelector(".page__row-gallery").style.display = "none";
+      document.querySelector(".more__results").style.display = "none";
+    }
+    /* ---    --- */
     const citySearch = searchValue
       .replace(/[,]{1}[\s]?/, ",")
       .split(",")
       .map((city) => city.replace(" ", "%20"))
       .join(",");
-    console.log(citySearch);
     // Settings for pagination (if neccessary)
     let page = `page=${currentPage}`;
     let perPage = `per_page=${8}`;
@@ -890,15 +919,27 @@ async function makeScorecardApiRequest(queryString) {
 function handleResponseDisplay(specs) {
   const { query, currentPage, isBasicQuery, imgUrl, schoolId } = specs;
   console.log("[Specs]: ", query, currentPage, isBasicQuery, imgUrl, schoolId);
+
   if (isBasicQuery) {
     const querySpecs = { query, currentPage, isBasicQuery };
     const queryString = generateScorecardQureyString(querySpecs);
     console.log("[isBasic queryString]: ", queryString);
-    makeScorecardApiRequest(queryString).then((response) =>
-      handleBasicScorecard(response, currentPage)
-    );
+    makeScorecardApiRequest(queryString).then((response) => {
+      if (response.data.results.length === 0) {
+        handleErrorDisplay(noResultsErrorDisplay);
+        return;
+      }
+      handleBasicScorecard(response, currentPage);
+      if (currentPage >= additionalPages - 1 || additionalPages < 1) {
+        document.querySelector("#page__row-more_id").innerHTML =
+          "<div class='page__row-more_notice'>No additional results can be found</div>";
+      } else {
+        document.querySelector("#page__row-more_id").style.display = "flex";
+      }
+    });
     return;
   }
+
   if (query === "defaultQuery") {
     const querySpecs = { query, schoolId };
     const queryString = generateScorecardQureyString(querySpecs);
@@ -960,10 +1001,10 @@ function handleModalScorecard(response, query, imgUrl) {
 
 function handleModalSubsection(response, query) {
   const cleanSubsectionResponse = cleanResponseData(response.data.results[0]);
-  console.log("[cleanSubsectionResponse]: ", cleanSubsectionResponse);
+  console.log(`[clean${query}Response]: `, cleanSubsectionResponse);
 
   const subsectionData = handleSubsectionData(cleanSubsectionResponse, query);
-  console.log("[subsectionData]: ", subsectionData);
+  console.log(`[${query}Data]: `, subsectionData);
   displayModalSubsection(subsectionData, query);
 }
 
@@ -971,13 +1012,23 @@ function handleModalSubsection(response, query) {
 //
 //
 //
+// HANDLE ERROR DISPLAY
+
+function handleErrorDisplay(errorDisplay) {
+  document.querySelector(".page__row-gallery").innerHTML = errorDisplay;
+}
+
+// END HANDLE ERROR DISPLAY
+//
+//
+//
 // HANDLE SCORECARD RESPONSES
 
 function handleBasicScorecardData(basicResponseData, images, responseMetadata) {
   // Set the number of pages returned from API
-  const additionalPages =
+  additionalPages =
     responseMetadata.total / 8 > 1 ? responseMetadata.total / 8 : 0;
-
+  console.log("[Additional Pages]: ", additionalPages);
   // Image placeholders to fill out the effect of the cards
   const imgUrls = images;
   // Return an array of scorecard objects with clean values and more convinient keys
@@ -998,6 +1049,8 @@ function handleBasicScorecardData(basicResponseData, images, responseMetadata) {
     let adminRate = formatPercentages(rateOfAdmission);
     let schoolAttendance = formatNumericValues(studentSize);
 
+    const schoolSimpleWebsite = formatSchoolUrl(schoolWebsite);
+
     return {
       adminRate,
       avgCost,
@@ -1005,6 +1058,7 @@ function handleBasicScorecardData(basicResponseData, images, responseMetadata) {
       schoolCity,
       schoolName,
       schoolWebsite,
+      schoolSimpleWebsite,
       schoolState: fipsStates[schoolStateId],
       schoolId: id,
       imgUrl: imgUrls[i],
@@ -1071,8 +1125,11 @@ function handleSubsectionData(subsectionResponse, query) {
       .slice(1)
       .join(" -- ");
 
+    const schoolSimpleWebsite = formatSchoolUrl(schoolWebsite);
+
     return {
       schoolWebsite,
+      schoolSimpleWebsite,
       schoolCity,
       schoolOwnership: schoolOwnershipCodes[schoolOwnershipCode],
       schoolBranches,
@@ -1089,7 +1146,7 @@ function handleSubsectionData(subsectionResponse, query) {
   if (query === "schoolAcademics") {
     const {
       "school.accreditor": schoolAccreditor,
-      "school.online_only": schoolOnlineOnly,
+      "school.online_only": onlineOnly,
       "latest.admissions.admission_rate.overall": schoolAdmission,
       "latest.admissions.sat_scores.average.overall": schoolAverageSAT,
       "latest.admissions.act_scores.midpoint.cumulative": schoolAverageACT,
@@ -1109,6 +1166,8 @@ function handleSubsectionData(subsectionResponse, query) {
     const schoolTransferRate = formatPercentages(schoolTransfer);
     const schoolAdmissionRate = formatPercentages(schoolAdmission);
     /* ---    --- */
+
+    const schoolOnlineOnly = onlineOnly === 0 ? "No" : "Yes";
 
     return {
       schoolAdmissionRate,
@@ -1229,12 +1288,6 @@ function handleOnClick(schoolId, imgUrl) {
 function displayScorecard(handledScorecards, currentPage) {
   const { scorecardData, additionalPages } = handledScorecards;
 
-  if (currentPage > additionalPages - 1 || additionalPages < 0) {
-    document.querySelector("#page__row-more_id").style.display = "none";
-  } else {
-    document.querySelector("#page__row-more_id").style.display = "flex";
-  }
-
   const gallery = document.querySelector(".page__row-gallery");
   scorecardData.forEach((card) => {
     gallery.innerHTML = gallery.innerHTML + basicScorecardTemplate(card);
@@ -1306,7 +1359,6 @@ document.addEventListener("click", (e) => {
     const schoolId = e.target.parentNode.parentNode.parentNode.parentNode.getAttribute(
       "id"
     );
-    console.log(schoolId);
     const specs = { query, schoolId, isBasicQuery: false };
     handleResponseDisplay(specs);
   }
@@ -1439,25 +1491,40 @@ function formatNumericValues(number) {
 // FORMAT SCHOOL URL
 
 function formatSchoolUrl(website) {
-  const reg_exUrl = new RegExp("www.[a-zA-Z0-9-.]+.[a-zA-Z]{0}");
+  const reg_exUrl = new RegExp("www.[a-zA-Z0-9-.]+[a-zA-Z]");
 
   // console.log(website);
 
-  const firstThreeChrs = website.substring(0, 4);
-  // console.log(firstThreeChrs);
+  const startsWithWWW = website.substring(0, 4);
+  const startsWithHTTP = website.substring(0, 7);
+  const startsWithHTTPS = website.substring(0, 8);
+  let formattedWebsite = "";
 
-  if (firstThreeChrs === "www.") {
-    // console.log("simple Urls: ", website);
-    return website;
-  }
-  // console.log("simple: ", reg_exUrl.exec(website));
-  if (!reg_exUrl.exec(website)) {
-    // console.log("simple", `www.${website}`);
-    return `www.${website}`;
+  if (startsWithWWW === "www.") {
+    formattedWebsite = website;
+    // console.log("[startsWithWWW]: ", formattedWebsite);
+    const simpleWebsite = reg_exUrl.exec(formattedWebsite)["0"];
+    return simpleWebsite.toLowerCase();
+  } else if (startsWithHTTP === "http://") {
+    formattedWebsite = website.slice(7);
+    if (!formattedWebsite.includes("www.")) {
+      formattedWebsite = `www.${formattedWebsite}`;
+    }
+    // console.log("[startsWithHTTP]", formattedWebsite);
+  } else if (startsWithHTTPS === "https://") {
+    formattedWebsite = website.slice(8);
+    if (!formattedWebsite.includes("www.")) {
+      formattedWebsite = `www.${formattedWebsite}`;
+    }
+    // console.log("[startsWithHTTPS]", formattedWebsite);
   } else {
-    // console.log(reg_exUrl.exec(website));
-    return reg_exUrl.exec(website);
+    formattedWebsite = `www.${website}`;
+    // console.log("[firstFourLetters]: ", formattedWebsite);
   }
+
+  // console.log("[simpleUrl]: ", reg_exUrl.exec(formattedWebsite));
+  const simpleWebsite = reg_exUrl.exec(formattedWebsite)["0"];
+  return simpleWebsite.toLowerCase();
 }
 
 // END FORMAT SCHOOL URL

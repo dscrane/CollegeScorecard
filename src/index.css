@@ -91,7 +91,8 @@
 
 .page__row-greeting {
   text-align: center;
-  color: red;
+  color: black;
+  font-size: 3vmin;
 }
 
 /* SEARCH BAR SECTION */
@@ -218,6 +219,11 @@ input:-autofill:focus {
   width: 90%;
   max-width: 1100px;
   row-gap: 20px;
+}
+
+.gallery__error {
+  display: flex;
+  flex-direction: column;
 }
 
 .gallery__card {
@@ -568,6 +574,10 @@ input:-autofill:focus {
 /* LOAD MORE BUTTON SECTION */
 .page__row-more {
   display: none;
+}
+
+.page__row-more_notice {
+  color: rgb(105, 105, 105);
 }
 
 .more__results {
