@@ -1493,6 +1493,8 @@ function filterSpecialConciderations(schoolConciderations) {
     (key) => schoolConciderations[key] !== 0
   );
 
+  let specialConciderations;
+
   if (filteredCondiderations.length > 0) {
     specialConciderations = filteredCondiderations.map((concideration) => {
       return `<div class='section__item'>${categories[concideration]}</div>`;
