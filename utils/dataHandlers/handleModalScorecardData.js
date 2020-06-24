@@ -1,3 +1,5 @@
+import { handleSubsectionData } from "../dataHandlers/handleSubsectionData.js";
+
 export const handleModalScorecardData = (modalResponseData, imgUrl) => {
   const {
     id: schoolId,

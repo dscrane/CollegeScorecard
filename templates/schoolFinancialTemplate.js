@@ -1,4 +1,4 @@
-export const schoolFinancialDisplayTemplate = (financialSubsection) => {
+export const schoolFinancialTemplate = (financialSubsection) => {
   const {
     schoolTuitionInState,
     schoolTuitionOutOfState,

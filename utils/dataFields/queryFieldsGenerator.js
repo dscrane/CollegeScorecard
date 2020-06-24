@@ -1,4 +1,4 @@
-export const queryFieldGenerator = () => ({
+export const queryFieldsGenerator = () => ({
   basicScorecard: [
     "id",
     "school.name",

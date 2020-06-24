@@ -1,4 +1,4 @@
-export const fipsStatesGenerator = () => ({
+export const fipsStateGenerator = () => ({
   1: "Alabama",
   2: "Alaska",
   4: "Arizona",

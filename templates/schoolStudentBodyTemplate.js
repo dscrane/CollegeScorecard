@@ -1,4 +1,4 @@
-export const schoolStudentBodyDisplayTemplate = (studentLifeSubsection) => {
+export const schoolStudentBodyTemplate = (studentLifeSubsection) => {
   const {
     schoolDemoWhite,
     schoolDemoBlack,

@@ -1,3 +1,5 @@
+import { handleDisplay } from "./utils/displayFunctions/handleDisplay.js";
+
 let currentPage = 0;
 
 const homeButton = document.querySelector("#home-button");
@@ -10,7 +12,7 @@ homeButton.addEventListener("click", () => {
 const basicSearch = (currentPage) => {
   const query = "basicScorecard";
   const specs = { query, currentPage, isBasicQuery: true };
-  handleResponseDisplay(specs);
+  handleDisplay(specs);
 };
 
 // Event listener for the search bar search button
@@ -77,6 +79,6 @@ document.addEventListener("click", (e) => {
     );
     console.log(schoolId);
     const specs = { query, schoolId, isBasicQuery: false };
-    handleResponseDisplay(specs);
+    handleDisplay(specs);
   }
 });

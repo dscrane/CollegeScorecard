@@ -1,3 +1,5 @@
+import { basicScorecardTemplate } from "../../templates/basicScorecardTemplate.js";
+
 export const displayScorecards = (handledScorecards, currentPage) => {
   const { scorecardData, additionalPages } = handledScorecards;
 

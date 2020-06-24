@@ -1,4 +1,4 @@
-export const schoolAcademicsDisplayTemplate = (academicSubsection) => {
+export const schoolAcademicsTemplate = (academicSubsection) => {
   const {
     schoolAdmissionRate,
     schoolAverageACT,

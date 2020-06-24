@@ -1,12 +1,12 @@
-export const handleBasicScorecardData = (
-  basicResponseData,
-  images,
-  responseMetadata
-) => {
-  // Set the number of pages returned from API
-  const additionalPages =
-    responseMetadata.total / 8 > 1 ? responseMetadata.total / 8 : 0;
+import { formatDollarAmounts } from "../formatting/formatDollarAmounts.js";
+import { formatPercentages } from "../formatting/formatPercentages.js";
+import { formatNumericValues } from "../formatting/formatNumericValues.js";
 
+import { fipsStateGenerator } from "../dataFields/fipsStateGenerator.js";
+
+const fipsStates = fipsStateGenerator();
+
+export const handleBasicScorecardData = (basicResponseData, images) => {
   // Image placeholders to fill out the effect of the cards
   const imgUrls = images;
   // Return an array of scorecard objects with clean values and more convinient keys
@@ -40,5 +40,5 @@ export const handleBasicScorecardData = (
     };
   });
 
-  return { additionalPages, scorecardData };
+  return { scorecardData };
 };

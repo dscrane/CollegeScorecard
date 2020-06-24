@@ -1,4 +1,4 @@
-export const schoolOverviewDisplayTemplate = (overviewSubsection) => {
+export const schoolOverviewTemplate = (overviewSubsection) => {
   const {
     schoolLocal,
     schoolCity,

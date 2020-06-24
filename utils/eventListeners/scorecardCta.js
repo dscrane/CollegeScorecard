@@ -1,4 +1,6 @@
-export const handleScorecardCta = () => {
+import { handleDisplay } from "../displayFunctions/handleDisplay.js";
+
+export const scorecardCta = () => {
   let scorecardCtas = document.querySelectorAll(".gallery__card-wrapper");
   scorecardCtas.forEach((cardCta) => {
     cardCta.addEventListener("click", function () {
@@ -11,5 +13,5 @@ export const handleScorecardCta = () => {
 function handleOnClick(schoolId, imgUrl) {
   const query = "defaultQuery";
   const specs = { query, schoolId, imgUrl, isBasic: false };
-  handleResponseDisplay(specs);
+  handleDisplay(specs);
 }

@@ -1,3 +1,22 @@
+import { filterSpecialConciderations } from "../responseCleaning/filterSpecialConciderations.js";
+import { calculatePopularMajors } from "../responseCleaning/calculatePopularMajors.js";
+
+import { formatDollarAmounts } from "../formatting/formatDollarAmounts.js";
+import { formatPercentages } from "../formatting/formatPercentages.js";
+import { formatNumericValues } from "../formatting/formatNumericValues.js";
+
+import { carnegieClassificationGenerator } from "../dataFields/carnegieClassificationGenerator.js";
+import { characteristicCodeGenerator } from "../dataFields/characteristicCodeGenerator.js";
+import { ownershipCodeGenerator } from "../dataFields/ownershipCodeGenerator.js";
+import { fipsStateGenerator } from "../dataFields/fipsStateGenerator.js";
+import { prodominantDegreesAwardedGenerator } from "../dataFields/prodominantDegreesAwardedGenerator.js";
+
+const carnegieClassification = carnegieClassificationGenerator();
+const schoolOwnershipCodes = ownershipCodeGenerator();
+const schoolCharacteristicCodes = characteristicCodeGenerator();
+const fipsStates = fipsStateGenerator();
+const prodominantDegreesAwarded = prodominantDegreesAwardedGenerator();
+
 export const handleSubsectionData = (subsectionResponse, query) => {
   if (query === "schoolOverview") {
     const {
@@ -50,8 +69,6 @@ export const handleSubsectionData = (subsectionResponse, query) => {
       "latest.completion.transfer_rate.4yr.full_time": schoolTransfer,
       ...schoolMajors
     } = subsectionResponse;
-
-    console.log(schoolMajors);
 
     const schoolPopularMajors = calculatePopularMajors(schoolMajors);
 
