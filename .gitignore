@@ -1,2 +1,3 @@
-/node_modules
-/documentation
+/documentation/ignore
+/documentation/wireframe
+/api/keys
