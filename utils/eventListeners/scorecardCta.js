@@ -1,7 +1,7 @@
 import { handleDisplay } from "../displayFunctions/handleDisplay.js";
 
 export const scorecardCta = () => {
-  let scorecardCtas = document.querySelectorAll(".gallery__card-wrapper");
+  const scorecardCtas = document.querySelectorAll(".gallery__card-wrapper");
   scorecardCtas.forEach((cardCta) => {
     cardCta.addEventListener("click", function () {
       const imgUrl = this.children[0].firstElementChild.firstElementChild.src;

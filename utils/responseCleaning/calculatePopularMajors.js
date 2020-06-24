@@ -4,7 +4,7 @@ export const calculatePopularMajors = (schoolMajors) => {
   );
   const popularMajors = filteredMajors.map((major) => {
     const majorName = major.split(".").pop();
-    let formattedMajorName = majorName.includes("_")
+    const formattedMajorName = majorName.includes("_")
       ? majorName.replace(/_/g, " ")
       : majorName;
     return `<div class="section__item">${formattedMajorName.toLocaleUpperCase()}</div>`;

@@ -23,9 +23,9 @@ export const handleBasicScorecardData = (basicResponseData, images) => {
     } = data;
 
     // Convert the formatting of the dollar and percent values
-    let avgCost = formatDollarAmounts(costPerYear);
-    let adminRate = formatPercentages(rateOfAdmission);
-    let schoolAttendance = formatNumericValues(studentSize);
+    const avgCost = formatDollarAmounts(costPerYear);
+    const adminRate = formatPercentages(rateOfAdmission);
+    const schoolAttendance = formatNumericValues(studentSize);
 
     return {
       adminRate,
