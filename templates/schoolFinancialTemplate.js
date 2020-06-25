@@ -52,14 +52,6 @@ export const schoolFinancialTemplate = (financialSubsection) => {
         ${schoolPellFederalNumber}
       </div>
     </div>
-    <div class="view__row view__row-section">
-      <div class="view__item view__item-section">Special Conciderations:</div>
-      <div class="view__section">
-        <div class="section__item">Women's Only Institution</div>
-        <div class="section__item">Historically Black Institution</div>
-        <div class="section__item">Predominantly Black Instituion</div>
-      </div>
-    </div>
   </div>
 </div>
   `;
