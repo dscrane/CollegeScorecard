@@ -228,6 +228,12 @@ input:-autofill:focus {
   flex-direction: column;
 }
 
+.gallery__card-wrapper {
+  justify-content: center;
+  display: flex;
+  flex: 1;
+}
+
 .gallery__card {
   width: 250px;
   height: 325px;
@@ -272,8 +278,8 @@ input:-autofill:focus {
 }
 
 .card__content-facts {
-  width: 100%;
-  justify-content: stretch;
+  width: 90%;
+  justify-content: center;
 }
 
 .card__content-website {
@@ -484,14 +490,23 @@ input:-autofill:focus {
   justify-content: center;
 }
 
+.view__row-section_alt {
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+}
+
 .view__item-title {
-  flex: 1;
+  flex: 1.25;
+  font-size: 1.5vmin;
   font-weight: 600;
+  text-align: center;
 }
 
 .view__item-content {
   flex: 2;
-  align-items: center;
+  font-size: 1.45vmin;
+  text-align: center;
 }
 
 .view__item-title_alt {
@@ -510,15 +525,6 @@ input:-autofill:focus {
   flex: 1.5;
 }
 
-.section__item-title {
-  font-weight: 600;
-  flex: 2;
-}
-
-.section__item-content {
-  flex: 1;
-}
-
 .view__section {
   width: 90%;
   height: 70%;
@@ -528,6 +534,12 @@ input:-autofill:focus {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
+}
+
+.view__section-alt {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .view__section-column {
@@ -543,19 +555,17 @@ input:-autofill:focus {
 
 .section__row {
   display: flex;
-  width: 100%;
+  width: 50%;
 }
 
 .section__item {
   display: flex;
   justify-content: space-around;
-  width: 30%;
 }
 
 .section__item {
   font-size: 1.5vmin;
   text-align: center;
-  width: 50%;
 }
 
 .section__item-alt {
@@ -564,7 +574,7 @@ input:-autofill:focus {
 
 .section__item-title {
   font-weight: 700;
-  flex: 2;
+  flex: 1;
 }
 
 .section__item-content {
