@@ -23,26 +23,37 @@ export const generateScorecardQureyString = (querySpecs) => {
       document.querySelector(".more__results").style.display = "none";
     }
 
-    const citySearch = searchValue
-      .replace(/[,]{1}[\s]?/, ",")
-      .split(",")
-      .map((city) => city.replace(" ", "%20"))
-      .join(",");
     // Settings for pagination (if neccessary)
     const page = `page=${currentPage}`;
     const perPage = `per_page=${8}`;
-    const searchParameter = `school.city=${citySearch}`;
     const institutionType = `school.degrees_awarded.predominant=2,3`;
+    const citySearch = searchValue
+    .replace(/[,]{1}[\s]?/, ",")
+    .split(",");    
+    let searchParameter;
 
-    params = `${fields}&${searchParameter}&${page}&${perPage}&${institutionType}&${apiKey}`;
+    console.log(citySearch);
+    const paramsList = citySearch.map(city => {
+      const queryCity = city.replace(" ", "%20");
+      searchParameter = `school.city=${queryCity}`;
+      return `${fields}&${searchParameter}&${page}&${perPage}&${institutionType}&${apiKey}`;
+    });
+
+    const queryStrings = paramsList.map(params => {
+      return `${scorecardUrl}?${params}`;
+    });
+    console.log(queryStrings)
+    return queryStrings;
+  
+    // params = `${fields}&${searchParameter}&${page}&${perPage}&${institutionType}&${apiKey}`;
     /* --- run the query based on the data needed for the larger modal and subsections --- */
   } else {
     const searchParameter = `id=${schoolId}`;
     params = `${fields}&${searchParameter}&${apiKey}`;
+    // create the query string for the current specifications passed in
+    const queryString = `${scorecardUrl}?${params}`;
+    return queryString;
   }
 
-  // create the query string for the current specifications passed in
-  const queryString = `${scorecardUrl}?${params}`;
-  return queryString;
   // handleApiRequest(query, params, fields, currentPage);
 };

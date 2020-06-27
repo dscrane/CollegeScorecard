@@ -7,6 +7,13 @@ import { mockPhotosGenerator } from "../dataFields/mockPhotosGenerator.js";
 const mockPhotos = mockPhotosGenerator();
 
 export const handleBasicScorecard = (response, currentPage) => {
+  if (response.length > 1) {
+    // let responseData = [];
+    const responseData = response.map(resp => {
+      return resp.value.data.results;
+    })
+    console.log(responseData);
+  }
   console.log(response);
   const cleanBasicResponse = cleanResponseData(response.data.results);
   console.log("[cleanBasicResponse]: ", cleanBasicResponse);
