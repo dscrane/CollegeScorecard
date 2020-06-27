@@ -2,10 +2,10 @@ import { handleDisplay } from "./utils/displayFunctions/handleDisplay.js";
 
 let currentPage = 0;
 
-const homeButton = document.querySelector("#home-button");
+/* const homeButton = document.querySelector("#home-button");
 homeButton.addEventListener("click", () => {
   console.log("Home Button: Clicked");
-});
+});*/
 
 /*  ---   BASIC SEARCH FUNCTIONS AND LISTENERS    ---  */
 //

@@ -597,7 +597,7 @@
   }
 }
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1499px) {
   /* Working Version 1.0.0 */
   .body {
     font-family: "Darker Grotesque", sans-serif;
@@ -918,7 +918,7 @@
     border: 1px solid rgb(119, 131, 143);
     max-height: 725px;
     max-width: 475px;
-    height: 75vh;
+    height: 85%;
     width: 70%;
     border-radius: 5px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.541);
@@ -965,7 +965,10 @@
 
   .modal__section-name {
     flex: 0.5;
-    font-size: 115%;
+    font-size: 175%;
+    font-weight: 700;
+    line-height: 50%;
+    
   }
 
   .modal__section-headings {
@@ -994,18 +997,14 @@
   }
 
   .modal__content-image {
-    height: 90%;
+    width: 80%;
+    height: 80%;
   }
 
   .scorecard__view {
     display: flex;
     height: 90%;
     width: 95%;
-  }
-
-  .content__title {
-    font-size: 95%;
-    font-weight: 700;
   }
 
   .content__heading {
@@ -1100,11 +1099,14 @@
   .view__item-title {
     flex: 1.5;
     font-weight: 600;
+    font-size: 85%;
   }
 
   .view__item-content {
     flex: 2;
     align-items: center;
+    font-size: 80%;
+    
   }
 
   .view__item-title_alt {
@@ -1170,6 +1172,8 @@
     justify-content: space-around;
     font-size: 1.5vmin;
     text-align: center;
+    width: 33%;
+
   }
 
   .section__item-alt {
