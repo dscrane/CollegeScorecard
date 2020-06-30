@@ -9,9 +9,9 @@ const mockPhotos = mockPhotosGenerator();
 export const handleBasicScorecard = (response, currentPage) => {
   if (response.length > 1) {
     // let responseData = [];
-    const responseData = response.map(resp => {
+    const responseData = response.map((resp) => {
       return resp.value.data.results;
-    })
+    });
     console.log(responseData);
   }
   console.log(response);
