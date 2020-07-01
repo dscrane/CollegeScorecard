@@ -8,6 +8,7 @@ export const basicScorecardTemplate = (cardData) => {
     schoolName,
     schoolCity,
     schoolWebsite,
+    schoolSimpleWebsite,
     schoolState,
   } = cardData;
   return `
@@ -60,7 +61,7 @@ export const basicScorecardTemplate = (cardData) => {
         <div class="card__content card__content-website">
           <div class="card__content-title card__content-title_url">Homepage:</div>
           <span class="card__content-data-website><a class="card__content-url" href="${schoolWebsite}"
-            >${schoolWebsite}</a
+            >${schoolSimpleWebsite}</a
           ></span>
         </div>
       </div>

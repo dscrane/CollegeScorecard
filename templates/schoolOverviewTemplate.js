@@ -7,6 +7,7 @@ export const schoolOverviewTemplate = (overviewSubsection) => {
     schoolState,
     schoolType,
     schoolWebsite,
+    schoolSimpleWebsite,
     schoolDegreesAwarded,
     schoolBranches,
     schoolMainCampus,
@@ -51,7 +52,7 @@ export const schoolOverviewTemplate = (overviewSubsection) => {
       <div class="view__row">
         <div class="view__item view__item-title">School Homepage:</div>
         <div class="view__item view__item-content">
-          <a href="${schoolWebsite}">${schoolWebsite}</a>
+          <a href="${schoolWebsite}">${schoolSimpleWebsite}</a>
         </div>
       </div>
       <div class="view__row view__row-section">

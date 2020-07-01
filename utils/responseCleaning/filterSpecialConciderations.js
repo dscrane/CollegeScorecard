@@ -2,7 +2,7 @@ export const filterSpecialConciderations = (schoolConciderations) => {
   console.log(schoolConciderations);
   const categories = {
     "school.minority_serving.aanipi":
-      "Asian American or Native American or Pacific Islander Serving Institurion",
+      "Asian American, Native American or Pacific Islander Serving Institution",
     "school.minority_serving.annh":
       "Alaska Native or Native Hawaiian Serving Institution",
     "school.minority_serving.historically_black":

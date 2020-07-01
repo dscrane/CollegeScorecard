@@ -1,6 +1,7 @@
 import { formatDollarAmounts } from "../formatting/formatDollarAmounts.js";
 import { formatPercentages } from "../formatting/formatPercentages.js";
 import { formatNumericValues } from "../formatting/formatNumericValues.js";
+import { formatSchoolUrl } from "../formatting/formatSchoolUrl.js";
 
 import { fipsStateGenerator } from "../dataFields/fipsStateGenerator.js";
 
@@ -26,6 +27,7 @@ export const handleBasicScorecardData = (basicResponseData, images) => {
     const avgCost = formatDollarAmounts(costPerYear);
     const adminRate = formatPercentages(rateOfAdmission);
     const schoolAttendance = formatNumericValues(studentSize);
+    const schoolSimpleWebsite = formatSchoolUrl(schoolWebsite);
 
     return {
       adminRate,
@@ -34,6 +36,7 @@ export const handleBasicScorecardData = (basicResponseData, images) => {
       schoolCity,
       schoolName,
       schoolWebsite,
+      schoolSimpleWebsite,
       schoolState: fipsStates[schoolStateId],
       schoolId: id,
       imgUrl: imgUrls[i],

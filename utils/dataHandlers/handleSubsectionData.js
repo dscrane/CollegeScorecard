@@ -10,6 +10,7 @@ import { characteristicCodeGenerator } from "../dataFields/characteristicCodeGen
 import { ownershipCodeGenerator } from "../dataFields/ownershipCodeGenerator.js";
 import { fipsStateGenerator } from "../dataFields/fipsStateGenerator.js";
 import { prodominantDegreesAwardedGenerator } from "../dataFields/prodominantDegreesAwardedGenerator.js";
+import { formatSchoolUrl } from "../formatting/formatSchoolUrl.js";
 
 const carnegieClassification = carnegieClassificationGenerator();
 const schoolOwnershipCodes = ownershipCodeGenerator();
@@ -35,15 +36,18 @@ export const handleSubsectionData = (subsectionResponse, query) => {
 
     const schoolSpecialConciderations = filterSpecialConciderations(
       minorityServing
-    );
+    ).join("");
 
     const schoolLocal = carnegieClassification[schoolCarnegieCode]
       .split(",")
       .slice(1)
       .join(" -- ");
 
+    const schoolSimpleWebsite = formatSchoolUrl(schoolWebsite);
+
     return {
       schoolWebsite,
+      schoolSimpleWebsite,
       schoolCity,
       schoolOwnership: schoolOwnershipCodes[schoolOwnershipCode],
       schoolBranches,
