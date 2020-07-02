@@ -595,6 +595,28 @@
     cursor: pointer;
     background-color: #acc2d6;
   }
+
+  .page__toTop {
+    height: 5vh;
+    width: 5vh;
+    background-color: rgba(100, 100, 100, 0.555);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 4vmin;
+    position: relative;
+    left: 50%;
+    top: 75%;
+    border: none;
+    margin: none;
+    padding: none;
+  }
+
+  .page__toTop:hover {
+    cursor: pointer;
+    background-color: rgba(100, 100, 100);
+  }
 }
 
 @media screen and (min-width: 700px) {
