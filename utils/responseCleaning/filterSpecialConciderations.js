@@ -26,10 +26,10 @@ export const filterSpecialConciderations = (schoolConciderations) => {
     specialConciderations = filteredCondiderations.map((concideration) => {
       return `<div class='section__item'>${categories[concideration]}</div>`;
     });
+    return specialConciderations.join("");
   } else {
     specialConciderations =
       "<div class='section__item'>No Specific Special Conciderations</div>";
+    return specialConciderations;
   }
-
-  return specialConciderations;
 };

@@ -34,9 +34,8 @@ export const handleSubsectionData = (subsectionResponse, query) => {
       ...minorityServing
     } = subsectionResponse;
 
-    const schoolSpecialConciderations = filterSpecialConciderations(
-      minorityServing
-    ).join("");
+    const schoolSpecialConciderations = filterSpecialConciderations(minorityServing);
+    console.log(schoolSpecialConciderations);
 
     const schoolLocal = carnegieClassification[schoolCarnegieCode]
       .split(",")
