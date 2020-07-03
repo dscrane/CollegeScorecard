@@ -246,7 +246,6 @@
   }
 
   .gallery__card:hover {
-    width: 255px;
     box-shadow: 5px 8px 10px black;
     cursor: pointer;
   }
@@ -876,7 +875,6 @@
   }
 
   .gallery__card:hover {
-    width: 255px;
     box-shadow: 5px 8px 10px black;
     cursor: pointer;
   }
@@ -1506,7 +1504,6 @@
   }
 
   .gallery__card:hover {
-    width: 255px;
     box-shadow: 5px 8px 10px black;
     cursor: pointer;
   }
@@ -2140,7 +2137,6 @@
   }
 
   .gallery__card:hover {
-    width: 235px;
     box-shadow: 5px 8px 10px black;
     cursor: pointer;
   }
@@ -2781,7 +2777,6 @@
   }
 
   .gallery__card:hover {
-    width: 235px;
     box-shadow: 5px 8px 10px black;
     cursor: pointer;
   }
@@ -3425,7 +3420,6 @@
   }
 
   .gallery__card:hover {
-    width: 235px;
     box-shadow: 5px 8px 10px black;
     cursor: pointer;
   }
