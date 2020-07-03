@@ -16,6 +16,7 @@ const basicSearch = (currentPage) => {
 };
 
 // Event listener for the search bar search button
+
 const searchButton = document.querySelector(".search__cta");
 searchButton.addEventListener("click", (e) => {
   e.preventDefault();
@@ -82,3 +83,24 @@ document.addEventListener("click", (e) => {
     handleDisplay(specs);
   }
 });
+
+const toTopButton = document.querySelector(".page__toTop");
+const scrollFunction = () => {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    toTopButton.style.display = "block";
+  } else {
+    toTopButton.style.display = "none";
+  }
+};
+
+window.onscroll = () => {
+  scrollFunction();
+};
+
+const toTop = () => {
+  console.log("[toTop]: Fired");
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+};
+
+toTopButton.addEventListener("click", () => toTop());
