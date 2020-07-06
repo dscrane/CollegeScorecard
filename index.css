@@ -5,11 +5,7 @@
     font-weight: 500;
     display: flex;
     justify-content: center;
-    background: linear-gradient(
-      to bottom right,
-      rgba(0, 255, 136, 0.418),
-      rgba(89, 0, 255, 0.418)
-    );
+    background: linear-gradient(to bottom right, white, darkSlateGray);
     background-attachment: fixed;
     background-color: rgba(255, 255, 255, 0.7);
   }
@@ -316,7 +312,7 @@
     justify-content: center;
     position: fixed;
     background-color: rgb(204, 229, 252);
-    border: 1px solid rgb(119, 131, 143);
+    border: 2px solid black;
     max-height: 725px;
     max-width: 575px;
     height: 75vh;
@@ -401,6 +397,7 @@
     width: 100%;
     height: 100%;
     border-radius: 5px;
+    border: 1px solid black;
   }
   .scorecard__view {
     display: flex;
@@ -634,11 +631,7 @@
     font-weight: 500;
     display: flex;
     justify-content: center;
-    background: linear-gradient(
-      to bottom right,
-      rgba(0, 255, 136, 0.418),
-      rgba(89, 0, 255, 0.418)
-    );
+    background: linear-gradient(to bottom right, white, darkGray);
     background-attachment: fixed;
     background-color: rgba(255, 255, 255, 0.7);
   }
@@ -1263,11 +1256,7 @@
     font-weight: 500;
     display: flex;
     justify-content: center;
-    background: linear-gradient(
-      to bottom right,
-      rgba(0, 255, 136, 0.418),
-      rgba(89, 0, 255, 0.418)
-    );
+    background: linear-gradient(to bottom right, white, darkGray);
     background-attachment: fixed;
     background-color: rgba(255, 255, 255, 0.7);
   }
@@ -1892,11 +1881,7 @@
     font-weight: 500;
     display: flex;
     justify-content: center;
-    background: linear-gradient(
-      to bottom right,
-      rgba(0, 255, 136, 0.418),
-      rgba(89, 0, 255, 0.418)
-    );
+    background: linear-gradient(to bottom right, white, darkGray);
     background-attachment: fixed;
     background-color: rgba(255, 255, 255, 0.7);
   }
@@ -2533,11 +2518,7 @@
     font-weight: 500;
     display: flex;
     justify-content: center;
-    background: linear-gradient(
-      to bottom right,
-      rgba(0, 255, 136, 0.418),
-      rgba(89, 0, 255, 0.418)
-    );
+    background: linear-gradient(to bottom right, white, darkGray);
     background-attachment: fixed;
     background-color: rgba(255, 255, 255, 0.7);
   }
@@ -3176,11 +3157,7 @@
     font-weight: 500;
     display: flex;
     justify-content: center;
-    background: linear-gradient(
-      to bottom right,
-      rgba(0, 255, 136, 0.418),
-      rgba(89, 0, 255, 0.418)
-    );
+    background: linear-gradient(to bottom right, white, darkGray);
     background-attachment: fixed;
     background-color: rgba(255, 255, 255, 0.7);
   }

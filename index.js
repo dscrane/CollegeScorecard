@@ -44,6 +44,12 @@ document.addEventListener("click", (e) => {
   }
 });
 
+document.addEventListener("keydown", (e) => {
+  if (e.code == "Escape") {
+    document.querySelector(".page__modal").style.display = "none";
+  }
+});
+
 /*  ---   EVENT LISTENERS FOR MODAL TABS    ---  */
 // test if the clicked element in the document is a tab heading
 const checkClass = (elem, className) => {
