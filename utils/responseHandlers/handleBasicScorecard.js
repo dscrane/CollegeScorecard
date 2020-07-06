@@ -12,11 +12,8 @@ export const handleBasicScorecard = (response, currentPage) => {
     const responseData = response.map((resp) => {
       return resp.value.data.results;
     });
-    console.log(responseData);
   }
-  console.log(response);
   const cleanBasicResponse = cleanResponseData(response.data.results);
-  console.log("[cleanBasicResponse]: ", cleanBasicResponse);
 
   const basicScorecard = handleBasicScorecardData(
     cleanBasicResponse,

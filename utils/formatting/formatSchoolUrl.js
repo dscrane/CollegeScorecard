@@ -12,7 +12,6 @@ export const formatSchoolUrl = (website) => {
     formattedWebsite = website;
     // console.log("[startsWithWWW]: ", formattedWebsite);
     const simpleWebsite = reg_exUrl.exec(formattedWebsite)["0"];
-    console.log("[simpleWebsite]: ", simpleWebsite);
     return simpleWebsite.toLowerCase();
   } else if (startsWithHTTP === "http://") {
     formattedWebsite = website.slice(7);

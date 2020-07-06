@@ -30,7 +30,6 @@ export const generateScorecardQureyString = (querySpecs) => {
     const citySearch = searchValue.replace(/[,]{1}[\s]?/, ",").split(",");
     let searchParameter;
 
-    console.log(citySearch);
     const paramsList = citySearch.map((city) => {
       const queryCity = city.replace(" ", "%20");
       searchParameter = `school.city=${queryCity}`;
@@ -40,7 +39,6 @@ export const generateScorecardQureyString = (querySpecs) => {
     const queryStrings = paramsList.map((params) => {
       return `${scorecardUrl}?${params}`;
     });
-    console.log(queryStrings);
     return queryStrings;
 
     // params = `${fields}&${searchParameter}&${page}&${perPage}&${institutionType}&${apiKey}`;

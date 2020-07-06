@@ -1,5 +1,4 @@
 export const filterSpecialConciderations = (schoolConciderations) => {
-  console.log(schoolConciderations);
   const categories = {
     "school.minority_serving.aanipi":
       "Asian American, Native American or Pacific Islander Serving Institution",

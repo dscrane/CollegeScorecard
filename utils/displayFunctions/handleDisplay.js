@@ -10,14 +10,13 @@ const noResultsDisplay = noResultsTemplate();
 
 export const handleDisplay = (specs) => {
   const { query, currentPage, isBasicQuery, imgUrl, schoolId } = specs;
-  console.log("[Specs]: ", query, currentPage, isBasicQuery, imgUrl, schoolId);
   /*--- handle the basic query results ---*/
   if (isBasicQuery) {
     // define the specifications for the current query
     const querySpecs = { query, currentPage, isBasicQuery };
     // create the query string using the current specifications
     const queryString = generateScorecardQureyString(querySpecs);
-    console.log("[isBasic queryString]: ", queryString);
+
     /*--- handle the response data from the API ---*/
     scorecardApiRequest(queryString).then((response) => {
       // display an error message if there are no matches to the query params
@@ -34,9 +33,6 @@ export const handleDisplay = (specs) => {
       // if the pages is greater than one set additional pages to that else set to 0
       let additionalPages = pages > 1 ? pages : 0;
       // display a message when there are no more results or display the 'load more button'
-      console.log(
-        `currentPage: ${currentPage} ___ additionalPages: ${additionalPages}`
-      );
       if (currentPage >= additionalPages - 1 || additionalPages < 1) {
         document.querySelector("#page__row-more_id").innerHTML =
           "<div class='page__row-more_notice'>No additional results can be found</div>";
@@ -49,7 +45,6 @@ export const handleDisplay = (specs) => {
   if (query === "defaultQuery") {
     const querySpecs = { query, schoolId };
     const queryString = generateScorecardQureyString(querySpecs);
-    console.log("[!isBasic queryString]: ", queryString);
 
     scorecardApiRequest(queryString).then((response) =>
       handleModalScorecard(response, query, imgUrl)

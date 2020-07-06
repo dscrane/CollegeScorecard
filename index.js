@@ -22,7 +22,6 @@ searchButton.addEventListener("click", (e) => {
   e.preventDefault();
   // reset the gallery display when a new search is made
   document.querySelector(".page__row-gallery").innerHTML = "";
-  console.log("[Search Button]: Clicked");
   // pass the current page to the query
   basicSearch(currentPage);
 });
@@ -31,7 +30,6 @@ searchButton.addEventListener("click", (e) => {
 const loadMoreButton = document.querySelector(".more__results");
 loadMoreButton.addEventListener("click", () => {
   currentPage += 1;
-  console.log("[Load More Button]: Clicked");
   // pass the current page to the query
   basicSearch(currentPage);
 });
@@ -84,7 +82,6 @@ document.addEventListener("click", (e) => {
     const schoolId = e.target.parentNode.parentNode.parentNode.parentNode.getAttribute(
       "id"
     );
-    console.log(schoolId);
     const specs = { query, schoolId, isBasicQuery: false };
     handleDisplay(specs);
   }
@@ -104,7 +101,6 @@ window.onscroll = () => {
 };
 
 const toTop = () => {
-  console.log("[toTop]: Fired");
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 };
