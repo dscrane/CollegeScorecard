@@ -38,13 +38,14 @@ loadMoreButton.addEventListener("click", () => {
 document.addEventListener("click", (e) => {
   if (checkClass(e.target, "material__icon-close")) {
     // close the modal display
-    document.querySelector(".page__modal").style.display = "none";
+    document.querySelector(".modal__container").style.display = "none";
   }
 });
 
 document.addEventListener("keydown", (e) => {
   if (e.code == "Escape") {
-    document.querySelector(".page__modal").style.display = "none";
+    document.querySelector(".modal__container").style.display = "none";
+
   }
 });
 
