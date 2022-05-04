@@ -4,4 +4,4 @@ College Scorecard is an app that returns information about colleges and universi
 ### **Motivation**
 This was a first attempt at working with an API and filtering the resulting data into an accessable format. 
 ### **How To Use**
-The application can be accessed through Github Pages [here](https://dscrane.github.io/collegeScorecard/) or by cloning the repo and running it on your local machine.
+The application can be accessed through Github Pages [here](https://dscrane.github.io/CollegeScorecard/) or by cloning the repo and running it on your local machine.
